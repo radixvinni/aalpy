@@ -52,10 +52,12 @@ class Session(InteractiveConsole):
         InteractiveConsole.__init__(self)
         self.push("from AAL import *");
         self.push("from math import *");
+        self.push("import hashlib");
+        self.push("from time import sleep");
         self.push("from fractions import *");
         self.push("import share");
         self.push("__builtins__ = __builtins__.copy()");
-        self.push("for k in ['reload', 'execfile', 'file', 'open', '__import__']: __builtins__.pop(k) and None");
+        self.push("for k in ['reload', 'execfile', 'file', 'open', '__import__']: __builtins__.pop(k) and None","exec");
         self.push("");
         return
     def setsid(self,sessionid):
@@ -329,7 +331,7 @@ def login():
         response.set_cookie("session", c.sid)
         #i can not use redirect
         response.status=302;
-        response.add_header('Location','/');
+        response.add_header('Location','/aal');
         return ''
     else:
         return template('login', username=username, error=error, is_user=request.get_cookie("session"))

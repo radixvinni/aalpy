@@ -300,12 +300,17 @@
           <script type="text/javascript">
             function renew_editor() {
               $('#formula_t').change(function(){
+					$('.formula').collapse('show');
                     $('#formula_i').attr("src", "http://latex.codecogs.com/gif.latex?"+$(this).val()); 
               });
-              $('.ins_form a').click(function(){
+              $('.ins_form a').click(function(event){
+					event.preventDefault();
+					$('.formula').collapse('show');
                     $('#formula_t').val($('#formula_t').val()+$(this).attr('title')).change().focus();
               });
-              $('.ins2_form a').click(function(){
+              $('.ins2_form a').click(function(event){
+					event.preventDefault();
+					$('.formula').collapse('show');
                     $('#formula_t').val($(this).attr('title')).change().focus();
               });
               window.editor = $('#descr').cleditor({width:600});

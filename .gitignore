@@ -3,3 +3,11 @@ AAL.py
 wiki.db
 _AAL.so
 MPEI_ASK
+
+curveorder.log
+msieve.log
+
+*.pdf
+*.doc
+*.DOC
+*.PDF
