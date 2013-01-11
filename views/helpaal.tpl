@@ -85,11 +85,11 @@
             </p>
             <div class='section'>
               <h4>Пример</h4>
-              <pre class="prettyprint"><code>>>>x = Integer('2')&#x000A;>>>x.Add(x,Integer(1))&#x000A;AAL.Integer(3)&#x000A;>>>x += Integer(1)&#x000A;>>>x&#x000A;AAL.Integer(4)&#x000A;>>>x.Mul(x,Integer(2)).Add(x, Integer(1))&#x000A;AAL.Integer(9)</code></pre>
+              <pre class="prettyprint"><code>x = Integer('2')&#x000A;x.Add(x,Integer(1))&#x000A;#AAL.Integer(3)&#x000A;x += Integer(1)&#x000A;x&#x000A;#AAL.Integer(4)&#x000A;x.Mul(x,Integer(2)).Add(x, Integer(1))&#x000A;#AAL.Integer(9)</code></pre>
             </div>
             <div class='section'>
               <h4>Пример ExEuclid(1071*(-3)+462*7=21)</h4>
-              <pre class="prettyprint"><code>>>>a = Integer()&#x000A;>>>b = Integer()&#x000A;>>>x = Integer()&#x000A;>>>x.ExEuclid(Integer(1071),Integer(462),a,b)&#x000A;AAL.Integer(21)&#x000A;>>>a&#x000A;AAL.Integer(-3)&#x000A;>>>b&#x000A;AAL.Integer(7)</code></pre>
+              <pre class="prettyprint"><code>a = Integer()&#x000A;b = Integer()&#x000A;x = Integer()&#x000A;x.ExEuclid(Integer(1071),Integer(462),a,b)&#x000A;#AAL.Integer(21)&#x000A;a&#x000A;#AAL.Integer(-3)&#x000A;b&#x000A;#AAL.Integer(7)</code></pre>
             </div>
             <p>Как видно на примерах выше, для всех операций в библиотеке принята запись: <code>&lt;переменная-результат&gt;.&lt;операция&gt;(&lt;аргументы&gt;)</code>. Возможна цепочная запись, где одна операция следует за другой. Если операция имеет более одного результата(как в случае ExEuclid), переменные передаются как параметры.</p>
             <p>При работе с интерпретатором результат каждой операции выводится в формате, пригодном для чтения(через <code>str()</code> и <code>repr()</code>), поэтому необходимость преобразования объекта в строку возникает редко, например, если мы хотим преобразовать AAL.Integer в число python. Сделать это можно через функцию <code>int()</code>: 	<code>int(a.ToString())</code>. Для сравнения чисел, их также можно преобразовывать в строки, поскольку <code>Integer(12)==Integer(12)</code> вернет <code>False</code>.</p>
@@ -108,20 +108,20 @@
             <p>Результат в обоих случаях представляется в python как список, состоящий из кортежей строк(строка-число и строка-степень).</p>
             <div class='section'>
               <h4>Пример разложения(84=2*2*3*7)</h4>
-              <pre class="prettyprint"><code>>>> a=FactorizationAlgorithms(Integer(84)).MsieveDecomposition()
->>> a
-[('2', '2'), ('3', '1'), ('7', '1')]
->>> a.reverse()
->>> a
-[('7', '1'), ('3', '1'), ('2', '2')]</code></pre>
+              <pre class="prettyprint"><code> a=FactorizationAlgorithms(Integer(84)).MsieveDecomposition()
+ a
+#[('2', '2'), ('3', '1'), ('7', '1')]
+ a.reverse()
+ a
+#[('7', '1'), ('3', '1'), ('2', '2')]</code></pre>
             </div>
             <p>Если же у нас уже есть разложение числа и мы хотим передать его в функцию, тут все сложнее. Массивы(std::vector) передаются в функции через специально созданные классы-аналоги(пока другие способы не описаны). Для std::vector<AAL::DecompositionMember> создан класс DecompositionMemberVector. При создании массива указывается его размер, далее он заполняется. В этом примере проверяется разложение числа 12:</p>
             <h4>Проверка разложения(12=2*2*3)</h4>
-              <pre class="prettyprint"><code>>>> d=DecompositionMemberVector(2)
->>> d[0]=DecompositionMember(Integer(2),Integer(2))
->>> d[1]=DecompositionMember(Integer(3),Integer(1))
->>> DecompositionMember.isRightDecomposition(Integer(12),d)
-True</code></pre>
+              <pre class="prettyprint"><code> d=DecompositionMemberVector(2)
+ d[0]=DecompositionMember(Integer(2),Integer(2))
+ d[1]=DecompositionMember(Integer(3),Integer(1))
+ DecompositionMember.isRightDecomposition(Integer(12),d)
+#True</code></pre>
             
           </div>
         </div>
@@ -134,10 +134,10 @@ True</code></pre>
           </div>
           <div class='section'>
               <h4>Пример</h4>
-              <pre class="prettyprint"><code>>>>a = Polynom("111")
->>>b = Polynom("0 1 3 6",Dec)
->>>a.ToString()==b.ToString()
-True</code></pre>
+              <pre class="prettyprint"><code>a = Polynom("111")
+b = Polynom("0 1 3 6",Dec)
+a.ToString()==b.ToString()
+#True</code></pre>
           </div>
           <p>Класс содержит методы для работы в в поле многочленов GF(2)[X]: <code>Add</code>, <code>Mul</code>, <code>Div</code>, <code>Pow</code>; для работы в поле с приведением по модулю используются функции <code>ModAdd</code>, <code>ModMul</code>, <code>ModDiv</code>, <code>ModPow</code>, для работы в поле GF(2<sup>n</sup>) используются функции с  <code>InGF2_n</code> на конце, например <code>AddInGF2_n</code> и т.д. Подобным образом устроены классы <code>PolynomGF3</code> и <code>PolynomGF7</code>.</p>
         </div>
@@ -150,10 +150,10 @@ True</code></pre>
           </div>
           <div class='section'>
               <h4>Пример</h4>
-              <pre class="prettyprint"><code>>>>c=EllipticCurve(Integer(5),Integer(1),Integer(1))
->>>p=EllipticPoint(c)
->>>p.Generate()
-AAL.EllipticPoint(x=2,y=1)</code></pre>
+              <pre class="prettyprint"><code>c=EllipticCurve(Integer(5),Integer(1),Integer(1))
+p=EllipticPoint(c)
+p.Generate()
+#AAL.EllipticPoint(x=2,y=1)</code></pre>
           </div>
           <p>Аналогично для несуперсингулярных эллиптических кривых над полем GF(2<sup>n</sup>) вида Y<sup>2</sup> + X Y = X<sup>3</sup> + <em>a</em> X<sup>2</sup> + <em>b</em> используется <code>NonSuperSingularEllipticCurve(module,a,b)</code>, для суперсингулярных эллиптических кривых над полем GF(2<sup>n</sup>) вида Y<sup>2</sup> + <em>a</em> Y = X<sup>3</sup> + <em>b</em> X + <em>c</em> используется <code>SuperSingularEllipticCurve(module,a,b,c)</code></p>
         </div>

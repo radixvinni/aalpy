@@ -259,7 +259,7 @@ def index():
 
 @route('/help')
 @route('/help/:sect')
-def index(sect='python'):
+def index(sect='aal'):
     is_user()
     if sect not in ['python','aal','dev']: redirect('/help')
     return template('help'+sect)
