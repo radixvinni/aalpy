@@ -229,6 +229,20 @@
     <li><a href="#" rel="tooltip" data-placement="left" data-original-title="Вычисление и запись в файл output.txt группы n-кручения E[n] <br/>Допустимые значения: p-простое A0-квадратичный вычет по модулю p, K - модуль n по которому мультипликативный порядок числа p равен 2">Вычисление и запись в файл группы n-кручения E[n]</a></li>
   </ul>
 </div>
+<div class="btn-group">
+  <a class="btn btn dropdown-toggle" data-toggle="dropdown" href="#">
+    Примеры
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><a href="#" rel="tooltip" data-placement="left" data-original-title="<strong>Сложение чисел двух чисел в Z</strong><br/>r=Integer()<br/>r.Add(Integer(111),Integer(22))" onclick="window.editor.insert('r=Integer()\nr.Add(Integer(111),Integer(222))\n');window.editor.focus()">Сложение чисел 111 и 22 в Z</a></li>
+    <li><a href="#" rel="tooltip" data-placement="left" data-original-title="<strong>Нахождение НОД чисел 1071 и 462</strong><br/>r=Integer()<br/>r.Euclid(Integer(1071),Integer(462))" onclick="window.editor.insert('r=Integer()\nr.Euclid(Integer(1071),Integer(462))\n');window.editor.focus()">Нахождение НОД</a></li>
+    <li><a href="#" rel="tooltip" data-placement="left" data-original-title="<strong>Нахождение НОД чисел 1071 и 462 расширенным алгоритмом Евклида</strong><br/>r=Integer()<br/>a=Integer()<br/>b=Integer()<br/>r.ExEuclid(Integer(1071),Integer(462),a,b)" onclick="window.editor.insert('r=Integer()\na=Integer()\nb=Integer()\nr.ExEuclid(Integer(1071),Integer(462),a,b)\n');window.editor.focus()">Нахождение НОД расшир. алг. Евклида</a></li>
+    <li><a href="#" rel="tooltip" data-placement="left" data-original-title="<strong>Получить разложение числа 84 методом msieve</strong><br/>FactorizationAlgorithms(Integer(84)).MsieveDecomposition()" onclick="window.editor.insert('FactorizationAlgorithms(Integer(84)).MsieveDecomposition()\n');window.editor.focus()">Получить разложение msieve</a></li>
+    <li><a href="#" rel="tooltip" data-placement="left" data-original-title="<strong>Создание и сравнение двух многочленов над GF(2)</strong><br/>a = Polynom(&quot;1101001&quot;)<br/>b = Polynom(&quot;0 1 3 6&quot;,Dec)<br/>a.ToString()==b.ToString()" onclick="window.editor.insert('a = Polynom(&quot;1101001&quot;)\nb = Polynom(&quot;0 1 3 6&quot;,Dec)\na.ToString()==b.ToString()\n');window.editor.focus()">Cравнение многочленов над GF(2)</a></li>
+    <li><a href="#" rel="tooltip" data-placement="left" data-original-title="<strong>Генерация точки эллиптической кривой</strong><br/>c=EllipticCurve(Integer(5),Integer(1),Integer(1))<br/>p=EllipticPoint(c)<br/>p.Generate()" onclick="window.editor.insert('c=EllipticCurve(Integer(5),Integer(1),Integer(1))\np=EllipticPoint(c)\np.Generate()\n');window.editor.focus()">Генерация точки эллип. кривой</a></li>
+  </ul>
+</div>
 <script type="text/javascript">
     $("[rel=tooltip]").tooltip({html:true});
 </script>
