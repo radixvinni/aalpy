@@ -178,9 +178,106 @@
                   %end
                 </ul>
             </div>
-            <div class="controls">
-              <textarea rows="5" type="text" id="descr" name="descr"></textarea>
+            <div class="btn-group">
+                <a class="btn btn-mini" data-toggle="collapse" data-target=".formula">Формула <span class="caret"></span></a>
+                <a class="btn btn-mini btn-primary" onclick="window.editor[0].execCommand('insertimage',$('#formula_i').attr('src'),null,null)">Вставить</a>    
             </div>
+            <div class="btn-group">
+                    <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">Формат <span class="caret"></span></button>
+                  
+                    <ul class="dropdown-menu ins_form">
+                      <li><a href="#" title="\sqrt{x}">√</a></li>
+                      <li><a href="#" title="\sqrt[n]{x}">∛</a></li>
+                      <li><a href="#" title="x^n">x²</a></li>
+                      <li><a href="#" title="x_n">x₂</a></li>
+                      <li><a href="#" title="x_a^b">x₂²</a></li>
+                      <li><a href="#" title="\frac{a}{b}">÷</a></li>
+                      <li><a href="#" title="\lim_{x \to 0}">limit</a></li>
+                      <li><a href="#" title="\sum_{a}^{b}">∑</a></li>
+                      <li><a href="#" title="\int_{a}^{b}">∫</a></li>
+                      <li><a href="#" title="\oint_{a}^{b}">∮</a></li>
+                      <li><a href="#" title="\prod_{a}^{b}">∏</a></li>
+                      <li><a href="#" title="\binom{n}{k}">binom</a></li>
+                      <li><a href="#" title="\left( \right)">( )</a></li>
+                      <li><a href="#" title="\left[ \right]">[ ]</a></li>
+                      <li><a href="#" title="\lceil x \rceil">⌈ x ⌉</a></li>
+                      <li><a href="#" title="\lfloor x \rfloor">⌊ x ⌋</a></li>
+                      <li><a href="#" title="\left\{ \right\}">{ }</a></li>
+                      <li><a href="#" title="\bigcup_{\alpha\in S}">⋃</a></li>
+                      <li><a href="#" title="\bigcap_{\alpha\in S}">⋂</a></li>
+                      <li><a href="#" title="\partial">∂</a></li>
+                      <li><a href="#" title="\infty">∞</a></li>
+                      <li><a href="#" title="\therefore">∴</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#" title="\displaystyle">displaystyle</a></li>
+                      <li><a href="#" title="\textstyle">textstyle</a></li>
+                      <li><a href="#" title="\scriptstyle">scriptstyle</a></li>
+                      <li><a href="#" title="\text{}">text</a></li>
+                      <li><a href="#" title="\textbf{}">bold</a></li>
+                      <li><a href="#" title="\textit{}">ital</a></li>
+                      <li><a href="#" title="\textrm{}">roman</a></li>
+                      <li><a href="#" title="{\color{red} }">R</a></li>
+                      <li><a href="#" title="{\color{green} }">G</a></li>
+                      <li><a href="#" title="{\color{blue} }">B</a></li>
+                    </ul>
+            </div>
+            <div class="btn-group">
+                    <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">Символ <span class="caret"></span></button>
+                  
+                    <ul class="dropdown-menu ins_form">
+                    
+                    <li><a href="#" title="\alpha">ɑ</a></li>
+                    <li><a href="#" title="\beta">β</a></li>
+                    <li><a href="#" title="\gamma">ɣ</a></li>
+                    <li><a href="#" title="\delta">δ</a></li>
+                    <li><a href="#" title="\epsilon">ϵ</a></li>
+                    <li><a href="#" title="\varepsilon">ε</a></li>
+                    <li><a href="#" title="\zeta">ζ</a></li>
+                    <li><a href="#" title="\eta">η</a></li>
+                    <li><a href="#" title="\theta">θ</a></li>
+                    <li><a href="#" title="\vartheta">ϑ</a></li>
+                    <li><a href="#" title="\iota">ι</a></li>
+                    <li><a href="#" title="\kappa">κ</a></li>
+                    <li><a href="#" title="\lambda">λ</a></li>
+                    <li><a href="#" title="\mu">μ</a></li>
+                    <li><a href="#" title="\nu">ν</a></li>
+                    <li><a href="#" title="\xi">ξ</a></li>
+                    <li><a href="#" title="\pi">π</a></li>
+                    <li><a href="#" title="\varpi">ϖ</a></li>
+                    <li><a href="#" title="\rho">ρ</a></li>
+                    <li><a href="#" title="\varrho">ϱ</a></li>
+                    <li><a href="#" title="\sigma">σ</a></li>
+                    <li><a href="#" title="\varsigma">ς</a></li>
+                    <li><a href="#" title="\tau">τ</a></li>
+                    <li><a href="#" title="\upsilon">υ</a></li>
+                    <li><a href="#" title="\phi">ϕ</a></li>
+                    <li><a href="#" title="\varphi">φ</a></li>
+                    <li><a href="#" title="\chi">χ</a></li>
+                    <li><a href="#" title="\psi">ψ</a></li>
+                    <li><a href="#" title="\omega">ω</a></li>
+                  <li class="divider"></li>
+                    <li><a href="#" title="\Gamma">Ɣ</a></li>
+                    <li><a href="#" title="\Delta">Δ</a></li>
+                    <li><a href="#" title="\Theta">Θ</a></li>
+                    <li><a href="#" title="\Lambda">Λ</a></li>
+                    <li><a href="#" title="\Xi">Ξ</a></li>
+                    <li><a href="#" title="\Pi">Π</a></li>
+                    <li><a href="#" title="\Sigma">Σ</a></li>
+                    <li><a href="#" title="\Upsilon">Υ</a></li>
+                    <li><a href="#" title="\Psi">Ψ</a></li>
+                    <li><a href="#" title="\Omega">Ω</a></li>
+                  
+                    </ul>
+            </div>
+            
+            <div class="collapse formula">
+                  <textarea rows="3" id="formula_t"></textarea>
+                  <img id="formula_i" alt="formula"></img>
+            </div>
+            
+          </div>
+          <div class="controls">
+              <textarea rows="5" type="text" id="descr" name="descr"></textarea>
           </div>
           <div class="control-group">
             <label class="control-label" for="goal">Ожидаемый результат</label>
@@ -192,6 +289,12 @@
           </div>
           <script type="text/javascript">
             $(function() {
+              $('#formula_t').change(function(){
+                    $('#formula_i').attr("src", "http://latex.codecogs.com/gif.latex?"+$(this).val()); 
+              });
+              $('.ins_form a').click(function(){
+                    $('#formula_t').val($('#formula_t').val()+$(this).attr('title')).change().focus();
+              });
               $('#myEdit').unbind('click').click(function() {
                 $('#id').val($(':radio:checked').parent().parent().find("td:eq(0) label").text());
                 $('#cid').val($(':radio:checked').parent().parent().find("td:eq(1) label").text());
