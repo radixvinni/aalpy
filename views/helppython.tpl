@@ -17,13 +17,13 @@
             <a href="#slice">Обрезание списка</a>
             </li>
             <li class="">
+            <a href="#tuples">Кортежи</a>
+            </li>
+            <li class="">
             <a href="#variables">Переменные</a>
             </li>
             <li class="">
             <a href="#functions">Функции</a>
-            </li>
-            <li class="">
-            <a href="#tuples">Кортежи</a>
             </li>
             <li class="">
             <a href="#comprehensions">Обход списка</a>
@@ -72,7 +72,7 @@
         </div>
         <div class='section'>
         <p>
-        Список - это контейнер, хранящий порядок объектов произвольного типа.
+        Список - это контейнер, хранящий объекты произвольного типа в определенном порядке.
         То есть как массив в С, только элементы могут быть разного типа. Список можно изменять  после создания(append -добавление элемента в конец).
         </p>
         <div class='section'>
@@ -99,6 +99,21 @@
         </div>
         <div class='section'>
         <div class='page-header'>
+        <h2 id='tuples'>Кортежи</h2>
+        </div>
+        <div class='section'>
+        <p>
+        Кортеж -  это контейнер, такой же как список, но его нельзя изменять после создания.
+        </p>
+        <div class='section'>
+        <h4>Пример</h4>
+        <pre class="prettyprint"><code>>> x = (1, 2, 3, 4)&#x000A;>> y = ('spam', 'eggs')&#x000A;&#x000A;>> my_list = [1,2,3,4]&#x000A;>> my_tuple = tuple(my_list)&#x000A;>> my_tuple&#x000A;(1, 2, 3, 4)</code></pre>
+        </div>
+        </div>
+
+        </div>
+        <div class='section'>
+        <div class='page-header'>
         <h2 id='variables'>Переменные</h2>
         </div>
         <div class='section'>
@@ -119,26 +134,11 @@
         <div class='section'>
         <p>
         Функцию можно объявить, используя конструкцию: def function_name(variable):
-        Функции могут возвращать любые значения, могут не возращать ничего. Также можно объявить вложенную функцию.
+        Функции могут возвращать любые значения, могут не возращать ничего. Также можно объявить вложенную функцию(внутри другой функции).
         </p>
         <div class='section'>
         <h4>Пример</h4>
         <pre class="prettyprint"><code>def add_two(a, b):&#x000A;  c = a + b&#x000A;  return c&#x000A;&#x000A;# or without the interim assignment to c&#x000A;def add_two(a, b):&#x000A;  return a + b</code></pre>
-        </div>
-        </div>
-
-        </div>
-        <div class='section'>
-        <div class='page-header'>
-        <h2 id='tuples'>Кортежи</h2>
-        </div>
-        <div class='section'>
-        <p>
-        Кортеж -  это контейнер, хранящий порядок объектов произвольного типа, но его нельзя изменять после создания.
-        </p>
-        <div class='section'>
-        <h4>Пример</h4>
-        <pre class="prettyprint"><code>>> x = (1, 2, 3, 4)&#x000A;>> y = ('spam', 'eggs')&#x000A;&#x000A;>> my_list = [1,2,3,4]&#x000A;>> my_tuple = tuple(my_list)&#x000A;>> my_tuple&#x000A;(1, 2, 3, 4)</code></pre>
         </div>
         </div>
 
@@ -211,7 +211,7 @@
         </div>
         <div class='section'>
         <p>
-        Использую len(some_object) можно получить количество элементов в контейнере.
+        Используя len(some_object) можно получить количество элементов в контейнере.
         </p>
         <div class='section'>
         <h4>Пример</h4>
@@ -313,11 +313,11 @@
         </div>
         <div class='section'>
         <div class='page-header'>
-        <h2 id='str_func'>The str() Function</h2>
+        <h2 id='str_func'>Функция str()</h2>
         </div>
         <div class='section'>
         <p>
-        Используя str() можно предстваить содержимое переменной строкой, если ее тип позволяет это сделать. str() не изменяет значение.
+        Используя str() можно предстваить содержимое переменной строкой, если ее тип позволяет это сделать. str() не изменяет значение. Для вывода результата операций на консоль интерпретатор использует похожую низкоуровневую функциию repr().
         </p>
         <div class='section'>
         <h4>Пример</h4>

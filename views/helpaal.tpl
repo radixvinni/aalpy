@@ -74,6 +74,7 @@
         <pre>
         ucharBasicType - предок Polynom
         uintBasicType - предок Integer</pre> 
+            <p>Для всех операций в библиотеке принята запись: <code>&lt;переменная-результат&gt;.&lt;операция&gt;(&lt;аргументы&gt;)</code>. Возможна цепочная запись, где одна операция следует за другой. Если операция имеет более одного результата(как в случае ExEuclid см. пример ниже), переменные передаются как параметры.</p>
           </div>
         </div>
         <div class='section'>
@@ -81,8 +82,10 @@
             <h2 id='integer'>Класс Integer</h2>
           </div>
           <div class='section'>
-            <p> Для класса используется числовой и строковый(для больших чисел) конструкторы. Доступны операции сложение <code>res.Add(a,b)</code>, умножение <code>res.Mul(a,b)</code>, деление <code>res.Div(a,b)</code>, операция вычитания(сравнения): <code>a.Compare(b)</code>, тест на простоту <code>a.isPrime()</code>, взятие числа по модулю n <code>res.Mod(a,n)</code>, возведение в степень <code>res.Pow(a,n)</code>, извлечение квадратного корня <code>res.Sqrt(a)</code>, операции по модулю <code>ModPow</code>, <code>ModDiv</code>, алгоритмы Евклида <code>res.Euclid(i, j)</code> и <code>res.ExEuclid(i, j, x, y)</code> 
-            </p>
+            <p> Для класса используется числовой и строковый(для больших чисел) конструкторы. То есть числа можно передавать в  числовом формате(для чисел длиной до 32 бит) или в виде строк, например "127" или '127'. Доступны следующие операции:</p>
+            <h3>Операции в кольце Z, не использующие разложение чисел</h3> 
+            <p>Взятие числа <code>res=Integer(127)</code>,<code>res=Integer("127")</code>, <code>res=Integer('127')</code>,отрицание <code>arg.Negate()</code>, сложение <code>res.Add(a,b)</code>, деление с остатком <code>res.Div(a,b,res2)</code>, умножение <code>res.Mul(a,b)</code>, деление <code>res.Div(a,b)</code>, операция вычитания(сравнения): <code>a.Compare(b)</code> и <code>res.Sub(arg1,arg2)</code>, тест на простоту Миллера-Рабина <code>a.isPrime()</code>, взятие целой части квадратного корня <code>res.Sqrt(arg)</code>, возведение в степень <code>res.Pow(a,n)</code>, Взятие НОК <code>res.LCM(i, j)</code>, Взятие НОД <code>res.Euclid(i, j)</code> и расширенный алгоритм Евклида <code>res.ExEuclid(i, j, x, y)</code>, Символ Лежандра <code>Integer.LegendreSymbol(arg1,arg2)</code>, символ Якоби <code>Integer.JacobySymbol(arg1,arg2)</code>, генерация вероятностно-простого числа. </p>
+            
             <div class='section'>
               <h4>Пример</h4>
               <pre class="prettyprint"><code>x = Integer('2')&#x000A;x.Add(x,Integer(1))&#x000A;#AAL.Integer(3)&#x000A;x += Integer(1)&#x000A;x&#x000A;#AAL.Integer(4)&#x000A;x.Mul(x,Integer(2)).Add(x, Integer(1))&#x000A;#AAL.Integer(9)</code></pre>
@@ -91,19 +94,16 @@
               <h4>Пример ExEuclid(1071*(-3)+462*7=21)</h4>
               <pre class="prettyprint"><code>a = Integer()&#x000A;b = Integer()&#x000A;x = Integer()&#x000A;x.ExEuclid(Integer(1071),Integer(462),a,b)&#x000A;#AAL.Integer(21)&#x000A;a&#x000A;#AAL.Integer(-3)&#x000A;b&#x000A;#AAL.Integer(7)</code></pre>
             </div>
-            <p>Как видно на примерах выше, для всех операций в библиотеке принята запись: <code>&lt;переменная-результат&gt;.&lt;операция&gt;(&lt;аргументы&gt;)</code>. Возможна цепочная запись, где одна операция следует за другой. Если операция имеет более одного результата(как в случае ExEuclid), переменные передаются как параметры.</p>
             <p>При работе с интерпретатором результат каждой операции выводится в формате, пригодном для чтения(через <code>str()</code> и <code>repr()</code>), поэтому необходимость преобразования объекта в строку возникает редко, например, если мы хотим преобразовать AAL.Integer в число python. Сделать это можно через функцию <code>int()</code>: 	<code>int(a.ToString())</code>. Для сравнения чисел, их также можно преобразовывать в строки, поскольку <code>Integer(12)==Integer(12)</code> вернет <code>False</code>.</p>
           </div>
         </div>
         <div class='section'>
-          <div class='page-header'>
-            <h2 id='decompositions'>Разложение чисел на множители</h2>
-          </div>
+          <h3 id='decompositions'>Разложение чисел на множители</h3>
           <div class='section'>
-            <p>Существуют 2 способа получния разложения:</p>
+            <p>Реализованы 2 способа получния разложения:</p>
             <ol>
-              <li><code>DecompositionManager.Instance().getDecomposition(Integer(12),False)</code> – получить разложение числа 12 из таблиц с разложениями.</li>
-              <li><code>FactorizationAlgorithms(Integer(84)).MsieveDecomposition()</code> – получить разложение числа 84 используя метод msieve.</li>
+              <li><code>DecompositionManager.Instance().getDecomposition(Integer(1023),False)</code> – получить разложение числа 1023 из таблиц факторизации чисел b<sup>n</sup>-1(Кеннингемского проекта).</li>
+              <li><code>FactorizationAlgorithms(Integer(84)).MsieveDecomposition()</code> – получить разложение числа 84 используя метод msieve(MIRACL).</li>
             </ol>
             <p>Результат в обоих случаях представляется в python как список, состоящий из кортежей строк(строка-число и строка-степень).</p>
             <div class='section'>
@@ -122,7 +122,27 @@
  d[1]=DecompositionMember(Integer(3),Integer(1))
  DecompositionMember.isRightDecomposition(Integer(12),d)
 #True</code></pre>
-            
+            <h3>Операции в кольце Z, использующие разложение чисел</h3>
+              <h4>Тест простоты Люка</h4>
+              <h4>Тест простоты Люка ─ Лемера</h4>
+              <h4>Тест простоты Поклингтона</h4>
+              <h4>Генерация достоверно простого числа в Zn</h4>
+              <h4>Функция Эйлера</h4>
+            <h3>Операции в кольце Z<sub>n</sub>, не использующие разложение порядка мультипликативной группы.</h3>
+            <p>Предварительно проверяется посредством НОД взаимная простота каждого аргумента и модуля n.</p>
+            <p>Операции: сложение <code>res.ModAdd(arg1,arg2,n)</code>, вычитание <code>res.ModSub(arg1,arg2,n)</code> умножение <code>res.ModMul(arg1,arg2,n)</code>, деление <code>res.ModDiv(arg1,arg2,n)</code>, возведение в степень <code>res.ModPow(arg1,arg2,n)</code>, обращение <code>res.Inverse(arg,n)</code></p>
+            <h3>Операции в кольце Z<sub>n</sub>, использующие разложение порядка мультипликативной группы.</h3>
+            <p>Предварительно проверяется посредством НОД взаимная простота аргумента и модуля n.</p>
+            Пример. Порядок группы вычисляется по разложению &#966;(n), &#966;(n) вычисляется по разложению n. 
+            Пример. Тест образующего элемента группы Zn*  вычисляется по разложению &#966;(n), &#966;(n) вычисляется по разложению n. 
+            <h3>Операции в кольце F<sub>p</sub>, не использующие разложение порядка мультипликативной группы.</h3>
+            <p>Предварительно проверяется посредством НОД взаимная простота каждого аргумента и модуля p.</p>
+            <p>Операции: сложение <code>res.ModAddInFp(arg1,arg2,n)</code>, вычитание <code>res.SubInFp(arg1,arg2,n)</code> умножение <code>res.MulInFp(arg1,arg2,n)</code>, деление <code>res.DivInFp(arg1,arg2,n)</code>, возведение в степень <code>res.PowInFp(arg1,arg2,n)</code>, обращение <code>res.InverseInFp(arg,n)</code></p>
+            <h3>Операции в кольце F<sub>p</sub>, использующие разложение порядка мультипликативной группы.</h3>
+            <p>Предварительно проверяется посредством НОД взаимная простота каждого аргумента и модуля p.</p>
+            Пример. Порядок группы вычисляется  по разложению p─1. 
+            Пример. Тест образующего элемента группы Fp* вычисляется по разложению p─1. 
+
           </div>
         </div>
         <div class='section'>
