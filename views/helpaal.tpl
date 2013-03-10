@@ -123,11 +123,13 @@
  DecompositionMember.isRightDecomposition(Integer(12),d)
 #True</code></pre>
             <h3>Операции в кольце Z, использующие разложение чисел</h3>
-              <h4>Тест простоты Люка</h4>
-              <h4>Тест простоты Люка ─ Лемера</h4>
-              <h4>Тест простоты Поклингтона</h4>
-              <h4>Генерация достоверно простого числа в Zn</h4>
-              <h4>Функция Эйлера</h4>
+            <ul>
+              <li><code>Integer().ModifiedTestLuka(decomposition,Integer(13))</code> - Тест простоты Люка</li>
+              <li><code>Integer().TestLukaLemera(Integer(4))</code> - Тест простоты Люка ─ Лемера(числа 2<sup>n</sup> - 1, аргумент - n)</li>
+              <li><code>Integer().TestPoklingtona(decomposition,Integer(13))</code> - Тест простоты Поклингтона</li>
+              <li><code>res.GeneratePrime(Integer(12),decomposition)</code> - Генерация достоверно простого числа в Zn</li>
+              <li><code>a = Integer(12);a.Euler(d)</code> - Функция Эйлера</li>
+            </ul>
             <h3>Операции в кольце Z<sub>n</sub>, не использующие разложение порядка мультипликативной группы.</h3>
             <p>Предварительно проверяется посредством НОД взаимная простота каждого аргумента и модуля n.</p>
             <p>Операции: сложение <code>res.ModAdd(arg1,arg2,n)</code>, вычитание <code>res.ModSub(arg1,arg2,n)</code> умножение <code>res.ModMul(arg1,arg2,n)</code>, деление <code>res.ModDiv(arg1,arg2,n)</code>, возведение в степень <code>res.ModPow(arg1,arg2,n)</code>, обращение <code>res.Inverse(arg,n)</code></p>
