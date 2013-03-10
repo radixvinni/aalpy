@@ -269,6 +269,37 @@
                   
                     </ul>
             </div>
+            <div class="btn-group">
+                    <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">Пример <span class="caret"></span></button>
+                  
+                    <ul class="dropdown-menu ins2_form">
+                      <li><a href="#" title="\begin{pmatrix}
+ a_{11} & \cdots & a_{1n}\\ 
+ \vdots & \ddots & \vdots\\ 
+ a_{m1} & \cdots & a_{mn}
+\end{pmatrix}">Матрица размера n на m</a></li>
+                      <li><a href="#" title="\begin{bmatrix}a & b \\c & d \end{bmatrix}">Матрица размера 2 на 2</a></li>
+                      <li><a href="#" title="1, x, x^2, \dots, x^n">Базис пространства многочленов</a></li>
+                      <li><a href="#" title="\begin{array}{ll}
+\displaystyle \binom{a}{p} = \begin{cases}
+0  & {\text{if}}\ a=0 \mod p \\
+1 & {\text{if}}\ a \ne 0 \mod p\ {\text{and}}\ x^2=a \mod p \\ 
+-1 & {\text{else}} \\
+\end{cases}
+\end{array}">Символ Лежандра</a></li>
+                      <li><a href="#" title="\frac{
+ \begin{array}[b]{r}
+   \left( x_1 x_2 \right)\\
+   \times \left( x'_1 x'_2 \right)
+ \end{array}
+}{
+ \left( y_1y_2y_3y_4 \right)
+}
+">Умножение столбиком</a></li>
+
+ 
+                    </ul>
+            </div>
             
             <div class="collapse formula">
                   <textarea rows="3" id="formula_t"></textarea>
@@ -294,6 +325,9 @@
               });
               $('.ins_form a').click(function(){
                     $('#formula_t').val($('#formula_t').val()+$(this).attr('title')).change().focus();
+              });
+              $('.ins2_form a').click(function(){
+                    $('#formula_t').val($(this).attr('title')).change().focus();
               });
               $('#myEdit').unbind('click').click(function() {
                 $('#id').val($(':radio:checked').parent().parent().find("td:eq(0) label").text());
