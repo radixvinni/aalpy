@@ -108,7 +108,7 @@
             <p>Результат в обоих случаях представляется в python как список, состоящий из кортежей строк(строка-число и строка-степень).</p>
             <div class='section'>
               <h4>Пример разложения(84=2*2*3*7)</h4>
-              <pre class="prettyprint"><code> a=FactorizationAlgorithms(Integer(84)).MsieveDecomposition()
+              <pre class="prettyprint"><code> a=FactorizationAlgorithms(Integer(84)).MsieveDecomposition().toList()
  a
 #[('2', '2'), ('3', '1'), ('7', '1')]
  a.reverse()
