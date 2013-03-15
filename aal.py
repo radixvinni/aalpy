@@ -11,6 +11,7 @@ lock = Lock()
 from datetime import datetime, timedelta
 import time
 
+# Сброс сессии, если небыло ни одной операции за час (плохо, может он справку читает)
 def handler(signum, frame):
 	lock.acquire()
 	long_ago = datetime.now()-timedelta(hours=1)
@@ -21,11 +22,14 @@ def handler(signum, frame):
 	lock.release()
 
 
-# Set the signal handler and a 5-second alarm
 signal.signal(signal.SIGALRM, handler)
 signal.setitimer(signal.ITIMER_REAL,1,3600)
 
+# Завершаем работу при превышении лимита 30 сек процессорного времени.
+from resource import setrlimit, RLIMIT_CPU
+setrlimit(RLIMIT_CPU, (30,300))
 
+#<sessions>
 class ConsoleCache:
     def __init__(self): self.reset()
     def reset(self): self.out = []
