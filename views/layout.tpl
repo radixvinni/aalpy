@@ -39,6 +39,11 @@
                 %end
                 ><a href="/authors">Авторы</a></li>
                 <li
+                %if path=='/guide':
+                class="active"
+                %end
+                ><a href="/guide">Руководство</a></li>
+                <li
                 %if path=='/help':
                 class="active"
                 %end

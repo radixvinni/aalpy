@@ -141,6 +141,7 @@ def init():
     cur.execute('CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY AUTOINCREMENT, cid INTEGER, title TEXT UNIQUE, descr TEXT, goal TEXT)')
     cur.execute('CREATE TABLE IF NOT EXISTS complete(uid INTEGER, tid INTEGER, UNIQUE(uid, tid) ON CONFLICT IGNORE)')
     cur.execute('CREATE TABLE IF NOT EXISTS history(id INTEGER PRIMARY KEY AUTOINCREMENT, uid INTEGER, time INTEGER, command TEXT, result TEXT)')
+    cur.execute('CREATE TABLE IF NOT EXISTS guide(id INTEGER PRIMARY KEY AUTOINCREMENT, uid INTEGER, content TEXT)')
     conn.commit()
 
 def get_all(name):
@@ -191,6 +192,15 @@ def save(name,content):
     cur = conn.cursor()
     cur.execute('REPLACE INTO %s VALUES(%s)' % (name,','.join(['?' for i in content])), content)
     conn.commit()
+    return cur.lastrowid # this dont work!!! always None
+
+def insert(name,content):
+    conn = sqlite3.connect('wiki.db')
+    conn.text_factory = lambda x: unicode(x, 'utf-8', 'ignore')
+    cur = conn.cursor()
+    cur.execute('INSERT INTO %s VALUES(%s)' % (name,','.join(['?' for i in content])), content)
+    conn.commit()
+    return cur.lastrowid
 
 def sql_delete(name, i):
     conn = sqlite3.connect('wiki.db')
@@ -249,6 +259,31 @@ def index(cid):
     sessions[sid].goal=work['goal'] or None
     lock.release()
     return work
+
+@route('/guide/:gid')
+@view('guide_worksheet')
+def guide_worksheet(gid):
+    is_user()
+    return dict()
+@route('/guide')
+@view('guide_list')
+def guide():
+    is_user()
+    return dict(content='')
+@route('/guide/record')
+@view('guide_record')
+def guide_record():
+    is_admin()
+    return dict()
+#@ajax
+@post('/guide/save')
+def guide_save():
+    sid=request.get_cookie("session")
+    if sid not in sessions: return '<div class="alert alert-error"><strong>О нет!</strong>Ваша сессия закончилась не вовремя. Попробуйте войти в новой вкладке и сохранить еще раз.</div>'
+    deltas=request.forms.get('content')
+    gid=insert('guide', (None, sessions[sid].uid, deltas))
+    return '<div class="alert alert-success"><strong>Сохранено!</strong> <a href="/guide/%s">Ваша запиcь</a> сохранена.</div>' % gid
+    
 
 @route('/aal')
 @view('worksheet')
