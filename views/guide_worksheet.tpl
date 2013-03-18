@@ -1,26 +1,41 @@
-<div class="btn-group">
-  <!--a href="#" class="btn btn-inverse"><i class="icon-white icon-fast-backward"></i></a-->
-  <a href="#" class="btn btn-inverse"><i class="icon-white icon-backward"></i></a>
-  <a href="#" class="btn btn-inverse"><i class="icon-white icon-stop"></i></a>
-  <a href="#" class="btn btn-inverse"><i class="icon-white icon-play"></i></a>
-  <a href="#" class="btn btn-inverse"><i class="icon-white icon-pause"></i></a>
-  <a href="#" class="btn btn-inverse"><i class="icon-white icon-forward"></i></a>
-  <a href="#" class="btn btn-inverse"><i class="icon-white icon-fast-forward"></i></a>
-</div>
-<div class="btn-group" data-toggle="buttons-radio">
-  <button type="button" class="btn">1x</button>
-  <button type="button" class="btn">2x</button>
-  <button type="button" class="btn">5x</button>
+<div class="slider-toolbar">
+  <div class="btn-group" data-toggle="buttons-radio">
+    <!--a href="#" class="btn"><i class="icon-white icon-fast-backward"></i></a-->
+    <a href="#" class="btn play active" onclick="play()"><i class="icon-play"></i></a>
+    <a href="#" class="btn pause" onclick="pause()"><i class="icon-pause"></i></a>
+    <a href="#" class="btn forward" onclick="forward()"><i class="icon-fast-forward"></i></a>
+  </div>
+  <span style="vertical-align: middle;margin:10px;">Скорость:</span>
+  <div class="btn-group" data-toggle="buttons-radio">
+    <button type="button" class="btn active" onclick="interval(100)">1x</button>
+    <button type="button" class="btn" onclick="interval(50)">2x</button>
+    <button type="button" class="btn" onclick="interval(20)">5x</button>
+  </div>
+  <span style="vertical-align: middle;margin:10px;">Прогресс:</span>
+  <input type="text" class="slider span2" value="1" data-slider-min="0" data-slider-step="1" data-slider-value="1" data-slider-tooltip="show"></input>
+ 
+  <!--span style="vertical-align: middle;margin:10px;">Поиск:</span>
+  <div class="btn-group">
+    <a href="#" class="btn"><i class="icon-backward"></i></a>
+    <a href="#" class="btn"><i class="icon-forward"></i></a>
+  </div-->
+  <!--div class="pull-right">
+  <span style="vertical-align: middle;margin:10px;">Режим:</span>
+  <div class="btn-group" data-toggle="buttons-radio">
+    <a href="#" class="btn active"><i class="icon-facetime-video"></i></a>
+    <a href="#" class="btn"><i class="icon-edit"></i></a>
+  </div>
+  </div-->
 </div>
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span7">
       <div id="editor" class="worksheet-editor">&#x000A;</div>
-      <button class="btn btn-success btn-block" type="button" onclick="return run();">Поехали</button>
+      <button class="btn disabled btn-block" type="button" onclick="return run();">Поехали</button>
       
     </div>
     <div class="span5">
-      <div id="console" class="worksheet-console"></div>
+      <div id="console" class="well" style="height:400px"></div>
     </div>
   </div>
 </div>
@@ -28,46 +43,64 @@
 <script src="/assets/js/jqconsole.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/assets/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
 <script>
+    var $obj = {{!content[3]}};
+    var $max_slide = $obj.time.length;
+    //---------------------------------------------
+    var slider = $('.slider').slider({'max':$max_slide})
+      .on('slideStart',pause)
+      .on('slide', function(ev){set_slide(slider.getValue())})
+      .data('slider');
     window.editor = ace.edit("editor");
     window.editor.setTheme("ace/theme/clouds");
     window.editor.getSession().setMode("ace/mode/python");
-    if($.cookie('saved')!=null) window.editor.setValue($.cookie('saved'));
-    window.editor.selection.clearSelection();
-    $(function () {
-        window.jqconsole = $('#console').jqconsole('', '>>>');
-        window.jqconsole.SetIndentWidth(1);  
-        var startPrompt = function () {
-          window.jqconsole.Prompt(true, function (input) {
-            window.jqconsole.Disable();
-            $.post('/console/run', { cmd: input, type: "console" }, function(data) {
-              window.jqconsole.Write(data, 'jqconsole-output');
-              window.jqconsole.Enable();
-              window.jqconsole.Focus();
-            });
-            startPrompt();
-          }, function (input) {  // Continue if the last character is a backslash.  
-            if (/\\$/.test(input)) return 0;
-            if (/:$/.test(input)) return window.jqconsole.GetIndentWidth();
-            var lines = input.split('\n')
-            var count = lines[lines.length - 1].match(/^ /g);
-            if(count!==null && count.length>0) return 0;
-            return false;
-          });
-        };
-        startPrompt();
-    });
-    function run() {
-      $.cookie('saved', window.editor.getValue());
-      window.jqconsole.Disable();
-      $.post('/console/run', { cmd: window.editor.getValue()+'\n', type: "program" }, function(data) {
-              window.jqconsole.Write(data, 'jqconsole-output');
-              window.jqconsole.Enable();
-      });
+    var $loop = null;
+    var $speed = 100;
+    var $interval = 100;
+    var $slide = 0;
+    var $counter = 0;
+    play();
+    function play() {
+      clearInterval($loop);
+      if($slide>0) {
+        window.editor.setValue();
+        window.editor.getSelection().doc.applyDeltas($obj.deltas.slice(0,$slide));
+      }
+      $loop = setInterval(loop, $interval);
     }
-</script>
-
-<script>
-  $(function() {$('.indicator .bar').tooltip().click(function(){location.replace($(this).attr('href'));});});
+    function interval(intr) {
+      $interval = intr;
+      if ($('.play').hasClass('active')) play();
+    }
+    function loop() {
+      apply_deltas($counter*$speed);
+      slider.setValue($slide);
+      if($max_slide==$slide) forward();
+      $counter++;
+    }
+    function pause() {
+      $('.pause').button('toggle');
+      clearInterval($loop);
+    }
+    function forward() {
+      $('.forward').button('toggle');
+      clearInterval($loop);
+      window.editor.setValue();
+      window.editor.getSelection().doc.applyDeltas($obj.deltas);
+    }
+    function apply_deltas(time) {
+      var deltas = []
+      for(;$obj.time[$slide]<time;$slide++)
+        deltas.push($obj.deltas[$slide]);
+      if (deltas.length > 0)
+        window.editor.getSelection().doc.applyDeltas(deltas);
+    }
+    
+    function set_slide(slide) {
+      window.editor.setValue();
+      window.editor.getSelection().doc.applyDeltas($obj.deltas.slice(0,slide));
+      $slide = slide;
+      $counter = $obj.time[slide]/$speed;
+    }
 </script>
 
 %rebase layout title='', path='/aal', is_user=True, is_admin=False

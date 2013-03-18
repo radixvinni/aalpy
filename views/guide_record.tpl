@@ -9,7 +9,7 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span7">
-      <div id="editor" class="worksheet-editor">&#x000A;</div>
+      <div id="editor" class="worksheet-editor"></div>
       <button class="btn btn-success btn-block" type="button" onclick="return run();">Поехали</button>
       
     </div>
@@ -49,6 +49,7 @@
           });
         };
         startPrompt();
+        window.editor.focus();
     });
     function run() {
       $.cookie('saved', window.editor.getValue());
@@ -68,7 +69,7 @@
   $(function() {
     window.editor.getSession().on('change', function(e){
       time.push(new Date().getTime() - time_start);
-      deltas.push(JSON.stringify(e.data));
+      deltas.push(e.data);
     });
     $('#finish').click(function(){
       $.post("/guide/save", { 'content': JSON.stringify({'time': time, 'deltas': deltas}) }, function(html){

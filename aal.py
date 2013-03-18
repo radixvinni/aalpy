@@ -141,7 +141,7 @@ def init():
     cur.execute('CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY AUTOINCREMENT, cid INTEGER, title TEXT UNIQUE, descr TEXT, goal TEXT)')
     cur.execute('CREATE TABLE IF NOT EXISTS complete(uid INTEGER, tid INTEGER, UNIQUE(uid, tid) ON CONFLICT IGNORE)')
     cur.execute('CREATE TABLE IF NOT EXISTS history(id INTEGER PRIMARY KEY AUTOINCREMENT, uid INTEGER, time INTEGER, command TEXT, result TEXT)')
-    cur.execute('CREATE TABLE IF NOT EXISTS guide(id INTEGER PRIMARY KEY AUTOINCREMENT, uid INTEGER, content TEXT)')
+    cur.execute('CREATE TABLE IF NOT EXISTS guide(id INTEGER PRIMARY KEY AUTOINCREMENT, uid INTEGER, name TEXT DEFAULT (datetime()), content TEXT)')
     conn.commit()
 
 def get_all(name):
@@ -150,6 +150,15 @@ def get_all(name):
     cur = conn.cursor()
     cur.execute('SELECT * FROM %s' % name)
     r = cur.fetchall()
+    if r: return r
+    return ''
+
+def get_by_id(name,i):
+    conn = sqlite3.connect('wiki.db')
+    conn.text_factory = lambda x: unicode(x, 'utf-8', 'ignore')
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM %s where id = ?' % name, (i,))
+    r = cur.fetchone()
     if r: return r
     return ''
     
@@ -192,13 +201,12 @@ def save(name,content):
     cur = conn.cursor()
     cur.execute('REPLACE INTO %s VALUES(%s)' % (name,','.join(['?' for i in content])), content)
     conn.commit()
-    return cur.lastrowid # this dont work!!! always None
 
-def insert(name,content):
+def insert_guide(uid,content):
     conn = sqlite3.connect('wiki.db')
     conn.text_factory = lambda x: unicode(x, 'utf-8', 'ignore')
     cur = conn.cursor()
-    cur.execute('INSERT INTO %s VALUES(%s)' % (name,','.join(['?' for i in content])), content)
+    cur.execute('INSERT INTO guide(uid,content) VALUES(?,?)', (uid,content))
     conn.commit()
     return cur.lastrowid
 
@@ -264,12 +272,12 @@ def index(cid):
 @view('guide_worksheet')
 def guide_worksheet(gid):
     is_user()
-    return dict()
+    return dict(content=get_by_id('guide',gid))
 @route('/guide')
 @view('guide_list')
 def guide():
     is_user()
-    return dict(content='')
+    return dict(content=get_all('guide'))
 @route('/guide/record')
 @view('guide_record')
 def guide_record():
@@ -279,9 +287,9 @@ def guide_record():
 @post('/guide/save')
 def guide_save():
     sid=request.get_cookie("session")
-    if sid not in sessions: return '<div class="alert alert-error"><strong>О нет!</strong>Ваша сессия закончилась не вовремя. Попробуйте войти в новой вкладке и сохранить еще раз.</div>'
+    if sid not in sessions or sessions[sid].name != 'admin': return '<div class="alert alert-error"><strong>О нет!</strong>Ваша сессия закончилась не вовремя. Попробуйте войти в новой вкладке и сохранить еще раз.</div>'
     deltas=request.forms.get('content')
-    gid=insert('guide', (None, sessions[sid].uid, deltas))
+    gid=insert_guide(sessions[sid].uid, deltas)
     return '<div class="alert alert-success"><strong>Сохранено!</strong> <a href="/guide/%s">Ваша запиcь</a> сохранена.</div>' % gid
     
 
