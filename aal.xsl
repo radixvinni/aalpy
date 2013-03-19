@@ -3,20 +3,21 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output method="html" indent="yes" version="4.0"/>
   <xsl:template match="/">
-    <html>
-    <head>
-      <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
-      <script src="http://code.jquery.com/jquery.js"></script>
-      <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
-    </head>
-    <body>
-      <div class="accordion container" id="accordion">
-      <h1>AAL Class List</h1>
-        <xsl:apply-templates select="//table[tr/@bgcolor = '#ffc8d8']"/>
-      </div>
-    </body>
-    </html>
-  </xsl:template>
+<div class="container">
+    <ul class="nav nav-pills">
+      <li><a href="/help/python">Язык Python</a></li>
+      <li><a href="/help/aal">Библиотека AAL</a></li>
+      <li class="active"><a href="/help/class">Список классов AAL</a></li>
+      <li><a href="/help/dev">Для разработчиков AAL</a></li>
+    </ul>
+    <div class="accordion" id="accordion">
+      <h1>Список классов AAL</h1>
+      <xsl:apply-templates select="//table[tr/@bgcolor = '#ffc8d8']"/>
+    </div>
+</div>
+
+%rebase layout title='Справка по Алгебраическому процессору МЭИ', path='/help', is_user=True, is_admin=False
+</xsl:template>
   
   <xsl:template match="table">
    <div class="accordion-group">

@@ -4,6 +4,7 @@
         <a href="/help/python">Язык Python</a>
       </li>
       <li><a href="/help/aal">Библиотека AAL</a></li>
+      <li><a href="/help/class">Список классов AAL</a></li>
       <li><a href="/help/dev">Для разработчиков AAL</a></li>
     </ul>
     <div class="row sidebar" id="pythonhelp">
