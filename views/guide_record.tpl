@@ -22,57 +22,58 @@
 <script src="/assets/js/jqconsole.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/assets/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
 <script>
-    window.editor = ace.edit("editor");
-    window.editor.setTheme("ace/theme/clouds");
-    window.editor.getSession().setMode("ace/mode/python");
-    if($.cookie('saved')!=null) window.editor.setValue($.cookie('saved'));
-    window.editor.selection.clearSelection();
-    $(function () {
-        window.jqconsole = $('#console').jqconsole('', '>>>');
-        window.jqconsole.SetIndentWidth(1);  
-        var startPrompt = function () {
-          window.jqconsole.Prompt(true, function (input) {
-            window.jqconsole.Disable();
-            $.post('/console/run', { cmd: input, type: "console" }, function(data) {
-              window.jqconsole.Write(data, 'jqconsole-output');
-              window.jqconsole.Enable();
-              window.jqconsole.Focus();
-            });
-            startPrompt();
-          }, function (input) {  // Continue if the last character is a backslash.  
-            if (/\\$/.test(input)) return 0;
-            if (/:$/.test(input)) return window.jqconsole.GetIndentWidth();
-            var lines = input.split('\n')
-            var count = lines[lines.length - 1].match(/^ /g);
-            if(count!==null && count.length>0) return 0;
-            return false;
+  window.editor = ace.edit("editor");
+  window.editor.setTheme("ace/theme/clouds");
+  window.editor.getSession().setMode("ace/mode/python");
+  if($.cookie('saved')!=null) window.editor.setValue($.cookie('saved'));
+  window.editor.selection.clearSelection();
+  $(function () {
+      window.jqconsole = $('#console').jqconsole('', '>>>');
+      window.jqconsole.SetIndentWidth(1);  
+      var startPrompt = function () {
+        window.jqconsole.Prompt(true, function (input) {
+          window.jqconsole.Disable();
+          $.post('/console/run', { cmd: input, type: "console" }, function(data) {
+            window.jqconsole.Write(data, 'jqconsole-output');
+            window.jqconsole.Enable();
+            window.jqconsole.Focus();
           });
-        };
-        startPrompt();
-        window.editor.focus();
-    });
-    function run() {
-      $.cookie('saved', window.editor.getValue());
-      window.jqconsole.Disable();
-      $.post('/console/run', { cmd: window.editor.getValue()+'\n', type: "program" }, function(data) {
-              window.jqconsole.Write(data, 'jqconsole-output');
-              window.jqconsole.Enable();
-      });
-    }
-</script>
-
-<script>
-  //var Range = ace.require('ace/range').Range;
+          startPrompt();
+        }, function (input) {  // Continue if the last character is a backslash.  
+          if (/\\$/.test(input)) return 0;
+          if (/:$/.test(input)) return window.jqconsole.GetIndentWidth();
+          var lines = input.split('\n')
+          var count = lines[lines.length - 1].match(/^ /g);
+          if(count!==null && count.length>0) return 0;
+          return false;
+        });
+      };
+      startPrompt();
+      window.editor.focus();
+  });
   var time_start = new Date().getTime();
   var time = [];
   var deltas = [];//window.editor.getSelection().doc.applyDeltas([]);
+  var console = [];
+  function run() {
+    $.cookie('saved', window.editor.getValue());
+    window.jqconsole.Disable();
+    $.post('/console/run', { cmd: window.editor.getValue()+'\n', type: "program" }, function(data) {
+            window.jqconsole.Write(data, 'jqconsole-output');
+            if(console[deltas.length])
+              console[deltas.length] += data;
+            else
+              console[deltas.length] = data;
+            window.jqconsole.Enable();
+    });
+  }
   $(function() {
     window.editor.getSession().on('change', function(e){
       time.push(new Date().getTime() - time_start);
       deltas.push(e.data);
     });
     $('#finish').click(function(){
-      $.post("/guide/save", { 'content': JSON.stringify({'time': time, 'deltas': deltas}) }, function(html){
+      $.post("/guide/save", { 'content': JSON.stringify({'time': time, 'deltas': deltas, 'console': console }) }, function(html){
         $('#record_success').html(html);
       });
     });

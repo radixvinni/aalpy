@@ -10,6 +10,7 @@
     <button type="button" class="btn active" onclick="interval(100)">1x</button>
     <button type="button" class="btn" onclick="interval(50)">2x</button>
     <button type="button" class="btn" onclick="interval(20)">5x</button>
+    <button type="button" class="btn" onclick="interval(10)">10x</button>
   </div>
   <span style="vertical-align: middle;margin:10px;">Прогресс:</span>
   <input type="text" class="slider span2" value="1" data-slider-min="0" data-slider-step="1" data-slider-value="1" data-slider-tooltip="show"></input>
@@ -35,7 +36,7 @@
       
     </div>
     <div class="span5">
-      <div id="console" class="well" style="height:400px"></div>
+      <pre id="console" style="height:400px;overflow-y: auto;"></pre>
     </div>
   </div>
 </div>
@@ -53,18 +54,16 @@
     window.editor = ace.edit("editor");
     window.editor.setTheme("ace/theme/clouds");
     window.editor.getSession().setMode("ace/mode/python");
+    window.editor.setReadOnly(true);
     var $loop = null;
     var $speed = 100;
     var $interval = 100;
     var $slide = 0;
     var $counter = 0;
     play();
+    //timer control
     function play() {
       clearInterval($loop);
-      if($slide>0) {
-        window.editor.setValue();
-        window.editor.getSelection().doc.applyDeltas($obj.deltas.slice(0,$slide));
-      }
       $loop = setInterval(loop, $interval);
     }
     function interval(intr) {
@@ -84,22 +83,28 @@
     function forward() {
       $('.forward').button('toggle');
       clearInterval($loop);
-      window.editor.setValue();
-      window.editor.getSelection().doc.applyDeltas($obj.deltas);
+      set_slide($max_slide);
     }
+    //apply changes to editor and console
     function apply_deltas(time) {
       var deltas = []
       for(;$obj.time[$slide]<time;$slide++)
         deltas.push($obj.deltas[$slide]);
-      if (deltas.length > 0)
+      if (deltas.length > 0) {
         window.editor.getSelection().doc.applyDeltas(deltas);
+        var cur = deltas.pop().range.end;
+        window.editor.moveCursorTo(cur.row,cur.column);
+        $('#console').html($obj.console.slice(0,$slide+1).join(''));
+      }
     }
-    
+    //set slide to editor and console
     function set_slide(slide) {
       window.editor.setValue();
       window.editor.getSelection().doc.applyDeltas($obj.deltas.slice(0,slide));
       $slide = slide;
       $counter = $obj.time[slide]/$speed;
+      
+      $('#console').html($obj.console.slice(0,slide+1).join(''));
     }
 </script>
 
