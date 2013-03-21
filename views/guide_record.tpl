@@ -25,7 +25,6 @@
   window.editor = ace.edit("editor");
   window.editor.setTheme("ace/theme/clouds");
   window.editor.getSession().setMode("ace/mode/python");
-  if($.cookie('saved')!=null) window.editor.setValue($.cookie('saved'));
   window.editor.selection.clearSelection();
   $(function () {
       window.jqconsole = $('#console').jqconsole('', '>>>');
