@@ -13,4 +13,4 @@
       </ul>
   </div>
           
-%rebase layout title='Практикум', path='/', is_user=True, is_admin=False
+%rebase layout title='Практикум', path='/guide', is_user=True, is_admin=False

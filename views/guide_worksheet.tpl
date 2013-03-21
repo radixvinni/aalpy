@@ -108,4 +108,4 @@
     }
 </script>
 
-%rebase layout title='', path='/aal', is_user=True, is_admin=False
+%rebase layout title='', path='/guide', is_user=True, is_admin=False
