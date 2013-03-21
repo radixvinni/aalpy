@@ -10,9 +10,11 @@
     <link href="/assets/css/default.css" rel="stylesheet">
     <link href="/assets/css/prettify.css" rel="stylesheet">
     <link href="/assets/css/ansi.css" rel="stylesheet">
+    <link href="/assets/css/slider.css" rel="stylesheet">
     <link rel="shortcut icon" href="/assets/ico/favicon.ico">
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/bootstrap-slider.js"></script>
     <script src="/assets/js/prettify.js"></script>
   </head>
   <body data-spy="scroll" data-target=".sidebar" onload="prettyPrint()">
@@ -38,6 +40,11 @@
                 class="active"
                 %end
                 ><a href="/authors">Авторы</a></li>
+                <li
+                %if path=='/guide':
+                class="active"
+                %end
+                ><a href="/guide">Руководство</a></li>
                 <li
                 %if path=='/help':
                 class="active"
