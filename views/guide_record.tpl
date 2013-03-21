@@ -70,6 +70,7 @@
     window.editor.getSession().on('change', function(e){
       time.push(new Date().getTime() - time_start);
       deltas.push(e.data);
+      $('#count').text(deltas.length);
     });
     $('#finish').click(function(){
       $.post("/guide/save", { 'content': JSON.stringify({'time': time, 'deltas': deltas, 'console': console }) }, function(html){
