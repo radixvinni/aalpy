@@ -181,7 +181,7 @@ def get_course(cid=None, tid=None):
     for row in content: 
         cmpl[row['cid']] = 0
         tasks[row['cid']] = []
-    for row in cur.execute('SELECT id, title, descr, goal, uid, cid FROM tasks LEFT JOIN complete ON id=tid AND uid=? '+(cid or ''), [uid]):
+    for row in cur.execute('SELECT tasks.id, tasks.title, tasks.descr, tasks.goal, uid, cid FROM courses INNER JOIN tasks ON cid=courses.id LEFT JOIN complete ON tasks.id=tid AND uid=? '+(cid or ''), [uid]):
         status=row['uid'] and "bar-success" or cmpl[row['cid']]==0 and ' ' or None
         if row['goal']!='' and status !='bar-success': cmpl[row['cid']]+=1
         tasks[row['cid']].append((row['title'],status,row['id']))
