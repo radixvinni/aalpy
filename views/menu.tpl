@@ -10,7 +10,7 @@
           <div class="progress indicator">
             %for task in tasks[item[0]]:
               %if task[1] is not None:
-                <div class="bar {{task[1]}}" title="{{task[0]}}" href="/course/{{item[0]}}?task={{task[2]}}" style="width: {{item['count']}}%;"></div>
+                <div class="bar {{task[1]}}" style="width: {{item['count']}}%;"><div title="{{task[0]}}" href="/course/{{item[0]}}?task={{task[2]}}" style="height:100%;"></div></div>
               %end
             %end
           </div>
@@ -22,7 +22,7 @@
 </div>
 
 <script>
-  $(function() {$('.indicator .bar').tooltip().click(function(){location.replace($(this).attr('href'));});});
+  $(function() {$('.indicator .bar div').tooltip().click(function(){location.replace($(this).attr('href'));});});
 </script>
           
 %rebase layout title='Практикум', path='/', is_user=True, is_admin=False
