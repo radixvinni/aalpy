@@ -184,7 +184,7 @@ def get_course(cid=None, tid=None):
     for row in cur.execute('SELECT tasks.id, tasks.title, tasks.descr, tasks.goal, uid, cid FROM courses INNER JOIN tasks ON cid=courses.id LEFT JOIN complete ON tasks.id=tid AND uid=? '+(cid or ''), [uid]):
         status=row['uid'] and "bar-success" or cmpl[row['cid']]==0 and ' ' or None
         if row['goal']!='' and status !='bar-success': cmpl[row['cid']]+=1
-        tasks[row['cid']].append((row['title'],status,row['id']))
+        tasks[row['cid']].append((row['title'],status,row['id'],row['descr'],row['goal'],row['cid']))
         if 'tid' not in ret and status !='bar-success' or str(tid)==str(row['id']) and status is not None:
             ret['tid']=row['id']
             ret['goal']=row['goal']
@@ -441,13 +441,13 @@ def history():
     is_admin()
     empty_history()
     return redirect("/history")
-
+from json import dumps
 @route('/admin')
 @route('/admin/:name')
 @view('admin')
 def edit(name='users'):
     is_admin()
-    return dict(content=get_all(name), name=name, courses=get_all("courses"), docs=get_docs())
+    return dict(content=dumps(get_course()['tasks'].items() if name=='tasks' else get_all(name)), name=name, courses=get_all("courses"), docs=get_docs())
 
 @post('/admin')
 @post('/admin/:name')
@@ -458,6 +458,7 @@ def modify(name='users'):
             or name == 'courses' and (request.forms.get('id') or None,request.forms.get('title'),request.forms.get('descr'))
             or name == 'tasks' and (request.forms.get('id') or None, request.forms.get('cid'), request.forms.get('title'),
             request.forms.get('descr'),sha(request.forms.get('newgoal')) if request.forms.get('newgoal') else request.forms.get('goal'))
+            or name == 'guide' and (request.forms.get('id') or None, request.forms.get('uid'), request.forms.get('name'),request.forms.get('content'))
             )
     elif request.forms.action == 'delete':
         sql_delete(name,request.forms.get('id') or redirect("/admin/"+name))
