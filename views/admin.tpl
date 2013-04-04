@@ -1,60 +1,87 @@
 <link rel="stylesheet" type="text/css" href="/assets/css/jquery.cleditor.css" />
 <script type="text/javascript" src="/assets/js/jquery.cleditor.min.js"></script>
+<script type="text/javascript" src="/assets/js/knockout.min.js"></script>
 <div class="container">
-  <div class="content">
-    <form action="#" method="post">
-    <div class="btn-toolbar">
-      <div class="btn-group">
-        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-          {{name=='users' and "Пользователи" or name=='courses' and "Работы" or name=='tasks' and "Задания"}}
-          <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-          <li><a href="/admin/users">Пользователи</a></li>
-          <li><a href="/admin/courses">Работы</a></li>
-          <li><a href="/admin/tasks">Задания</a></li>
-        </ul>
-      </div>
-      <button id="myEdit" type="button" class="btn"><i class="icon-pencil"></i> Изменить</button>
-      <button id="myAdd" type="button" class="btn"><i class="icon-plus"></i> Добавить</button>
-      <button type="submit" name="action" value="delete" id="myDelete" type="button" class="btn"><i class="icon-remove"></i> Удалить</button>
-      
-    </div>
+ <div class="row">
+  <div class="span3">
+  	    <div class="well">
+		    <ul class="nav nav-list"> 
+		      <li class="nav-header">Администрирование</li>        
+		      <li {{'class=active' if name=='users' else ''}}><a href="/admin/users"><i class="icon-user"></i> Пользователи</a></li>
+          <li {{'class=active' if name=='courses' else ''}}><a href="/admin/courses"><i class="icon-book"></i> Работы</a></li>
+          <li {{'class=active' if name=='tasks' else ''}}><a href="/admin/tasks"><i class="icon-book"></i> Задания</a></li>
+		      <li {{'class=active' if name=='guide' else ''}}><a href="/admin/guide"><i class="icon-play"></i> Руководства</a></li>
+          <!--li class="divider"></li-->
+		      
+		    </ul>
+	    </div>
+
+  </div>
+  <div class="span9">
+    <h2>{{name=='users' and "Пользователи" or name=='courses' and "Работы" or name=='tasks' and "Задания" or "Руководства"}}</h2>
     <div>
-      <table class="table table-hover">
-      <thead><tr>
-        <th>#</th>
-        %for i in dict(users=['Фамилия','Хэш пароля'],courses=['Название','Описание'],tasks=['Работа','Название','Описание','Результат'])[name]:
-          <th>{{i}}</th>
-        %end
-        <th></th>
-      </tr></thead>
-      %for item in content:
-        <tr>
-          %for field in item:
-            <td>
-              <label for="radio_{{item[0]}}">{{field}}</label>
-            </td>
-          %end
-          <td><input type="radio" name="id" id="radio_{{item[0]}}" value="{{item[0]}}"></td>
-        </tr>
-      %end
-      </table>
-    </div>
-    </form>
-    <form method="post" action="#" class="modal adminModal hide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       %if name == 'users':
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h3 id="myModalLabel">Пользователь</h3>
-        </div>
+      <!-- ko foreach: content -->
+      <a href="#" class="span4 thumbnail" style="margin-bottom:10px" data-bind="click: $root.editing">
+	      <div class="row">
+		      <div class="span1"><img src="/assets/img/user_male.png" alt=""></div>
+		      <div class="span3">
+			      <p data-bind="text: $data[1]"></p>
+                	<p><strong></strong></p>
+			      <!--span class=" badge badge-warning">8 messages</span> <span class=" badge badge-info">15 followers</span-->
+		      </div>
+	      </div>
+      </a>
+      <!-- /ko -->
+      <!-- ko ifnot: edit -->
+      <a href="#" class="span4 thumbnail" data-bind="click: $root.creating" style="text-decoration:none;text-align: center;height:70px">
+	      <span style="font-weight:bold;color:#ccc;font-size:100px;line-height:70px;font-family: Arial;">+</span>
+      </a>
+      <!-- /ko -->
+      %elif name == 'courses':
+      <!-- ko foreach: content -->
+      <div class="span4" data-bind="click: $root.editing">
+        <hr>
+	      <h4><a href="" data-bind="text: $data[1]"></a></h4>
+        <p data-bind="text: $data[2]"></p>
+			</div>
+      <!-- /ko -->
+      <!-- ko ifnot: edit -->
+      <a href="#" class="span4 thumbnail well" data-bind="click: $root.creating" style="text-decoration:none;text-align: center;height:100px">
+	      <span style="font-weight:bold;color:#ccc;font-size:100px;line-height:100px;font-family: Arial;">+</span>
+      </a>
+      <!-- /ko -->
+      %elif name == 'tasks':
+      <!-- ko foreach: content -->
+      <hr>
+      <!-- ko foreach: $data[1] -->
+      <div class="" data-bind="click: $root.editing">
+        <h4><a href="" data-bind="text: $data[0]"></a></h4>
+        <p data-bind="text: $data[3]"></p>
+			  
+      </div>
+      <!-- /ko -->
+      <!-- /ko -->
+      <!-- ko ifnot: edit -->
+        <a href="#" class="btn" data-bind="click: $root.creating">Добавить</a>
+      <!-- /ko -->
+      %elif name == 'guide':
+      <ul>
+      <!-- ko foreach: content -->
+        <li><a href="#" data-bind="click: $root.editing, text: $data[2]"></a></li>
+      <!-- /ko -->
+      </ul>
+      %end
+    </div>
+    <form method="post" action="#" data-bind="with: edit">
+      %if name == 'users':
         <div class="modal-body">
-          <input type="hidden" id="id" name="id" value="">
-          <input type="hidden" id="pass" name="pass" value="">
+          <input type="hidden" id="id" name="id" data-bind="value: $data[0]" />
+          <input type="hidden" id="pass" name="pass" data-bind="value: $data[2]" />
           <div class="control-group">
             <label class="control-label" for="login">Фамилия</label>
             <div class="controls">
-              <input type="text"  class="input-block-level" id="login" name="login">
+              <input type="text"  class="input-block-level" id="login" name="login" data-bind="value: $data[1]" />
             </div>
           </div>
           <div class="control-group" id="reset_cg">
@@ -63,100 +90,60 @@
               <input type="checkbox" id="reset_pass" name="reset_pass">
             </div>
           </div>
-          <script type="text/javascript">
-            $(function() {
-              $('#myEdit').unbind('click').click(function() {
-                $('#id').val($(':radio:checked').parent().parent().find("td:eq(0) label").text());
-                $('#login').val($(':radio:checked').parent().parent().find("td:eq(1) label").text());
-                $('#pass').val($(':radio:checked').parent().parent().find("td:eq(2) label").text());
-                $('#reset_cg').show();
-                $('#myModal').modal('show');
-                $('#login').focus();
-              });
-              $('#myAdd').unbind('click').click(function() {
-                $('#id').val("");
-                $('#login').val("");
-                $('#pass').val("");
-                $('#reset_cg').hide();
-                $('#myModal').modal('show');
-                $('#login').focus();
-              });
-              $('#reset_pass').unbind('click').click(function() {
-                if (this.checked){
-                    $('#pass').val("");
-                }
-                else {
-                    $('#pass').val($(':radio:checked').parent().parent().find("td:eq(2) label").text());
-                }
-                return true;
-              });
-            });
-          </script>
         </div>
-      %elif name == 'courses':
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h3 id="myModalLabel">Лабораторная работа</h3>
-        </div>
-        <div class="modal-body">
-          <input type="hidden" id="id" name="id" value="">
+      %elif name == 'guide':
+          <input type="hidden" id="id" name="id" data-bind="value: $data[0]">
+          <input type="hidden" id="id" name="uid" data-bind="value: $data[1]">
           <div class="control-group">
             <label class="control-label" for="title">Название</label>
             <div class="controls">
-              <input type="text" class="input-block-level" id="title" name="title">
+              <input type="text" class="input-block-level" id="title" name="name" data-bind="value: $data[2]">
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="descr">Описание</label>
+            <label class="control-label" for="content">Содержимое</label>
             <div class="controls">
-              <textarea rows="5" type="text" id="descr" name="descr"></textarea>
+              <textarea rows="5" id="content" name="content" data-bind="value: $data[3]"></textarea>
             </div>
           </div>
-          <script type="text/javascript">
-            $(function() {
-              $('#myEdit').unbind('click').click(function() {
-                $('#id').val($(':radio:checked').parent().parent().find("td:eq(0) label").text());
-                $('#title').val($(':radio:checked').parent().parent().find("td:eq(1) label").text());
-                $('#descr').val($(':radio:checked').parent().parent().find("td:eq(2) label").text());
-                $('#myModal').modal('show');
-                window.editor = $('#descr').cleditor({width:600});
-                $('#title').focus();
-              });
-              $('#myAdd').unbind('click').click(function() {
-                $('#id').val("");
-                $('#title').val("");
-                $('#descr').val("");
-                $('#myModal').modal('show');
-                window.editor = $('#descr').cleditor({width:600});
-                $('#title').focus();
-              });
-            });
-          </script>
-        </div>
+      %else:
+      %if name == 'courses':
+          <input type="hidden" id="id" name="id" data-bind="value: $data[0]">
+          <div class="control-group">
+            <label class="control-label" for="title">Название</label>
+            <div class="controls">
+              <input type="text" class="input-block-level" id="title" name="title" data-bind="value: $data[1]">
+            </div>
+          </div>
       %elif name == 'tasks':
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h3 id="myModalLabel">Задание</h3>
-        </div>
-        <div class="modal-body">
-          <input type="hidden" id="id" name="id" value="">
+          <input type="hidden" id="id" name="id" data-bind="value: $data[2]">
+          <input type="hidden" id="goal" name="goal" data-bind="value: $data[4]">
           <div class="control-group">
             <label class="control-label" for="title">Название</label>
             <div class="controls">
-              <input type="text" class="input-block-level" id="title" name="title">
+              <input type="text" class="input-block-level" id="title" name="title" data-bind="value: $data[0]">
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="cid">Связь с работой</label>
             <div class="controls">
               <!--input type="text" class="input-block-level" id="cid" name="cid"-->
-              <select data-placeholder="Выберите раздел..." class="span5 select" name="cid" id="cid" >
+              <select data-placeholder="Выберите раздел..." class="span5 select" name="cid" id="cid" data-bind="value: $data[5]">
               %for field in courses:
                 <option value="{{field[0]}}">{{field[1]}}</option>
               %end
               </select>
             </div>
           </div>
+          <div class="control-group">
+            <label class="control-label" for="goal">Ожидаемый результат</label>
+            <div class="controls">
+              <input type="hidden" id="goal" name="goal">
+              <input type="text" class="input-block-level" id="newgoal" name="newgoal">
+              <p class="help-block">Оставьте пустым чтобы сохранить текущее значение</p>
+            </div>
+          </div>
+      %end
           <div class="control-group">
             <label class="control-label" for="descr">Описание
             </label>
@@ -308,18 +295,10 @@
             
           </div>
           <div class="controls">
-              <textarea rows="5" type="text" id="descr" name="descr"></textarea>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="goal">Ожидаемый результат</label>
-            <div class="controls">
-              <input type="hidden" id="goal" name="goal">
-              <input type="text" class="input-block-level" id="newgoal" name="newgoal">
-              <p class="help-block">Оставьте пустым чтобы сохранить текущее значение</p>
-            </div>
+              <textarea rows="5" type="text" id="descr" name="descr" data-bind="value: $data[{{2 if name=='courses' else 3}}]"></textarea>
           </div>
           <script type="text/javascript">
-            $(function() {
+            function renew_editor() {
               $('#formula_t').change(function(){
                     $('#formula_i').attr("src", "http://latex.codecogs.com/gif.latex?"+$(this).val()); 
               });
@@ -329,37 +308,31 @@
               $('.ins2_form a').click(function(){
                     $('#formula_t').val($(this).attr('title')).change().focus();
               });
-              $('#myEdit').unbind('click').click(function() {
-                $('#id').val($(':radio:checked').parent().parent().find("td:eq(0) label").text());
-                $('#cid').val($(':radio:checked').parent().parent().find("td:eq(1) label").text());
-                $('#title').val($(':radio:checked').parent().parent().find("td:eq(2) label").text());
-                $('#descr').val($(':radio:checked').parent().parent().find("td:eq(3) label").text());
-                $('#goal').val($(':radio:checked').parent().parent().find("td:eq(4) label").text());
-                $('#newgoal').val("");
-                $('#myModal').modal('show');
-                window.editor = $('#descr').cleditor({width:600});
-                $('#title').focus();
-                
-              });
-              $('#myAdd').unbind('click').click(function() {
-                $('#id').val("");
-                $('#cid').val("");
-                $('#title').val("");
-                $('#descr').val("");
-                $('#goal').val("");
-                $('#myModal').modal('show');
-                window.editor = $('#descr').cleditor({width:600});
-                $('#title').focus();
-              });
-            });
+              window.editor = $('#descr').cleditor({width:600});
+            }
           </script>
-        </div>
       %end
       <div class="modal-footer">
         <button type="submit" name="action" value="save" class="btn btn-primary">Сохранить</button>
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Закрыть</button>
+        <button type="submit" name="action" value="delete" class="btn btn-danger">Удалить</button>
+        <button class="btn">Вернуться</button>
       </div>
     </form>
   </div>
+ </div>
 </div>
+<script>
+  function Admin() {
+    var self = this;
+    var content = {{!content}};
+    var name = '{{name}}';
+    self.content = ko.observable(content);
+    self.edit = ko.observable();
+    self.editing = function(user) { self.content([]);self.edit(user);renew_editor(); };
+    self.creating = function(user) { self.content([]);self.edit([]); renew_editor(); };
+    //self.listing = function(user) { self.content(content);self.edit(); };
+  }
+  ko.applyBindings(new Admin());
+</script>
+   
 %rebase layout title='Администрирование', path='', is_user=True, is_admin=True
