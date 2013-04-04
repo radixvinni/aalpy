@@ -22,33 +22,34 @@
     <div>
       %if name == 'users':
       <!-- ko foreach: content -->
-      <a class="span4 thumbnail" data-bind="click: $root.editing">
+      <a href="#" class="span4 thumbnail" style="margin-bottom:10px" data-bind="click: $root.editing">
 	      <div class="row">
 		      <div class="span1"><img src="/assets/img/user_male.png" alt=""></div>
 		      <div class="span3">
 			      <p data-bind="text: $data[1]"></p>
-                	<p><strong>First Last Name</strong></p>
+                	<p><strong></strong></p>
 			      <!--span class=" badge badge-warning">8 messages</span> <span class=" badge badge-info">15 followers</span-->
 		      </div>
 	      </div>
       </a>
       <!-- /ko -->
       <!-- ko ifnot: edit -->
-      <a class="span4 thumbnail" data-bind="click: $root.creating" style="text-decoration:none;text-align: center;height:70px">
+      <a href="#" class="span4 thumbnail" data-bind="click: $root.creating" style="text-decoration:none;text-align: center;height:70px">
 	      <span style="font-weight:bold;color:#ccc;font-size:100px;line-height:70px;font-family: Arial;">+</span>
       </a>
       <!-- /ko -->
       %elif name == 'courses':
       <!-- ko foreach: content -->
-      <div class="span8" data-bind="click: $root.editing">
+      <div class="span4" data-bind="click: $root.editing">
         <hr>
 	      <h4><a href="" data-bind="text: $data[1]"></a></h4>
         <p data-bind="text: $data[2]"></p>
-			  
-      </div>
+			</div>
       <!-- /ko -->
       <!-- ko ifnot: edit -->
-        <a class="btn" data-bind="click: $root.creating">Добавить</a>
+      <a href="#" class="span4 thumbnail well" data-bind="click: $root.creating" style="text-decoration:none;text-align: center;height:100px">
+	      <span style="font-weight:bold;color:#ccc;font-size:100px;line-height:100px;font-family: Arial;">+</span>
+      </a>
       <!-- /ko -->
       %elif name == 'tasks':
       <!-- ko foreach: content -->
@@ -62,12 +63,12 @@
       <!-- /ko -->
       <!-- /ko -->
       <!-- ko ifnot: edit -->
-        <a class="btn" data-bind="click: $root.creating">Добавить</a>
+        <a href="#" class="btn" data-bind="click: $root.creating">Добавить</a>
       <!-- /ko -->
       %elif name == 'guide':
       <ul>
       <!-- ko foreach: content -->
-        <li><a data-bind="click: $root.editing, text: $data[2]"></a></li>
+        <li><a href="#" data-bind="click: $root.editing, text: $data[2]"></a></li>
       <!-- /ko -->
       </ul>
       %end
@@ -116,6 +117,7 @@
           </div>
       %elif name == 'tasks':
           <input type="hidden" id="id" name="id" data-bind="value: $data[2]">
+          <input type="hidden" id="goal" name="goal" data-bind="value: $data[4]">
           <div class="control-group">
             <label class="control-label" for="title">Название</label>
             <div class="controls">
@@ -296,7 +298,7 @@
               <textarea rows="5" type="text" id="descr" name="descr" data-bind="value: $data[{{2 if name=='courses' else 3}}]"></textarea>
           </div>
           <script type="text/javascript">
-            $(function() {
+            function renew_editor() {
               $('#formula_t').change(function(){
                     $('#formula_i').attr("src", "http://latex.codecogs.com/gif.latex?"+$(this).val()); 
               });
@@ -306,8 +308,8 @@
               $('.ins2_form a').click(function(){
                     $('#formula_t').val($(this).attr('title')).change().focus();
               });
-              
-            });
+              window.editor = $('#descr').cleditor({width:600});
+            }
           </script>
       %end
       <div class="modal-footer">
@@ -326,9 +328,9 @@
     var name = '{{name}}';
     self.content = ko.observable(content);
     self.edit = ko.observable();
-    self.editing = function(user) { self.content([]);self.edit(user); window.editor = $('#descr').cleditor({width:600}); };
-    self.creating = function(user) { self.content([]);self.edit([]); window.editor = $('#descr').cleditor({width:600}); };
-    self.listing = function(user) { self.content(content);self.edit(); };
+    self.editing = function(user) { self.content([]);self.edit(user);renew_editor(); };
+    self.creating = function(user) { self.content([]);self.edit([]); renew_editor(); };
+    //self.listing = function(user) { self.content(content);self.edit(); };
   }
   ko.applyBindings(new Admin());
 </script>
