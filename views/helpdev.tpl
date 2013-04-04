@@ -6,8 +6,8 @@
       <li class="active"><a href="/help/dev">Для разработчиков AAL</a></li>
     </ul>
     <div class="row sidebar" id="pythonhelp">
-        <div class="span2">
-        <ul class="nav nav-list well affix visible-desktop">
+        <div class="span2 affix visible-desktop">
+        <ul class="nav nav-list well">
             <li class="nav-header">Разработка AAL</li>
             <li class="active">
             <a href="#build">Сборка</a>
@@ -20,7 +20,7 @@
             </li>
         </ul>
     </div>
-    <div class="span10" id="glossary-content">
+    <div class="span10 offset2" id="glossary-content">
       <h1>Инструкции по использованию и разработке библиотеки AAL</h1>
       <p>Это небольшое руководство должно по задумке автора поощрять пользователей самостоятельно разбираться с проблемами, возникающими при работе с библиотекой и по возможности их устронять.</p>
       <div class='section'>

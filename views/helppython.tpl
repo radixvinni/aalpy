@@ -8,8 +8,8 @@
       <li><a href="/help/dev">Для разработчиков AAL</a></li>
     </ul>
     <div class="row sidebar" id="pythonhelp">
-        <div class="span2">
-        <ul class="nav nav-list well affix visible-desktop">
+        <div class="span2 affix visible-desktop">
+        <ul class="nav nav-list well">
             <li class="nav-header">Язык Python</li>
             <li class="active">
             <a href="#lists">Списки</a>
@@ -64,7 +64,7 @@
             </li>
         </ul>
     </div>
-    <div class="span10" id="glossary-content">
+    <div class="span10 offset2" id="glossary-content">
         <h1>Глоссарий Python</h1>
         <p>Это справочное руководство делает общий обзор по языку программирования Python. Целью руководства не является полное ознакомление со всеми возможностями языка, а лишь дает новичкам в программировании на Python отправную точку для дальнейшей работы. Для более подробного изучения рекомендуем использовать <a href="http://docs.python.org/">официальную документацию</a>.</p>
         <div class='section'>

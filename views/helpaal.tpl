@@ -6,24 +6,24 @@
       <li><a href="/help/dev">Для разработчиков AAL</a></li>
     </ul>
     <div class="row sidebar" id="pythonhelp">
-        <div class="span2">
-        <ul class="nav nav-list well affix visible-desktop">
-            <li class="nav-header">Библиотека AAL</li>
-            <li class="active">
-              <a href="#integer">Класс Integer</a>
-            </li>
-            <li class="">
-              <a href="#decompositions">Разложения</a>
-            </li>
-            <li class="">
-              <a href="#polynom">Класс Polynom</a>
-            </li>
-            <li class="">
-              <a href="#elliptic">Эллиптические кривые</a>
-            </li>
-        </ul>
-    </div>
-    <div class="span10" id="glossary-content">
+      <div class="span2 affix visible-desktop">
+          <ul class="nav nav-list well">
+              <li class="nav-header">Библиотека AAL</li>
+              <li class="active">
+                <a href="#integer">Класс Integer</a>
+              </li>
+              <li class="">
+                <a href="#decompositions">Разложения</a>
+              </li>
+              <li class="">
+                <a href="#polynom">Класс Polynom</a>
+              </li>
+              <li class="">
+                <a href="#elliptic">Эллиптические кривые</a>
+              </li>
+          </ul>
+      </div>
+      <div class="span10 offset2" id="glossary-content">
         <h1>Руководство MPEI AAL</h1>
         <p>В этом руководстве рассмотрены основные классы библиотеки MPEI AAL.</p>
         <p>Для всех операций в библиотеке принята запись: <code>&lt;переменная-результат&gt;.&lt;операция&gt;(&lt;аргументы&gt;)</code>. Возможна цепочная запись, где одна операция следует за другой. Если операция имеет более одного результата(как в случае ExEuclid см. пример ниже), переменные передаются как параметры.</p>
