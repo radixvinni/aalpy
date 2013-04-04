@@ -33,7 +33,7 @@
     window.editor = ace.edit("editor");
     window.editor.setTheme("ace/theme/clouds");
     window.editor.getSession().setMode("ace/mode/python");
-    if($.cookie('saved')!=null) window.editor.setValue($.cookie('saved'));
+    if($.cookie('saved{{content[0][0]}}')!=null) window.editor.setValue($.cookie('saved{{content[0][0]}}'));
     window.editor.selection.clearSelection();
     $(function () {
         window.jqconsole = $('#console').jqconsole('', '>>>');
@@ -44,8 +44,8 @@
             $.post('/console/run', { cmd: input, type: "console" }, function(data) {
               window.jqconsole.Enable();
               window.jqconsole.Focus();
-              if(data==input)
-                $('.alert').show();
+              if(data==input && data != '')
+                $('.done').show();
               else
                 window.jqconsole.Write(data, 'jqconsole-output');
             });

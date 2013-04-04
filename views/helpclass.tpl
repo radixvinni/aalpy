@@ -1851,8 +1851,8 @@ Methods defined here:<br><dl>
 </dl>
 <dl>
 <dt>
-<a name="Integer-izGenerator"><strong>izGenerator</strong></a>(self, *args)</dt>
-<dd><tt><a href="#Integer-izGenerator">izGenerator</a>(<a href="#Integer">Integer</a> self, <a href="#Integer">Integer</a> groupModule, <a href="#Integer">Integer</a> num, <a href="#DecompositionMemberVector">DecompositionMemberVector</a> vector, <a href="#Integer">Integer</a> ord) -&gt; bool</tt></dd>
+<a name="Integer-isGenerator"><strong>isGenerator</strong></a>(self, *args)</dt>
+<dd><tt><a href="#Integer-isGenerator">isGenerator</a>(<a href="#Integer">Integer</a> self, <a href="#Integer">Integer</a> groupModule, <a href="#Integer">Integer</a> num, <a href="#DecompositionMemberVector">DecompositionMemberVector</a> vector, <a href="#Integer">Integer</a> ord) -&gt; bool</tt></dd>
 </dl>
 <dl>
 <dt>
@@ -4285,8 +4285,8 @@ Methods defined here:<br><dl>
 </dl>
 <dl>
 <dt>
-<a name="Polynom-izGenerator"><strong>izGenerator</strong></a>(self, *args)</dt>
-<dd><tt><a href="#Polynom-izGenerator">izGenerator</a>(<a href="#Polynom">Polynom</a> self, <a href="#Polynom">Polynom</a> groupModule, <a href="#Polynom">Polynom</a> polynom, <a href="#DecompositionMemberVector">DecompositionMemberVector</a> vector, <a href="#Integer">Integer</a> ord) -&gt; bool</tt></dd>
+<a name="Polynom-isGenerator"><strong>isGenerator</strong></a>(self, *args)</dt>
+<dd><tt><a href="#Polynom-isGenerator">isGenerator</a>(<a href="#Polynom">Polynom</a> self, <a href="#Polynom">Polynom</a> groupModule, <a href="#Polynom">Polynom</a> polynom, <a href="#DecompositionMemberVector">DecompositionMemberVector</a> vector, <a href="#Integer">Integer</a> ord) -&gt; bool</tt></dd>
 </dl>
 <dl>
 <dt>
@@ -4737,8 +4737,8 @@ Data and other attributes defined here:<br><dl>
 </dl>
 <dl>
 <dt>
-<a name="PolynomGF2_m_4-izGenerator"><strong>izGenerator</strong></a>(self, *args)</dt>
-<dd><tt><a href="#PolynomGF2_m_4-izGenerator">izGenerator</a>(<a href="#PolynomGF2_m_4">PolynomGF2_m_4</a> self, <a href="#Polynom">Polynom</a> groupModule, <a href="#PolynomGF2_m_4">PolynomGF2_m_4</a> polynom, <a href="#DecompositionMemberVector">DecompositionMemberVector</a> vector, <a href="#Integer">Integer</a> ord) -&gt; bool</tt></dd>
+<a name="PolynomGF2_m_4-isGenerator"><strong>isGenerator</strong></a>(self, *args)</dt>
+<dd><tt><a href="#PolynomGF2_m_4-isGenerator">isGenerator</a>(<a href="#PolynomGF2_m_4">PolynomGF2_m_4</a> self, <a href="#Polynom">Polynom</a> groupModule, <a href="#PolynomGF2_m_4">PolynomGF2_m_4</a> polynom, <a href="#DecompositionMemberVector">DecompositionMemberVector</a> vector, <a href="#Integer">Integer</a> ord) -&gt; bool</tt></dd>
 </dl>
 <dl>
 <dt>
@@ -5086,8 +5086,8 @@ Data and other attributes defined here:<br><dl>
 </dl>
 <dl>
 <dt>
-<a name="PolynomGF3-izGenerator"><strong>izGenerator</strong></a>(self, *args)</dt>
-<dd><tt><a href="#PolynomGF3-izGenerator">izGenerator</a>(<a href="#PolynomGF3">PolynomGF3</a> self, <a href="#PolynomGF3">PolynomGF3</a> groupModule, <a href="#PolynomGF3">PolynomGF3</a> polynom, <a href="#DecompositionMemberVector">DecompositionMemberVector</a> vector, <a href="#Integer">Integer</a> ord) -&gt; bool</tt></dd>
+<a name="PolynomGF3-isGenerator"><strong>isGenerator</strong></a>(self, *args)</dt>
+<dd><tt><a href="#PolynomGF3-isGenerator">isGenerator</a>(<a href="#PolynomGF3">PolynomGF3</a> self, <a href="#PolynomGF3">PolynomGF3</a> groupModule, <a href="#PolynomGF3">PolynomGF3</a> polynom, <a href="#DecompositionMemberVector">DecompositionMemberVector</a> vector, <a href="#Integer">Integer</a> ord) -&gt; bool</tt></dd>
 </dl>
 <dl>
 <dt>
