@@ -22,7 +22,7 @@
     <div>
       %if name == 'users':
       <!-- ko foreach: content -->
-      <a href="#" class="span4 thumbnail" style="margin-bottom:10px" data-bind="click: $root.editing">
+      <a href="#" class="span4 thumbnail userbox" data-bind="click: $root.editing">
 	      <div class="row">
 		      <div class="span1"><img src="/assets/img/user_male.png" alt=""></div>
 		      <div class="span3">
@@ -34,8 +34,8 @@
       </a>
       <!-- /ko -->
       <!-- ko ifnot: edit -->
-      <a href="#" class="span4 thumbnail" data-bind="click: $root.creating" style="text-decoration:none;text-align: center;height:70px">
-	      <span style="font-weight:bold;color:#ccc;font-size:100px;line-height:70px;font-family: Arial;">+</span>
+      <a href="#" class="span4 thumbnail user_add" data-bind="click: $root.creating">
+	      <span>+</span>
       </a>
       <!-- /ko -->
       %elif name == 'courses':
@@ -47,8 +47,8 @@
 			</div>
       <!-- /ko -->
       <!-- ko ifnot: edit -->
-      <a href="#" class="span4 thumbnail well" data-bind="click: $root.creating" style="text-decoration:none;text-align: center;height:100px">
-	      <span style="font-weight:bold;color:#ccc;font-size:100px;line-height:100px;font-family: Arial;">+</span>
+      <a href="#" class="span4 thumbnail well course_add" data-bind="click: $root.creating" >
+	      <span>+</span>
       </a>
       <!-- /ko -->
       %elif name == 'tasks':
