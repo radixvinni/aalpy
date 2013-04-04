@@ -129,12 +129,12 @@ v.toList()
           </div>
           <div class='section'>
               <h4>Пример</h4>
-              <pre class="prettyprint"><code>a = Polynom("111")
+              <pre class="prettyprint"><code>a = Polynom("1101001")
 b = Polynom("0 1 3 6",Dec)
 a.ToString()==b.ToString()
 #True</code></pre>
           </div>
-          <p>Класс содержит методы для работы в кольцах GF(2)[X], GF(2)[X]<sub>f(X)</sub> и в полях GF(2<sup>n</sup>), аналогичные методам в кольцах Z, Z<sub>n</sub> и в полях F<sub>p</sub>, обозначения методов либо совпадают, либо различаются суффиксом (InF2_n вместо InFp). Различие исполнения определяется по наименованиям классов операндов: <code>res.Add(a,b)</code>, <code>res.Sub(arg1,arg2)</code>, <code>res.Mul(a,b)</code>, <code>quotient.Div(a,b,remainder)</code>, <code>res.Pow(a,n)</code>, Взятие НОК <code>res.LCM(i, j)</code>, Взятие НОД <code>res.Euclid(i, j)</code>, алгоритм Евклида <code>gcd.BinaryGCD(i,j)</code>, расширенный алгоритм Евклида <code>gсd.ExEuclid(i,j,x,y)</code>; для работы в GF(2)[X]<sub>f(X)</sub> используются: <code>ModAdd</code>, <code>ModMul</code>, <code>ModDiv</code>, <code>ModPow</code>, для работы в поле GF(2<sup>n</sup>) используются функции <code>AddInGF2_n</code> и т.д.</p>
+          <p>Класс содержит методы для работы в кольцах GF(2)[X], GF(2)[X]<sub>f(X)</sub> и в полях GF(2<sup>n</sup>), аналогичные методам в кольцах Z, Z<sub>n</sub> и в полях F<sub>p</sub>, обозначения методов либо совпадают, либо различаются суффиксом (InF2_n вместо InFp). Различие исполнения определяется по наименованиям классов операндов: <code>res.Add(a,b)</code>, <code>res.Sub(arg1,arg2)</code>, <code>res.Mul(a,b)</code>, <code>quotient.Div(a,b,remainder)</code>, <code>res.Pow(a,n)</code>, Взятие НОД <code>res.Euclid(i, j)</code>; для работы в GF(2)[X]<sub>f(X)</sub> используются: <code>ModAdd</code>, <code>ModMul</code>, <code>ModDiv</code>, <code>ModPow</code>, для работы в поле GF(2<sup>n</sup>) используются функции <code>AddInGF2_n</code> и т.д.</p>
           <div class='section'>
               <h4>Пример</h4>
               <pre class="prettyprint"><code>a = Polynom("01")
