@@ -34,7 +34,7 @@
       </a>
       <!-- /ko -->
       <!-- ko ifnot: edit -->
-      <a href="#" class="span4 thumbnail user_add" data-bind="click: $root.creating">
+      <a href="#" class="span4 thumbnail user_add" data-bind="click: $root.creating" style="text-decoration:none">
 	      <span>+</span>
       </a>
       <!-- /ko -->
@@ -43,11 +43,11 @@
       <div class="span4" data-bind="click: $root.editing">
         <hr>
 	      <h4><a href="" data-bind="text: $data[1]"></a></h4>
-        <p data-bind="text: $data[2]"></p>
+        <p data-bind="html: $data[2]"></p>
 			</div>
       <!-- /ko -->
       <!-- ko ifnot: edit -->
-      <a href="#" class="span4 thumbnail well course_add" data-bind="click: $root.creating" >
+      <a href="#" class="span4 thumbnail well course_add" data-bind="click: $root.creating" style="text-decoration:none">
 	      <span>+</span>
       </a>
       <!-- /ko -->
@@ -57,7 +57,7 @@
       <!-- ko foreach: $data[1] -->
       <div class="" data-bind="click: $root.editing">
         <h4><a href="" data-bind="text: $data[0]"></a></h4>
-        <p data-bind="text: $data[3]"></p>
+        <p data-bind="html: $data[3]"></p>
 			  
       </div>
       <!-- /ko -->
