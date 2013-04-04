@@ -34,7 +34,7 @@
           <div class='section'>
             <p> Для класса используется числовой и строковый(для больших чисел) конструкторы. То есть числа можно передавать в  числовом формате(для чисел длиной до 32 бит) или в виде строк, например "127" или '127'. Доступны следующие операции:</p>
             <h3>Операции в кольце Z, не использующие разложение чисел</h3> 
-            <p>Взятие числа <code>res=Integer(127)</code>,<code>res=Integer("127")</code>, <code>res=Integer('127')</code>,отрицание <code>arg.Negate()</code>, сложение <code>res.Add(a,b)</code>, деление с остатком <code>quotient.Div(a,b,remainder)</code>, умножение <code>res.Mul(a,b)</code>, <!--деление <code>res.Div(a,b)</code>, операция сравнения: <code>a.Compare(b)</code> и--> вычитание <code>res.Sub(arg1,arg2)</code>, тест на простоту Миллера-Рабина <code>a.isPrime()</code>, взятие целой части квадратного корня <code>res.Sqrt(arg)</code>, возведение в степень <code>res.Pow(a,n)</code>, Взятие НОК <code>res.LCM(i, j)</code>, Взятие НОД <code>res.Euclid(i, j)</code> и линейное диофантово уравнение <em>ix+jy=z</em> <code>z.ExEuclid(i, j, x, y)</code>, Символ Лежандра <code>Integer.LegendreSymbol(arg1,arg2)</code>, символ Якоби <code>Integer.JacobySymbol(arg1,arg2)</code>, генерация вероятностно-простого числа длиной n двоичных символов <code>res.GeneratePrime(n)</code>. </p>
+            <p>Взятие числа <code>res=Integer(127)</code>,<code>res=Integer("127")</code>, <code>res=Integer('127')</code>,отрицание <code>arg.Negate()</code>, сложение <code>res.Add(a,b)</code>, деление с остатком <code>quotient.Div(a,b,remainder)</code>, умножение <code>res.Mul(a,b)</code>, <!--деление <code>res.Div(a,b)</code>, операция сравнения: <code>a.Compare(b)</code> и--> вычитание <code>res.Sub(arg1,arg2)</code>, тест на простоту Миллера-Рабина <code>a.isPrime()</code>, взятие целой части квадратного корня <code>res.Sqrt(arg)</code>, возведение в степень <code>res.Pow(a,n)</code>, Взятие НОК <code>res.LCM(i, j)</code>, Взятие НОД <code>res.Euclid(i, j)</code> и линейное диофантово уравнение <em>ix+jy=z</em> <code>z.ExEuclid(i, j, x, y)</code>, Символ Лежандра <code>Integer.LegendreSymbol(arg,prime)</code>, символ Якоби <code>Integer.JacobySymbol(arg,composite)</code>, генерация вероятностно-простого числа длиной n двоичных символов <code>res.GeneratePrime(n)</code>. </p>
             
             <div class='section'>
               <h4>Примеры</h4>
@@ -70,10 +70,10 @@ Integer().TestLukaLemera(Integer(4))
           <div class='section'>
             <p>Реализованы 2 способа получния разложения:</p>
             <ol>
-              <li><code>DecompositionManager.Instance().getDecomposition(Integer(1023),False)</code> – получить разложение числа 1023 из таблиц факторизации чисел b<sup>n</sup>-1, b=2,3,7, ... (кеннингемовского проекта).</li>
-              <li><code>FactorizationAlgorithms(Integer(84)).MsieveDecomposition()</code> – получить разложение числа 84 используя метод msieve(MIRACL).</li>
+              <li><code>res=DecompositionManager.Instance().getDecomposition(Integer(1023),False)</code> – получить разложение числа 1023 из таблиц факторизации чисел b<sup>n</sup>-1, b=2,3,7, ... (кеннингемовского проекта).</li>
+              <li><code>res=FactorizationAlgorithms(Integer(84)).MsieveDecomposition()</code> – получить разложение числа 84 используя метод <a href="http://www.boo.net/~jasonp/qs.html">msieve</a>. Рекомендуется использовать этот способ для всех чисел.</li>
             </ol>
-            <p>Результат в обоих случаях можно использовать в числовых и полиномиальных  алгоритмах, основанных на разложении. Через вызов <code>res.toList()</code> результат может представляется в как список python, состоящий из кортежей строк(строка-число и строка-степень).</p>
+            <p>Результат <code>res</code> в обоих случаях можно использовать в числовых и полиномиальных  алгоритмах, основанных на разложении. Через вызов <code>res.toList()</code> результат может представляется в как список python, состоящий из кортежей строк(строка-число и строка-степень).</p>
             <div class='section'>
               <h4>Пример разложения(84=2*2*3*7)</h4>
               <pre class="prettyprint"><code>a=FactorizationAlgorithms(Integer(84)).MsieveDecomposition().toList()
@@ -95,27 +95,29 @@ v.toList()
 #True</code></pre>
             <h3>Операции в кольце Z, использующие разложение чисел</h3>
             <ul>
-              <li><code>Integer().ModifiedTestLuka(decomposition,Integer(13))</code> - Тест простоты Люка</li>
-              <!--li><code>Integer().TestLukaLemera(Integer(4))</code> - Тест простоты Люка ─ Лемера(числа 2<sup>n</sup> - 1, аргумент - n)</li-->
-              <li><code>Integer().TestPoklingtona(decomposition,Integer(13))</code> - Тест простоты Поклингтона</li>
-              <li><code>res.GeneratePrime(Integer(12),decomposition)</code> - Генерация достоверно простого числа в Zn</li>
-              <li><code>a = Integer(12);a.Euler(d)</code> - Функция Эйлера</li>
+              <li><code>Integer().ModifiedTestLuka(decomposition,Integer(prime))</code> - Тест простоты Люка</li>
+              <!--li><code>Integer().TestLukaLemera(Integer(prime))</code> - Тест простоты Люка ─ Лемера(числа 2<sup>n</sup> - 1, аргумент - n)</li-->
+              <li><code>Integer().TestPoklingtona(decomposition,Integer(prime))</code> - Тест простоты Поклингтона</li>
+              <li><code>res.GeneratePrime(Integer(n),decomposition)</code> - Генерация достоверно простого числа в Z<sub>n</sub></li>
+              <li><code>a = Integer();a.Euler(decomposition)</code> - Функция Эйлера</li>
             </ul>
+            <p>Здесь <code>decomposition</code> ─ вектор разложения числа <code>prime-1</code>.</p>
             <h3>Операции в кольце Z<sub>n</sub>, не использующие разложение порядка мультипликативной группы.</h3>
             <p>Предварительно проверяется посредством НОД взаимная простота каждого аргумента и модуля n.</p>
             <p>Операции: сложение <code>res.ModAdd(arg1,arg2,n)</code>, вычитание <code>res.ModSub(arg1,arg2,n)</code> умножение <code>res.ModMul(arg1,arg2,n)</code>, деление <code>res.ModDiv(arg1,arg2,n)</code>, возведение в степень <code>res.ModPow(arg1,arg2,n)</code>, обращение <code>res.Inverse(arg,n)</code></p>
             <h3>Операции в кольце Z<sub>n</sub>, использующие разложение порядка мультипликативной группы.</h3>
             <p>Предварительно проверяется посредством НОД взаимная простота аргумента и модуля n.</p>
-            <h4>Пример. Порядок группы вычисляется по разложению &#966;(n), &#966;(n) вычисляется по разложению n</h4>
-            <h4>Пример. Тест образующего элемента группы Zn*  вычисляется по разложению &#966;(n), &#966;(n) вычисляется по разложению n</h4>
+            <h4>Примечание. Порядок группы вычисляется по разложению &#966;(n), &#966;(n) вычисляется по разложению n</h4>
+            <!--h4>Пример. Тест образующего элемента группы Zn*  вычисляется по разложению &#966;(n), &#966;(n) вычисляется по разложению n</h4-->
             <h3>Операции в кольце F<sub>p</sub>, не использующие разложение порядка мультипликативной группы.</h3>
             <p>Предварительно проверяется посредством НОД взаимная простота каждого аргумента и модуля p.</p>
             <p>Операции: сложение <code>res.ModAddInFp(arg1,arg2,n)</code>, вычитание <code>res.SubInFp(arg1,arg2,n)</code> умножение <code>res.MulInFp(arg1,arg2,n)</code>, деление <code>res.DivInFp(arg1,arg2,n)</code>, возведение в степень <code>res.PowInFp(arg1,arg2,n)</code>, обращение <code>res.InverseInFp(arg,n)</code></p>
             <h3>Операции в кольце F<sub>p</sub>, использующие разложение порядка мультипликативной группы.</h3>
             <p>Предварительно проверяется посредством НОД взаимная простота каждого аргумента и модуля p.</p>
-            <h4>Пример. Порядок группы вычисляется  по разложению p─1</h4>
-            <h4>Пример. Тест образующего элемента группы Fp* вычисляется по разложению p─1</h4>
-
+            <h4>Пример. Порядок элемента и тест образующего элемента группы F<sub>p</sub>* или Z<sub>n</sub>* вычисляются соответственно по разложению p─1 или &#966;(n)</h4>
+            <p>Порядок элемента <code>res.elementOrder(module,element,vector,grouporder)</code>.</p>
+            <p>Тест образующего элемента <code>element.isGenerator(module,vector)</code>.</p>
+            <p>Здесь <code>vector</code> есть разложение <code>p─1</code>.</p>
           </div>
         </div>
         <div class='section'>
@@ -132,7 +134,27 @@ b = Polynom("0 1 3 6",Dec)
 a.ToString()==b.ToString()
 #True</code></pre>
           </div>
-          <p>Класс содержит методы для работы в в поле многочленов GF(2)[X]: <code>Add</code>, <code>Mul</code>, <code>Div</code>, <code>Pow</code>; для работы в поле с приведением по модулю используются функции <code>ModAdd</code>, <code>ModMul</code>, <code>ModDiv</code>, <code>ModPow</code>, для работы в поле GF(2<sup>n</sup>) используются функции с  <code>InGF2_n</code> на конце, например <code>AddInGF2_n</code> и т.д. Подобным образом устроены классы <code>PolynomGF3</code> и <code>PolynomGF7</code>.</p>
+          <p>Класс содержит методы для работы в кольцах GF(2)[X], GF(2)[X]<sub>f(X)</sub> и в полях GF(2<sup>n</sup>), аналогичные методам в кольцах Z, Z<sub>n</sub> и в полях F<sub>p</sub>, обозначения методов либо совпадают, либо различаются суффиксом (InF2_n вместо InFp). Различие исполнения определяется по наименованиям классов операндов: <code>res.Add(a,b)</code>, <code>res.Sub(arg1,arg2)</code>, <code>res.Mul(a,b)</code>, <code>quotient.Div(a,b,remainder)</code>, <code>res.Pow(a,n)</code>, Взятие НОК <code>res.LCM(i, j)</code>, Взятие НОД <code>res.Euclid(i, j)</code>, алгоритм Евклида <code>gcd.BinaryGCD(i,j)</code>, расширенный алгоритм Евклида <code>gсd.ExEuclid(i,j,x,y)</code>; для работы в GF(2)[X]<sub>f(X)</sub> используются: <code>ModAdd</code>, <code>ModMul</code>, <code>ModDiv</code>, <code>ModPow</code>, для работы в поле GF(2<sup>n</sup>) используются функции <code>AddInGF2_n</code> и т.д.</p>
+          <div class='section'>
+              <h4>Пример</h4>
+              <pre class="prettyprint"><code>a = Polynom("01")
+a
+#AAL.Polynom(01)
+a.Pow(a,Integer(5))
+#AAL.Polynom(000001)</code></pre>
+          </div>
+          <p>В методе определения порядка элемента последним аргументом является порядок поля, а не порядок группы. Метод тестирования образующего элемента имеет 5 аргументов: <code>element.izGenerator(module, element, vector, field_order)</code>.</p>
+          <p>При генерации многочленов указываются через запятые наименьший вес, наибольший возможный вес и степень многочлена, при тестировании указывается только имя многочлена, например,</p>
+          <pre class="prettyprint"><code>a=Polynom()
+a.GenerateNormal(3, 5, 15)
+#AAL.Polynom(1000000000000011)
+a.GenerateIrreducible(3,3,15)
+#AAL.Polynom(1100000000000001)
+a.isIrreducible()
+#True
+a.isPrimitivity()
+#True</code></pre>
+        <p>Работа в классах <code>PolynomGF3</code> и <code>PolynomGF7</code> происходит аналогично.</p>
         </div>
         <div class='section'>
           <div class='page-header'>
