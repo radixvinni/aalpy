@@ -470,5 +470,6 @@ def modify(name='users'):
 def send_static(filename):
     return static_file(filename, root='assets')
 
+debug(True)
 init()
 run(host='0.0.0.0',port=8080,reloader=True,server='cherrypy')

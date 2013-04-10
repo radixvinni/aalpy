@@ -60,7 +60,9 @@
             <a href="#while_loop">Цикл While</a>
             </li>
             <li class="">
-            <a href="#str_func">Финкция str()</a>
+            <a href="#str_func">Функция str()</a>
+            </li>
+            <a href="#arithm">Математические функции</a>
             </li>
         </ul>
     </div>
@@ -326,8 +328,19 @@
         </div>
         </div>
 
-
-            </div>
+        </div>
+        <div class='section'>
+        <div class='page-header'>
+        <h2 id='arithm'>Математические функции</h2>
+        </div>
+        <div class='section'>
+        <p>
+        Арифметика очень похожа на арифметику C. Операции, включающие два целых числа производят целое число; операции, включающие вещественные числа производят вещественные числа. Встроенные числовые функции включают в основном приведения типов и систем счисления: <code>abs, cmp, coerce, float, hex, int, long, max, min, oct, pow, round</code> и <code>divmod</code>-деление с остатком. Так же доступны тригонометрические и гиперболические тригонометрические функции и нескольких полезных констант из модуля <code>math(cmath)</code>. Описание модуля есть в <a href="http://ru.wikiversity.org/wiki/%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_%D0%B8_%D0%BD%D0%B0%D1%83%D1%87%D0%BD%D1%8B%D0%B5_%D0%B2%D1%8B%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F_%D0%BD%D0%B0_%D1%8F%D0%B7%D1%8B%D0%BA%D0%B5_Python/%C2%A72/%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5">викиучебнике</a>. 
+        </p>
+        </div>
+        </div>
+        
+        
         </div>
     </div>
     
