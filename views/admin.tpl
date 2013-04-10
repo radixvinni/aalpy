@@ -52,6 +52,9 @@
       </a>
       <!-- /ko -->
       %elif name == 'tasks':
+      <!-- ko ifnot: edit -->
+        <a href="#" class="btn" data-bind="click: $root.creating">Добавить</a>
+      <!-- /ko -->
       <!-- ko foreach: content -->
       <hr>
       <!-- ko foreach: $data[1] -->
@@ -61,9 +64,6 @@
 			  
       </div>
       <!-- /ko -->
-      <!-- /ko -->
-      <!-- ko ifnot: edit -->
-        <a href="#" class="btn" data-bind="click: $root.creating">Добавить</a>
       <!-- /ko -->
       %elif name == 'guide':
       <ul>
