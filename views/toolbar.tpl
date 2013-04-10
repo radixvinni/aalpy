@@ -48,10 +48,12 @@
 </div>
 <div class="btn-group">
   <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#">
-    EC(GF(3<sup>n</sup>))
+    EC(GF(p))
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu">
+    <li><a href="#" rel="tooltip" data-placement="left" onclick="window.editor.insert('.EllipticCurve()');window.editor.selection.moveCursorLeft();window.editor.focus()" data-original-title="<strong>Уравненине: Y<sup>2</sup> = X<sup>2</sup> + <em>a</em>X + <em>b</em></strong><br/>Аргументы: модуль p, коэффициенты а, b">Создание</a></li>
+    <li><a href="#" rel="tooltip" data-placement="left" onclick="window.editor.insert('.getOrder()');window.editor.selection.moveCursorLeft();window.editor.focus()" data-original-title="Определение порядка через функции MIRACL">Порядок кривой</a></li>
     <li><a href="#" rel="tooltip" data-placement="left" onclick="window.editor.insert('.Add()');window.editor.selection.moveCursorLeft();window.editor.focus()" data-original-title="(X3,Y3)=(X1,Y1)+(X2,Y2) <br/>Допустимые значения: X1,Y1,X2,Y2 в EC(GF(p))">Сложение</a></li>
     <li><a href="#" rel="tooltip" data-placement="left" onclick="window.editor.insert('.Double()');window.editor.selection.moveCursorLeft();window.editor.focus()" data-original-title="(X3,Y3)=2*(X1,Y1) <br/>Допустимые значения: X1,Y1 в EC(GF(p))">Удвоение</a></li>
     <li><a href="#" rel="tooltip" data-placement="left" onclick="window.editor.insert('.Mul()');window.editor.selection.moveCursorLeft();window.editor.focus()" data-original-title="(X3,Y3)=K*(X1,Y1) <br/>Допустимые значения: X1,Y1 в EC(GF(p))">Умножение на константу</a></li>
@@ -66,6 +68,7 @@
   <ul class="dropdown-menu">
     <li><a href="#" rel="tooltip" data-placement="left" data-original-title="<strong>Уравненине: Y<sup>2</sup> + X Y = X<sup>3</sup> + <em>a</em> X<sup>2</sup> + <em>b</em></strong><br/>Аргументы: модуль m, коэффициенты а, b" onclick="window.editor.insert('NonSuperSingularEllipticCurve()');window.editor.selection.moveCursorLeft();window.editor.focus()">Создание несуперсингулярной кривой</a></li>
     <li><a href="#" rel="tooltip" data-placement="left" data-original-title="<strong>Уравненине: Y<sup>2</sup> + <em>a</em> Y = X<sup>3</sup> + <em>b</em> X + <em>c</em></strong><br/>Аргументы: модуль m, коэффициенты а, b, c" onclick="window.editor.insert('SuperSingularEllipticCurve()');window.editor.selection.moveCursorLeft();window.editor.focus()">Создание суперсингулярной кривой</a></li>
+    <li><a href="#" rel="tooltip" data-placement="left" onclick="window.editor.insert('.getOrder()');window.editor.selection.moveCursorLeft();window.editor.focus()" data-original-title="Определение порядка через функции MIRACL">Порядок кривой</a></li>
     <li><a href="#" rel="tooltip" data-placement="left" data-original-title="<strong>Создание точки эллиптической кривой</strong><br/>Аргументы: кривая" onclick="window.editor.insert('NonSuperSingularEllipticPoint()');window.editor.selection.moveCursorLeft();window.editor.focus()">Создание точки несуперсингулярной кривой</a></li>
     <li><a href="#" rel="tooltip" data-placement="left" data-original-title="<strong>Создание точки эллиптической кривой</strong><br/>Аргументы: кривая" onclick="window.editor.insert('SuperSingularEllipticPoint()');window.editor.selection.moveCursorLeft();window.editor.focus()">Создание точки суперсингулярной кривой</a></li>
     <li><a href="#" onclick="window.editor.insert('.Add()');window.editor.selection.moveCursorLeft();window.editor.focus()" rel="tooltip" data-placement="left" data-original-title="(X3,Y3)=(X1,Y1)+(X2,Y3) <br/>Допустимые значения: X1,Y1,X2,Y2 в EC(GF(2<sup>n</sup>))">Сложение</a></li>
@@ -82,6 +85,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu">
+    <li><a href="#" rel="tooltip" data-placement="left" onclick="window.editor.insert('.getOrder()');window.editor.selection.moveCursorLeft();window.editor.focus()" data-original-title="Определение порядка через функции MIRACL">Порядок кривой</a></li>
     <li><a href="#" onclick="window.editor.insert('.Add()');window.editor.selection.moveCursorLeft();window.editor.focus()" rel="tooltip" data-placement="left" data-original-title="(X3,Y3)=(X1,Y1)+(X2,Y2);  <br/>Допустимые значения: Модуль-неприводимый<br/> многочлен нечетной степени n; A2, A4, A6, <br/>X1, X2, Y1, Y2 из GF(3<sup>n</sup>); (X1,Y1),(X2,Y2) из EC(GF(3<sup>n</sup>))">Сложение</a></li>
     <li><a href="#" onclick="window.editor.insert('.Double()');window.editor.selection.moveCursorLeft();window.editor.focus()" rel="tooltip" data-placement="left" data-original-title="(X3,Y3)=2*(X1,Y1); <br/>Допустимые значения: Модуль-неприводимый<br/> многочлен нечетной степени n; A2, A4, A6, <br/>X1, Y1 из GF(3<sup>n</sup>);(X1,Y1) из EC(GF(3<sup>n</sup>))">Удвоение</a></li>
     <li><a href="#" onclick="window.editor.insert('.Mul()');window.editor.selection.moveCursorLeft();window.editor.focus()" rel="tooltip" data-placement="left" data-original-title="(X3,Y3)=K*(X1,Y1); <br/>Допустимые значения: Модуль -неприводимый <br/>многочлен нечетной степени n; A2, A4, A6, <br/>X1, Y1 из GF(3<sup>n</sup>); K-число; (X1,Y1) из EC(GF(3<sup>n</sup>))">Умножение на константу</a></li>
