@@ -15,8 +15,6 @@
       <xsl:apply-templates select="//table[tr/@bgcolor = '#ffc8d8']"/>
     </div>
 </div>
-
-%rebase layout title='Справка по Алгебраическому процессору МЭИ', path='/help', is_user=True, is_admin=False
 </xsl:template>
   
   <xsl:template match="table">
