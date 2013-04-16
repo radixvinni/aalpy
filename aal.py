@@ -65,10 +65,10 @@ class Session(InteractiveConsole):
     def return_output(self):
         sys.stdout = self.stdout
         sys.stderr = self.stderr
-    def push(self,line):
+    def push(self,line, mode='single', name='auto'):
         self.last_op = datetime.now()
         self.accept_output()
-        ret = InteractiveConsole.push(self,line)
+        ret = InteractiveConsole.runsource(self,line,'<'+name+'>',mode)
         self.return_output()
         return ret
     def get_output(self,cmd):
@@ -386,12 +386,13 @@ def output():
 @post('/console/run')
 def run_prog():
     cmd = request.forms.get('cmd')
+    typ = request.forms.get('type')
     sid = request.get_cookie("session")
     try:
         lock.acquire()
         if sid in sessions: 
             lock.release()
-            for line in cmd.split('\n'): sessions[sid].push(line)
+            sessions[sid].push(cmd, 'single' if typ=='console' else 'exec', typ)
             res = sessions[sid].get_output(cmd)
             save('history', (None, sessions[sid].uid, int(time.time()), cmd, res))
             return res
