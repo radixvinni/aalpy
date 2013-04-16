@@ -288,7 +288,6 @@ def guide_record():
 #@ajax
 @post('/guide/save')
 def guide_save():
-    request.MEMFILE_MAX = 1024000
     sid=request.get_cookie("session")
     if sid not in sessions or sessions[sid].name != 'admin': return '<div class="alert alert-error"><strong>О нет!</strong>Ваша сессия закончилась не вовремя. Попробуйте войти в новой вкладке и сохранить еще раз.</div>'
     deltas=request.forms.get('content')
@@ -470,6 +469,6 @@ def modify(name='users'):
 def send_static(filename):
     return static_file(filename, root='assets')
 
-debug(True)
+Request.MEMFILE_MAX = 1024000
 init()
 run(host='0.0.0.0',port=8080,reloader=True,server='cherrypy')
