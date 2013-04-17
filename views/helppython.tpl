@@ -296,6 +296,9 @@
         <h4>Пример</h4>
         <pre class="prettyprint"><code>>> for i in range(0, 3):&#x000A;>>     print(i*2)&#x000A;0&#x000A;2&#x000A;4&#x000A;&#x000A;>> m_list = ["Sir", "Lancelot", "Coconuts"]&#x000A;>> for item in m_list:&#x000A;>>     print(item)&#x000A;Sir&#x000A;Lancelot&#x000A;Coconuts&#x000A;&#x000A;>> w_string = "Swift"&#x000A;>> for letter in w_string:&#x000A;>>     print(letter)&#x000A;S&#x000A;w&#x000A;i&#x000A;f&#x000A;t</code></pre>
         </div>
+        <p>
+        Блоки кода (функции, инструкций if, for и др.) определяются отступами. Увеличение отступа обозначает начало блока и уменьшение — его конец. Никакие дополнительные скобки или ключевые слова для этих целей не используются. Таким образом отступы являются значимыми и должны быть согласованными.
+        </p>
         </div>
 
         </div>

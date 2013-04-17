@@ -34,7 +34,7 @@
           <div class='section'>
             <p> Для класса используется числовой и строковый(для больших чисел) конструкторы. То есть числа можно передавать в  числовом формате(для чисел длиной до 32 бит) или в виде строк, например "127" или '127'. Доступны следующие операции:</p>
             <h3>Операции в кольце Z, не использующие разложение чисел</h3> 
-            <p>Взятие числа <code>res=Integer(127)</code>,<code>res=Integer("127")</code>, <code>res=Integer('127')</code>,отрицание <code>arg.Negate()</code>, сложение <code>res.Add(a,b)</code>, деление с остатком <code>quotient.Div(a,b,remainder)</code>, умножение <code>res.Mul(a,b)</code>, <!--деление <code>res.Div(a,b)</code>, операция сравнения: <code>a.Compare(b)</code> и--> вычитание <code>res.Sub(arg1,arg2)</code>, тест на простоту Миллера-Рабина <code>a.isPrime()</code>, взятие целой части квадратного корня <code>res.Sqrt(arg)</code>, возведение в степень <code>res.Pow(a,n)</code>, Взятие НОК <code>res.LCM(i, j)</code>, Взятие НОД <code>res.Euclid(i, j)</code> и линейное диофантово уравнение <em>ix+jy=z</em> <code>z.ExEuclid(i, j, x, y)</code>, Символ Лежандра <code>Integer.LegendreSymbol(arg,prime)</code>, символ Якоби <code>Integer.JacobySymbol(arg,composite)</code>, генерация вероятностно-простого числа длиной n двоичных символов <code>res.GeneratePrime(n)</code>. </p>
+            <p>Взятие числа <code>res=Integer(127)</code>,<code>res=Integer("127")</code>, <code>res=Integer('127')</code>,отрицание <code>arg.Negate()</code>, сложение <code>res.Add(a,b)</code>, деление с остатком <code>quotient.Div(a,b,remainder)</code>, умножение <code>res.Mul(a,b)</code>, <!--деление <code>res.Div(a,b)</code>, операция сравнения: <code>a.Compare(b)</code> и--> вычитание <code>res.Sub(arg1,arg2)</code>, тест на простоту Миллера-Рабина <code>a.isPrime()</code>, взятие целой части квадратного корня <code>res.Sqrt(arg)</code>, возведение в степень <code>res.Pow(a,n)</code>, Взятие НОК <code>res.LCM(i, j)</code>, Взятие НОД <code>res.Euclid(i, j)</code> и линейное диофантово уравнение <em>ix+jy=z</em> <code>z.ExEuclid(i, j, x, y)</code>, Символ Лежандра <code>Integer.LegendreSymbol(arg,prime)</code>, символ Якоби <code>Integer.JacobySymbol(arg,composite)</code>, генерация вероятностно-простого числа длиной n двоичных символов <code>res.GeneratePrime(n)</code>(n - обычное число, не Integer). </p>
             
             <div class='section'>
               <h4>Примеры</h4>
@@ -115,7 +115,7 @@ v.toList()
             <h3>Операции в кольце F<sub>p</sub>, использующие разложение порядка мультипликативной группы.</h3>
             <p>Предварительно проверяется посредством НОД взаимная простота каждого аргумента и модуля p.</p>
             <h4>Пример. Порядок элемента и тест образующего элемента группы F<sub>p</sub>* или Z<sub>n</sub>* вычисляются соответственно по разложению p─1 или &#966;(n)</h4>
-            <p>Порядок элемента <code>res.elementOrder(module,element,vector,grouporder)</code>.</p>
+            <p>Порядок элемента <code>Integer().elementOrder(module,element,vector,grouporder)</code>.</p>
             <p>Тест образующего элемента <code>element.isGenerator(module,vector)</code>.</p>
             <p>Здесь <code>vector</code> есть разложение <code>p─1</code>.</p>
           </div>
@@ -143,7 +143,7 @@ a
 a.Pow(a,Integer(5))
 #AAL.Polynom(000001)</code></pre>
           </div>
-          <p>В методе определения порядка элемента последним аргументом является порядок поля, а не порядок группы. Метод тестирования образующего элемента имеет 5 аргументов: <code>element.isGenerator(module, element, vector, field_order)</code>.</p>
+          <p>В методе определения порядка элемента последним аргументом является порядок поля, а не порядок группы. Метод тестирования образующего элемента имеет 5 аргументов: <code>Polynom().isGenerator(module, element, vector, field_order)</code>.</p>
           <p>При генерации многочленов указываются через запятые наименьший вес, наибольший возможный вес и степень многочлена, при тестировании указывается только имя многочлена, например,</p>
           <pre class="prettyprint"><code>a=Polynom()
 a.GenerateNormal(3, 5, 15)
