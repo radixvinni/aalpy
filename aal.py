@@ -471,6 +471,11 @@ def modify(name='users'):
 def send_static(filename):
     return static_file(filename, root='assets')
 
+@error(404)
+@error(500)
+def mistake(error):
+    return static_file('error.html', root='views')
+
 Request.MEMFILE_MAX = 1024000
 init()
 run(host='0.0.0.0',port=8080,reloader=True,server='cherrypy')
