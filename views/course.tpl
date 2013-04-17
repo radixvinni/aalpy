@@ -74,10 +74,14 @@
                 window.jqconsole.Write(data, 'jqconsole-output');
       });
     }
-</script>
-
-<script>
-  $(function() {$('.indicator .bar').tooltip().click(function(){location.replace($(this).attr('href'));});});
+  $(function() {
+    $('.indicator .bar').tooltip().click(function(){location.replace($(this).attr('href'));});
+    $("a[href $= py]").click(function(){
+      window.editor.setValue($.ajax({url:$(this).attr('href'),async:false}).responseText);
+      window.editor.selection.clearSelection();
+      return false;
+    });
+  });
 </script>
 
 %rebase layout title='', path='/', is_user=True, is_admin=False
