@@ -77,7 +77,7 @@
   $(function() {
     $('.indicator .bar').tooltip().click(function(){location.replace($(this).attr('href'));});
     $("a[href $= py]").click(function(){
-      window.editor.setValue($.ajax({url:$(this).attr('href'),async:false}).responseText);
+      window.editor.setValue($.ajax({url:encodeURI($(this).attr('href')),async:false}).responseText);
       window.editor.selection.clearSelection();
       return false;
     });
