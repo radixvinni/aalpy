@@ -9,11 +9,18 @@
       
     </div>
     <div class="span5">
-      <div id="console" class="worksheet-console"></div>
+      <div id="console" class="worksheet-console" data-toggle="context" data-target=".context-menu"></div>
+      <div class="context-menu">
+      <ul class="dropdown-menu" role="menu">
+        <li><a tabindex="1" href="#" onclick="$('.jqconsole-old-prompt, .jqconsole-output').html(''); return false;">Очистить консоль</a></li>
+        <li><a tabindex="2" href="#" onclick="return open_win();">Показать вывод</a></li>
+      </ul>
+      </div>
     </div>
   </div>
 </div>
 <script src="/assets/js/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="/assets/js/bootstrap-contextmenu.js" type="text/javascript" charset="utf-8"></script>
 <script src="/assets/js/jqconsole.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/assets/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -45,8 +52,15 @@
         };
         startPrompt();
     });
+    function open_win()
+    {
+      dow=window.open('');
+      dow.document.write("<pre>"+$('.jqconsole-old-prompt, .jqconsole-output').text()+"</pre>");
+      dow.document.write("<button onclick='window.close()'>Закрыть</button>");
+      dow.focus();
+    }
     function run() {
-      $.cookie('saved', window.editor.getValue());
+      $.cookie('saved_ws', window.editor.getValue());
       window.jqconsole.Disable();
       $.post('/console/run', { cmd: window.editor.getValue()+'\n', type: "program" }, function(data) {
               window.jqconsole.Write(data, 'jqconsole-output');

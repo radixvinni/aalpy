@@ -22,11 +22,18 @@
         <strong>Ура!</strong> Задание выполнено. <a href="#" onclick="location.reload()">Идём дальше</a>  
       </div> 
       <button class="btn btn-success btn-block" type="button" onclick="return run();">Поехали</button>
-      <div id="console"></div>
+      <div id="console" data-toggle="context" data-target=".context-menu"></div>
+      <div class="context-menu">
+      <ul class="dropdown-menu" role="menu">
+        <li><a tabindex="1" href="#" onclick="$('.jqconsole-old-prompt, .jqconsole-output').html(''); return false;">Очистить консоль</a></li>
+        <li><a tabindex="2" href="#" onclick="return open_win();">Показать вывод</a></li>
+      </ul>
+      </div>
     </div>
   </div>
 </div>
 <script src="/assets/js/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="/assets/js/bootstrap-contextmenu.js" type="text/javascript" charset="utf-8"></script>
 <script src="/assets/js/jqconsole.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/assets/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -35,10 +42,7 @@
     window.editor.getSession().setMode("ace/mode/python");
     if($.cookie('saved{{content[0][0]}}')!=null) window.editor.setValue($.cookie('saved{{content[0][0]}}'));
     window.editor.selection.clearSelection();
-    $(function () {
-        window.jqconsole = $('#console').jqconsole('', '>>>');
-        window.jqconsole.SetIndentWidth(1);  
-        var startPrompt = function () {
+    function startPrompt () {
           window.jqconsole.Prompt(true, function (input) {
             window.jqconsole.Disable();
             $.post('/console/run', { cmd: input, type: "console" }, function(data) {
@@ -59,10 +63,20 @@
             return false;
           });
         };
+    $(function () {
+        window.jqconsole = $('#console').jqconsole('', '>>>');
+        window.jqconsole.SetIndentWidth(1);  
         startPrompt();
     });
+    function open_win()
+    {
+      dow=window.open('');
+      dow.document.write("<pre>"+$('.jqconsole-old-prompt, .jqconsole-output').text()+"</pre>");
+      dow.document.write("<button onclick='window.close()'>Закрыть</button>");
+      dow.focus();
+    }
     function run() {
-      $.cookie('saved', window.editor.getValue());
+      $.cookie('saved{{content[0][0]}}', window.editor.getValue());
       window.jqconsole.Disable();
       $.post('/console/run', { cmd: window.editor.getValue()+'\n', type: "program" }, function(data) {
               window.jqconsole.Enable();
