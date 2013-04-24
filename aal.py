@@ -53,6 +53,7 @@ class Session(InteractiveConsole):
         self.push("from AAL import *");
         self.push("from math import *");
         self.push("from fractions import *");
+        self.push("import share");
         self.push("__builtins__ = __builtins__.copy()");
         self.push("for k in ['reload', 'execfile', 'file', 'open', '__import__']: __builtins__.pop(k) and None");
         self.push("");
