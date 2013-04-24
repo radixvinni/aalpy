@@ -177,7 +177,7 @@ def get_course(cid=None, tid=None):
     #content - данные по найденому курсу cid или всем курсам, если cid==None + всего заданий
     cur.execute('SELECT cid, courses.title, courses.descr, 100.0/COUNT(cid) as count FROM courses INNER JOIN tasks ON cid=courses.id '+(cid or '')+' GROUP BY cid')
     content=cur.fetchall()
-    if not content: return dict(content=[])
+    if not content: return dict(content=[], tasks={})
     ret = dict(content=content)
     tasks = dict()
     cmpl = dict()
