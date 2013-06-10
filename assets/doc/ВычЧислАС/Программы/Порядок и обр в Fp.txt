@@ -1,0 +1,37 @@
+print "Программа вычисления порядка элемента и тестирования" 
+print" образующего элемента мультипликативной группы простого поля"
+p=Integer()
+d=Integer()
+lp=Integer(15)
+print "ВХОД: длина lp в двоичн. символах характеристики p простого поля", lp 
+print "ВХОД:случайный элемент d группы F_p* "
+print "ВЫХОД: порядоки элемента d и c=d^2, и значения высказывания, "
+print " что d есть образующий элемент "
+print " и высказывания, что c есть образующий элемент "
+p.GeneratePrime(int(lp.ToString()))
+order=Integer()
+print "Возьмем случайное простое число p длиной lp дв. символов p=", p
+print "вычислим порядок order мультипликативной группы F_p* order=", order.Sub(p,Integer(1))
+d=Integer()
+#a.GeneratePrime(int(la.ToString()))
+print "Возьмем случайный элемент d поля F_p d=", d.Generate(p)
+#d.ModAddInFp(a,Integer(0), p )
+#print "прибавление к числу a нуля группы, получим случайный элемент в этой группы d=", d
+c=Integer()
+c.MulInFp(d,d,p)
+print "Вычислим квадрат с этого элемента d в гуппе: c=d^2=", c
+v=FactorizationAlgorithms(order).MsieveDecomposition()
+print "Факторизация порядка группы v=", v.toList() 
+print "Вычислим порядки ordd и ordc элементов d и c "
+ordd=Integer()
+ordc=Integer()
+ordd=Integer().elementOrder(p,d,v,order)
+ordc=Integer().elementOrder(p,c,v,order)
+print ordd.elementOrder(p,d,v,order)
+print ordc.elementOrder(p,c,v,order)
+print "ordd=", ordd
+print "ordc=", ordc
+print "d есть образующий элемент", d.isGenerator(p,v)
+print "c есть образующий элемент", c.isGenerator(p,v)
+
+
