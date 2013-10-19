@@ -18,6 +18,10 @@ def handler(signum, frame):
 
 signal.signal(signal.SIGALRM, handler)
 
+# Завершаем работу при превышении лимита 300 сек процессорного времени.
+from resource import setrlimit, RLIMIT_CPU
+setrlimit(RLIMIT_CPU, (300,500))
+
 #<sessions>
 class ConsoleCache:
     def __init__(self): self.reset()
@@ -107,25 +111,22 @@ def change_pass(uid, password, newpass):
     conn.commit()
     return cur.rowcount>0
 
-def is_user():
+def require_login(require_admin=0):
     sid = request.get_cookie("session")
     lock.acquire()
-    if sid in sessions:
+    if sid in sessions and (not require_admin or sessions[sid].name == 'admin'):
         lock.release()
         return True
     else:
         lock.release()
-    return redirect("/login")
+    return redirect("/login"+("?error=admin" if require_admin else ""))
 
 def is_admin():
     sid = request.get_cookie("session")
     lock.acquire()
-    if sid in sessions and sessions[sid].name == 'admin':
-        lock.release()
-        return True
-    else:
-        lock.release()
-        return redirect("/login?error=admin")
+    ret = sessions[sid].name == 'admin'
+    lock.release()
+    return ret
 
 def init():
     conn = sqlite3.connect('wiki.db')
@@ -249,13 +250,13 @@ from bottle import *
 @route('/')
 @view('menu')
 def index():
-    is_user()
+    require_login()
     return get_course()
 
 @route('/course/:cid')
 @view('course')
 def index(cid):
-    is_user()
+    require_login()
     sid=request.get_cookie("session")
     lock.acquire()
     work=get_course(cid, request.query.task) or redirect('/')
@@ -264,20 +265,68 @@ def index(cid):
     lock.release()
     return work
 
+@route('/notebook/:path')
+@view('notebook')
+def guide_worksheet(path):
+    require_login()
+    
+    from IPython.nbformat import current as nbformat
+    from IPython.nbconvert.exporters import HTMLExporter
+    from IPython.config import Config
+    try:
+        nb = nbformat.reads_json(file("notebooks/"+path).read())
+    except IOError:
+        return "Файл %s не найден" % (path)
+    
+    config = Config()
+    config.HTMLExporter.template_file = 'basic'
+    config.NbconvertApp.fileext = 'html'
+    config.CSSHTMLHeaderTransformer.enabled = False
+    # don't strip the files prefix - we use it for redirects
+    config.Exporter.filters = {'strip_files_prefix': lambda s: s}
+    C = HTMLExporter(config=config)
+    body=C.from_notebook_node(nb)
+
+    return dict(content=body[0])
+
+@route('/reveal/:path')
+def guide_worksheet(path):
+    require_login()
+    
+    from IPython.nbformat import current as nbformat
+    from IPython.nbconvert.exporters import RevealExporter
+    from IPython.config import Config
+    try:
+        nb = nbformat.reads_json(file("notebooks/"+path).read())
+    except IOError:
+        return "Файл %s не найден" % (path)
+    
+    c = Config({
+            'RevealHelpTransformer':{
+                'enabled':True,
+                'url_prefix':'reveal.js',
+                },                
+            })
+
+    exportHtml = RevealExporter(config=c)
+    (body,resources) = exportHtml.from_notebook_node(nb)
+
+    return body.encode('utf-8')
+
 @route('/guide/:gid')
 @view('guide_worksheet')
 def guide_worksheet(gid):
-    is_user()
+    require_login()
     return dict(content=get_by_id('guide',gid))
 @route('/guide')
 @view('guide_list')
 def guide():
-    is_user()
-    return dict(content=get_all('guide'))
+    require_login()
+    return dict(content=get_all('guide'),notebooks=listdir('notebooks'),is_admin=is_admin())
 @route('/guide/record')
 @view('guide_record')
 def guide_record():
-    is_admin()
+    require_login(require_admin=1)
     return dict()
 #@ajax
 @post('/guide/save')
@@ -292,7 +341,7 @@ def guide_save():
 @route('/aal')
 @view('worksheet')
 def work():
-    is_user()
+    require_login()
     return dict()
 
 @route('/authors')
@@ -303,7 +352,7 @@ def index():
 @route('/help')
 @route('/help/:sect')
 def index(sect='aal'):
-    is_user()
+    require_login()
     if sect not in ['python','aal','dev','class']: redirect('/help')
     return template('help'+sect)
 
@@ -402,7 +451,7 @@ import resource
 @route('/stats')
 @view('stats')
 def stats():
-    is_user()
+    require_login()
     usage = resource.getrusage(resource.RUSAGE_SELF)
     stats = ['%-25s (%-10s) = %s' % (desc, name, getattr(usage, name)) for name, desc in [
         ('ru_utime', 'User time'),
@@ -416,26 +465,26 @@ def stats():
 @route('/history/today')
 @view('history')
 def history():
-    is_user()
+    require_login()
     return dict(content=get_history(sessions[request.get_cookie("session")].uid, time.time()-86400), f=1)
 @route('/history/week')
 @view('history')
 def history():
-    is_user()
+    require_login()
     return dict(content=get_history(sessions[request.get_cookie("session")].uid, time.time()-604800), f=2)
 @route('/history/month')
 @view('history')
 def history():
-    is_user()
+    require_login()
     return dict(content=get_history(sessions[request.get_cookie("session")].uid, time.time()-2592000), f=3)
 @route('/history/users')
 @view('history')
 def history():
-    is_admin()
+    require_login(require_admin=1)
     return dict(content=get_history(), f=4)
 @route('/history/delete')
 def history():
-    is_admin()
+    require_login(require_admin=1)
     empty_history()
     return redirect("/history")
 from json import dumps
@@ -443,13 +492,13 @@ from json import dumps
 @route('/admin/:name')
 @view('admin')
 def edit(name='users'):
-    is_admin()
+    require_login(require_admin=1)
     return dict(content=dumps(get_course()['tasks'].items() if name=='tasks' else get_all(name)), name=name, courses=get_all("courses"), docs=get_docs())
 
 @post('/admin')
 @post('/admin/:name')
 def modify(name='users'):
-    is_admin()
+    require_login(require_admin=1)
     if request.forms.action == 'save':
         save(name,name == 'users' and (request.forms.get('id') or None,request.forms.get('login'),sha(request.forms.get('pass')))
             or name == 'courses' and (request.forms.get('id') or None,request.forms.get('title'),request.forms.get('descr'))
