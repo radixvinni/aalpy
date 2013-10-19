@@ -1,9 +1,10 @@
 <div class="btn-toolbar">
    %include toolbar
 </div>
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span5">
+<div class="container">
+  <div class="row">
+    <div class="span5 sw-mode-vis">
+      <a href="#" class="pull-right" onclick="switch_mode();"><i class="icon-chevron-left"></i> Скрыть</a>
       <h1>{{content[0]['title']}}</h1>
       <div class="progress indicator">
         %for task in tasks[content[0][0]]:
@@ -15,21 +16,43 @@
       <h3>{{title}}</h3>
       <p>{{!descr}}</p>
     </div>
-    <div class="span7">
-      <div id="editor">&#x000A;</div>
-      <div class="alert alert-success hide done">  
-        <a class="close" data-dismiss="alert">×</a>  
-        <strong>Ура!</strong> Задание выполнено. <a href="#" onclick="location.reload()">Идём дальше</a>  
-      </div> 
-      <button class="btn btn-success btn-block" type="button" onclick="return run();">Поехали</button>
-      <div id="console" data-toggle="context" data-target=".context-menu"></div>
-      <div class="context-menu">
-      <ul class="dropdown-menu" role="menu">
-        <li><a tabindex="1" href="#" onclick="$('.jqconsole-old-prompt, .jqconsole-output').html(''); return false;">Очистить консоль</a></li>
-        <li><a tabindex="2" href="#" onclick="return open_win();">Показать вывод</a></li>
-      </ul>
-      </div>
+    <div class="span7 sw-mode7">
+        <div class="contianer-fluid">
+        <div class="row">
+            <div class="span7">
+                <div id="editor">&#x000A;</div>
+              <div class="alert alert-success hide done">  
+                <a class="close" data-dismiss="alert">×</a>  
+                <strong>Ура!</strong> Задание выполнено. <a href="#" onclick="location.reload()">Идём дальше</a>  
+              </div> 
+              <button class="btn btn-success btn-block" type="button" onclick="return run();">Поехали</button>
+            </div>
+            <div class="span7 sw-mode5">
+              <div id="console" style="height:310px;" data-toggle="context" data-target=".context-menu"></div>
+              <div class="context-menu">
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a tabindex="1" href="#" onclick="$('.jqconsole-old-prompt, .jqconsole-output').html(''); return false;">Очистить консоль</a></li>
+                    <li><a tabindex="2" href="#" onclick="return open_win();">Показать вывод</a></li>
+                  </ul>
+              </div>
+            </div>
+        </div>
+        </div>
     </div>
+    <div class="span12 sw-mode-vis hide">
+      <a href="#" class="pull-right" onclick="switch_mode();"><i class="icon-chevron-up"></i> На место</a>
+      <h1>{{content[0]['title']}}</h1>
+      <div class="progress indicator">
+        %for task in tasks[content[0][0]]:
+          %if task[1] is not None:
+            <div class="bar {{task[1]}}" title="{{task[0]}}" href="/course/{{content[0][0]}}?task={{task[2]}}" style="width: {{content[0]['count']}}%;"></div>
+          %end
+        %end
+      </div>
+      <h3>{{title}}</h3>
+      <p>{{!descr}}</p>
+    </div>
+    
   </div>
 </div>
 <script src="/assets/js/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -68,6 +91,12 @@
         window.jqconsole.SetIndentWidth(1);  
         startPrompt();
     });
+    function switch_mode() {
+        $('.sw-mode-vis').toggle();
+        $('.sw-mode7').toggleClass('span7 span12');
+        $('.sw-mode5').toggleClass('span5 span7');
+        
+    }
     function open_win()
     {
       dow=window.open('');
