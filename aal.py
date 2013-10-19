@@ -11,23 +11,12 @@ lock = Lock()
 from datetime import datetime, timedelta
 import time
 
-# Сброс сессии, если небыло ни одной операции за час (плохо, может он справку читает)
-def handler(signum, frame):
-	lock.acquire()
-	long_ago = datetime.now()-timedelta(hours=1)
-	sess = sessions.copy()
-	for sid in sess:
-		if(sess[sid].last_op<long_ago):
-			sessions.pop(sid)
-	lock.release()
 
+def handler(signum, frame):
+    print 'Выполнение команды приостановлено из-за превышения предела времени выполнения(10 секунд)'
+    sys.exit(0)
 
 signal.signal(signal.SIGALRM, handler)
-signal.setitimer(signal.ITIMER_REAL,1,3600)
-
-# Завершаем работу при превышении лимита 30 сек процессорного времени.
-from resource import setrlimit, RLIMIT_CPU
-setrlimit(RLIMIT_CPU, (30,300))
 
 #<sessions>
 class ConsoleCache:
@@ -71,7 +60,9 @@ class Session(InteractiveConsole):
     def push(self,line, mode='single', name='auto'):
         self.last_op = datetime.now()
         self.accept_output()
+        signal.alarm(10)
         ret = InteractiveConsole.runsource(self,line,'<'+name+'>',mode)
+        signal.alarm(0)
         self.return_output()
         return ret
     def get_output(self,cmd):
@@ -481,4 +472,4 @@ def mistake(error):
 
 Request.MEMFILE_MAX = 1024000
 init()
-run(host='0.0.0.0',port=8080,reloader=True,server='cherrypy')
+run(host='0.0.0.0',port=8080,reloader=True, server='tornado')
