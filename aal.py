@@ -13,10 +13,11 @@ import time
 
 
 def handler(signum, frame):
-    print 'Выполнение команды приостановлено из-за превышения предела времени выполнения(10 секунд)'
+    #print 'Выполнение команды приостановлено из-за превышения предела времени выполнения(10 секунд)'
     sys.exit(0)
 
-signal.signal(signal.SIGALRM, handler)
+#signal.signal(signal.SIGALRM, handler)
+signal.signal(signal.SIGVTALRM, handler)
 
 # Завершаем работу при превышении лимита 300 сек процессорного времени.
 from resource import setrlimit, RLIMIT_CPU
@@ -64,9 +65,9 @@ class Session(InteractiveConsole):
     def push(self,line, mode='single', name='auto'):
         self.last_op = datetime.now()
         self.accept_output()
-        signal.alarm(10)
+        signal.setitimer(signal.ITIMER_VIRTUAL,10)
         ret = InteractiveConsole.runsource(self,line,'<'+name+'>',mode)
-        signal.alarm(0)
+        signal.setitimer(signal.ITIMER_VIRTUAL,0)
         self.return_output()
         return ret
     def get_output(self,cmd):
