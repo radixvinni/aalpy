@@ -173,7 +173,7 @@ p.Generate()
 #AAL.EllipticPoint(x=2,y=1)</code></pre>
           </div>
           <p>Аналогично для несуперсингулярных эллиптических кривых над полем GF(2<sup>n</sup>) вида Y<sup>2</sup> + X Y = X<sup>3</sup> + <em>a</em> X<sup>2</sup> + <em>b</em> используется <code>NonSuperSingularEllipticCurve(module,a,b)</code>, для суперсингулярных эллиптических кривых над полем GF(2<sup>n</sup>) вида Y<sup>2</sup> + <em>a</em> Y = X<sup>3</sup> + <em>b</em> X + <em>c</em> используется <code>SuperSingularEllipticCurve(module,a,b,c)</code></p>
-          <p>Для определения порядка всех кривых, кроме суперсингулярных используется метод <code>getOrder</code>(см. пример выше).</p>
+          <p>Для определения порядка всех кривых, кроме суперсингулярных используется метод <code>getOrder()</code>(см. пример выше), а для суперсингулярных <code>getOrd()</code>.</p>
         </div>
         
     </div>
