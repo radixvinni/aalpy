@@ -25,7 +25,11 @@
                 <a class="close" data-dismiss="alert">×</a>  
                 <strong>Ура!</strong> Задание выполнено. <a href="#" onclick="location.reload()">Идём дальше</a>  
               </div> 
-              <button class="btn btn-success btn-block" type="button" onclick="return run();">Поехали</button>
+              <div class="row-fluid">
+                <a href="#" style="font-size: 13px;" class="btn btn-success span4" onclick="return run();"><i class="icon-play icon-white"></i> Выполнить</a>
+                <a href="#" style="font-size: 13px;" rel="tooltip" data-placement="bottom" data-original-title="Выполнить выделенное. Можно выделить несколько регионов, зажав Ctrl" class="btn span4" onclick="return run(window.editor.getCopyText());"><i class="icon-resize-vertical"></i> Продолжить</a>
+                <a href="#" style="font-size: 13px;" rel="tooltip" data-placement="bottom" data-original-title="Проверить значение выделенной переменной или выражения" class="btn btn-info span4" onclick="return run(window.editor.getCopyText(),'console');"><i class="icon-eye-open icon-white"></i><span> Инспектировать</span></a>
+              </div>
             </div>
             <div class="span7 sw-mode5">
               <div id="console" style="height:310px;" data-toggle="context" data-target=".context-menu"></div>
@@ -104,10 +108,12 @@
       dow.document.write("<button onclick='window.close()'>Закрыть</button>");
       dow.focus();
     }
-    function run() {
+    function run(code, type) {
+      code = code || window.editor.getValue();
+      type = type || "program";
       $.cookie('saved{{content[0][0]}}', window.editor.getValue());
       window.jqconsole.Disable();
-      $.post('/console/run', { cmd: window.editor.getValue()+'\n', type: "program" }, function(data) {
+      $.post('/console/run', { cmd: code+'\n', type: type }, function(data) {
               window.jqconsole.Enable();
               if(data==window.editor.getValue()+'\n' && data != '') {
                 $('.done').show();

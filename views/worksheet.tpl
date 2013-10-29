@@ -5,8 +5,11 @@
   <div class="row-fluid">
     <div class="span7">
       <div id="editor" class="worksheet-editor">&#x000A;</div>
-      <button class="btn btn-success btn-block" type="button" onclick="return run();">Поехали</button>
-      
+      <div class="row-fluid">
+        <a href="#" style="font-size: 13px;" class="btn btn-success span4" onclick="return run();"><i class="icon-play icon-white"></i> Выполнить</a>
+        <a href="#" style="font-size: 13px;" rel="tooltip" data-placement="bottom" data-original-title="Выполнить выделенное. Можно выделить несколько регионов, зажав Ctrl" class="btn span4" onclick="return run(window.editor.getCopyText());"><i class="icon-resize-vertical"></i> Продолжить</a>
+        <a href="#" style="font-size: 13px;" rel="tooltip" data-placement="bottom" data-original-title="Проверить значение выделенной переменной или выражения" class="btn btn-info span4" onclick="return run(window.editor.getCopyText(),'console');"><i class="icon-eye-open icon-white"></i><span> Инспектировать</span></a>
+      </div>
     </div>
     <div class="span5">
       <div id="console" class="worksheet-console" data-toggle="context" data-target=".context-menu"></div>
@@ -59,10 +62,12 @@
       dow.document.write("<button onclick='window.close()'>Закрыть</button>");
       dow.focus();
     }
-    function run() {
+    function run(code, type) {
+      code = code || window.editor.getValue();
+      type = type || "program";
       $.cookie('saved_ws', window.editor.getValue());
       window.jqconsole.Disable();
-      $.post('/console/run', { cmd: window.editor.getValue()+'\n', type: "program" }, function(data) {
+      $.post('/console/run', { cmd: code+'\n', type: type }, function(data) {
               window.jqconsole.Write(data, 'jqconsole-output');
               window.jqconsole.Enable();
       });
@@ -70,7 +75,10 @@
 </script>
 
 <script>
-  $(function() {$('.indicator .bar').tooltip().click(function(){location.replace($(this).attr('href'));});});
+  $(function() {
+    $('.indicator .bar').tooltip().click(function(){location.replace($(this).attr('href'));});
+    $("[rel=tooltip]").tooltip({html:true});
+    });
 </script>
 
 %rebase layout title='', path='/aal', is_user=True, is_admin=False
