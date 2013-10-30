@@ -7,8 +7,8 @@
       <div id="editor" class="worksheet-editor">&#x000A;</div>
       <div class="row-fluid">
         <a href="#" style="font-size: 13px;" class="btn btn-success span4" onclick="return run();"><i class="icon-play icon-white"></i> Выполнить</a>
-        <a href="#" style="font-size: 13px;" rel="tooltip" data-placement="bottom" data-original-title="Выполнить выделенное. Можно выделить несколько регионов, зажав Ctrl" class="btn span4" onclick="return run(window.editor.getCopyText());"><i class="icon-resize-vertical"></i> Продолжить</a>
-        <a href="#" style="font-size: 13px;" rel="tooltip" data-placement="bottom" data-original-title="Проверить значение выделенной переменной или выражения" class="btn btn-info span4" onclick="return run(window.editor.getCopyText(),'console');"><i class="icon-eye-open icon-white"></i><span> Инспектировать</span></a>
+        <a href="#" style="font-size: 13px;" rel="tooltip" data-placement="bottom" data-original-title="Выполнить выделенное. Можно выделить несколько регионов, зажав Ctrl" class="btn span4" onclick="return run(get_sel());"><i class="icon-resize-vertical"></i> Продолжить</a>
+        <a href="#" style="font-size: 13px;" rel="tooltip" data-placement="bottom" data-original-title="Проверить значение выделенной переменной или выражения" class="btn btn-info span4" onclick="return run(get_sel(),'console');"><i class="icon-eye-open icon-white"></i><span> Инспектировать</span></a>
       </div>
     </div>
     <div class="span5">
@@ -55,6 +55,12 @@
         };
         startPrompt();
     });
+    function get_sel() { // get selection or text from cursor to end 
+      r=window.editor.getSelectionRange();
+      r.end.row = editor.session.getLength();
+      
+      return window.editor.getCopyText() || window.editor.session.getTextRange(r);
+    }
     function open_win()
     {
       dow=window.open('');
