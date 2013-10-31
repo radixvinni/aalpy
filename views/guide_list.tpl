@@ -2,7 +2,7 @@
   %if is_admin:
   <div class="alert">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
-    Руководства загружаются в каталог <strong>aal/notebooks</strong>. Вы можете <a href="http://mmipy.1k.ru:8080/">перейти в ipython</a> или <a href="/guide/record">начать запись</a> анимации.   
+    Руководства загружаются в каталог <strong>aal/notebooks</strong>. Вы можете <a href="/ipython/">перейти в ipython</a> или <a href="/guide/record">начать запись</a> анимации.   
   </div>
   %end
   <div>
