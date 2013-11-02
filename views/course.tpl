@@ -43,7 +43,7 @@
         </div>
         </div>
     </div>
-    <div class="span12 sw-mode-vis hide">
+    <div class="span12 sw-mode-vis hide" style="margin-top:30px">
       <a href="#" class="pull-right" onclick="switch_mode();"><i class="icon-chevron-up"></i> На место</a>
       <h1>{{content[0]['title']}}</h1>
       <div class="progress indicator">
@@ -135,6 +135,7 @@
     $("a[href $= py]").click(function(){
       window.editor.setValue($.ajax({url:encodeURI($(this).attr('href')),async:false}).responseText);
       window.editor.selection.clearSelection();
+      window.editor.selection.moveCursorToPosition(0);
       return false;
     });
   });
