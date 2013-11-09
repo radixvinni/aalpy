@@ -9,9 +9,11 @@
     <h2>Руководства</h2>
     <ul>
       %for item in notebooks:
+      %if item.endswith(".ipynb"):
         <li>
           <span><a href="/notebook/{{item}}">{{item[:-6]}}</a></span>
         </li>
+      %end
       %end
     </ul>
     <h2>Анимации</h2>
