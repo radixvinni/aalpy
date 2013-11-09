@@ -29,7 +29,7 @@ label {
 }
 #editor { 
   position: relative;
-  height: 280px;
+  height: 320px;
   font-size: 14px;
   border: 1px solid #CCC;
   margin-bottom:10px;
@@ -37,7 +37,7 @@ label {
 
 #console {
   margin-top: 10px;
-  height:180px;
+  height:350px;
   position:relative;
 }
 #console pre {

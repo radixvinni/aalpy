@@ -32,7 +32,7 @@
               </div>
             </div>
             <div class="span7 sw-mode5">
-              <div id="console" style="height:310px;" data-toggle="context" data-target=".context-menu"></div>
+              <div id="console" data-toggle="context" data-target=".context-menu"></div>
               <div class="context-menu">
                   <ul class="dropdown-menu" role="menu">
                     <li><a tabindex="1" href="#" onclick="$('.jqconsole-old-prompt, .jqconsole-output').html(''); return false;">Очистить консоль</a></li>
@@ -134,8 +134,8 @@
     $('.indicator .bar').tooltip().click(function(){location.replace($(this).attr('href'));});
     $("a[href $= py]").click(function(){
       window.editor.setValue($.ajax({url:encodeURI($(this).attr('href')),async:false}).responseText);
+      window.editor.selection.moveCursorTo(0,0);
       window.editor.selection.clearSelection();
-      window.editor.selection.moveCursorToPosition(0);
       return false;
     });
   });
