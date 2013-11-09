@@ -49,7 +49,7 @@ class Session(InteractiveConsole):
         self.push("import hashlib");
         self.push("from time import sleep");
         self.push("from fractions import *");
-        self.push("import share");
+        self.push("import share, random");
         self.push("__builtins__ = __builtins__.copy()");
         self.push("for k in ['reload', 'execfile', 'file', 'open', '__import__']: __builtins__.pop(k) and None","exec");
         self.push("");
@@ -67,6 +67,14 @@ class Session(InteractiveConsole):
         self.accept_output()
         signal.setitimer(signal.ITIMER_VIRTUAL,10)
         ret = InteractiveConsole.runsource(self,line,'<'+name+'>',mode)
+        signal.setitimer(signal.ITIMER_VIRTUAL,0)
+        self.return_output()
+        return ret
+    def ic_push(self,line, mode='single', name='auto'):
+        self.last_op = datetime.now()
+        self.accept_output()
+        signal.setitimer(signal.ITIMER_VIRTUAL,10)
+        ret = InteractiveConsole.push(self,line)
         signal.setitimer(signal.ITIMER_VIRTUAL,0)
         self.return_output()
         return ret
@@ -437,7 +445,13 @@ def run_prog():
         lock.acquire()
         if sid in sessions: 
             lock.release()
-            sessions[sid].push(cmd, 'single' if typ=='console' else 'exec', typ)
+            if typ=='program':
+                sessions[sid].push(cmd, 'exec', typ)
+            elif typ=='console':
+                for line in cmd.split('\n'): sessions[sid].ic_push(line,'single',typ)
+            else:
+                sessions[sid].push(cmd, 'single', typ)
+                
             res = sessions[sid].get_output(cmd)
             save('history', (None, sessions[sid].uid, int(time.time()), cmd, res))
             return res
@@ -522,4 +536,4 @@ def mistake(error):
 
 Request.MEMFILE_MAX = 1024000
 init()
-run(host='0.0.0.0',port=8080,reloader=True, server='tornado')
+run(host='0.0.0.0',port=8081,reloader=True, server='tornado')

@@ -1,3 +1,28 @@
+<script type="text/javascript">
+function run(code, output, type) {
+      type = type || "console";
+      
+      $.post('/console/run', { cmd: code+'\n', type: type }, function(data) {
+              output.text(data);
+              output.show();
+      });
+    }
+function add_run_cell(input, output) {
+    var btn = $('<a href="#" class="btn btn-small pull-right"><i class="icon-repeat"></i></a>');
+    btn.click(function(){
+        run(input.text(),output);
+        return false;
+    });
+    input.prepend(btn);
+}
+$(function(){
+    $('pre.prettyprint').each(function(){
+        var output = $("<pre class='hide'></pre>").insertAfter($(this));
+        add_run_cell($(this),output);
+    });
+});
+
+</script>
 <div class="container">
     <ul class="nav nav-pills">
       <li><a href="/help/python">Язык Python</a></li>
@@ -62,7 +87,7 @@ Integer().TestLukaLemera(Integer(4))
               <h4>Диофантово уравнение(1071*x+462*y=z)</h4>
               <pre class="prettyprint"><code>a = Integer()&#x000A;b = Integer()&#x000A;x = Integer()&#x000A;x.ExEuclid(Integer(1071),Integer(462),a,b)&#x000A;#AAL.Integer(21)&#x000A;a&#x000A;#AAL.Integer(-3)&#x000A;b&#x000A;#AAL.Integer(7)</code></pre>
             </div>
-            <p>При работе с интерпретатором результат каждой операции выводится в формате, пригодном для чтения(через <code>str()</code> и <code>repr()</code>), поэтому необходимость преобразования объекта в строку возникает редко, например, если мы хотим преобразовать AAL.Integer в число python. Сделать это можно через функцию <code>int()</code>: 	<code>int(a.ToString())</code>. Для сравнения чисел, их также можно преобразовывать в строки, поскольку <code>Integer(12)==Integer(12)</code> вернет <code>False</code>.</p>
+            <p>При работе с интерпретатором результат каждой операции выводится в формате, пригодном для чтения(через <code>str()</code> и <code>repr()</code>), поэтому необходимость преобразования объекта в строку возникает редко, например, если мы хотим преобразовать AAL.Integer в число python. Сделать это можно через функцию <code>int()</code>:   <code>int(a.ToString())</code>. Для сравнения чисел, их также можно преобразовывать в строки, поскольку <code>Integer(12)==Integer(12)</code> вернет <code>False</code>.</p>
           </div>
         </div>
         <div class='section'>

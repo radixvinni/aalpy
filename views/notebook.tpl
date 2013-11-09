@@ -33,9 +33,31 @@ init_mathjax = function() {
     }
 }
 init_mathjax();
+function run(code, output, type) {
+      type = type || "console";
+      
+      $.post('/console/run', { cmd: code+'\n', type: type }, function(data) {
+              output.text(data);
+      });
+    }
+function add_run_cell(input, output) {
+    var btn = $('<a href="#" class="btn btn-small pull-right"><i class="icon-repeat"></i></a>');
+    btn.click(function(){
+        run(input.text(),output);
+        return false;
+    });
+    input.prepend(btn);
+}
+$(function(){
+    $('.code_cell').each(function(){
+        var output = $(this).find('.output_subarea pre');
+        if(!output.length) output = $('.common_output');
+        add_run_cell($(this).find('.input_area'),output);
+    });
+});
 </script>
     
 
 {{!content}}          
-
+<pre class="common_output hide"></pre>
 %rebase layout title='Практикум', path='/guide', is_user=True, is_admin=False

@@ -62,6 +62,7 @@
             <li class="">
             <a href="#str_func">Функция str()</a>
             </li>
+            <li class="">
             <a href="#arithm">Математические функции</a>
             </li>
         </ul>
