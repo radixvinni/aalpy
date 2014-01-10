@@ -524,7 +524,35 @@ def modify(name='users'):
     elif request.forms.action == 'delete':
         sql_delete(name,request.forms.get('id') or redirect("/admin/"+name))
     return redirect("/admin/"+name)
+
+#polling обмен данными "общего модуля" в сети
+polls = dict()
+@route('/poll/:user/:passw/get/:var')
+def poll_get(user,passw,var):
+    uid = user and check_user_credentials(user, passw)
+    if uid:
+        if not polls.get(uid):
+          polls[uid]=dict()
+        return str(polls[uid].get(var,''))
+
+@route('/poll/:user/:passw/list')
+def poll_list(user,passw):
+    uid = user and check_user_credentials(user, passw)
+    if uid:
+        if not polls.get(uid):
+          polls[uid]=dict()
+        return dumps(polls[uid])
     
+@post('/poll/:user/:passw/set/:var')
+def poll_list(user,passw,var):
+    uid = user and check_user_credentials(user, passw)
+    if uid:
+        if not polls.get(uid):
+          polls[uid] = dict()
+        polls[uid][var] = request.forms.get('value')
+        return str(polls[uid][var])
+#/polling
+
 @route('/assets/<filename:path>')
 def send_static(filename):
     return static_file(filename, root='assets')
