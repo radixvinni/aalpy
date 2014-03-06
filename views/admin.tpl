@@ -119,7 +119,7 @@
           <input type="hidden" id="id" name="id" data-bind="value: $data[2]">
           <input type="hidden" id="goal" name="goal" data-bind="value: $data[4]">
           <div class="control-group">
-            <label class="control-label" for="title">Название</label>
+            <label class="control-label" for="title">Название (уникальное)</label>
             <div class="controls">
               <input type="text" class="input-block-level" id="title" name="title" data-bind="value: $data[0]">
             </div>
