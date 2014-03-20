@@ -186,7 +186,7 @@ a.isPrimitivity()
             <h2 id='elliptic'>Классы эллиптических точек и кривых</h2>
           </div>
           <div class='section'>
-            <p>Для задания эллиптической кривой над GF(p) с уравнением Y<sup>2</sup> = X<sup>2</sup> + <em>a</em>X + <em>b</em> используется конструктор <code>EllipticCurve(p, a, b)</code>, где p, a, b - экземпляры <code>Integer</code>. Для задания точки на кривой используется конструктор <code>EllipticPoint(с)</code> в который передается заданная кривая. Функция <code>Generate</code> позволяет взять случайную точку на кривой. Точки можно складывать - <code>Add</code>, удваивать - <code>Double</code>, умножать на константу - <code>Mul</code>.</p>
+            <p>Для задания эллиптической кривой над GF(p) с уравнением Y<sup>2</sup> = X<sup>3</sup> + <em>a</em>X + <em>b</em> используется конструктор <code>EllipticCurve(p, a, b)</code>, где p, a, b - экземпляры <code>Integer</code>. Для задания точки на кривой используется конструктор <code>EllipticPoint(с)</code> в который передается заданная кривая. Функция <code>Generate</code> позволяет взять случайную точку на кривой. Точки можно складывать - <code>Add</code>, удваивать - <code>Double</code>, умножать на константу - <code>Mul</code>.</p>
           </div>
           <div class='section'>
               <h4>Пример</h4>
@@ -198,7 +198,7 @@ p.Generate()
 #AAL.EllipticPoint(x=2,y=1)</code></pre>
           </div>
           <p>Аналогично для несуперсингулярных эллиптических кривых над полем GF(2<sup>n</sup>) вида Y<sup>2</sup> + X Y = X<sup>3</sup> + <em>a</em> X<sup>2</sup> + <em>b</em> используется <code>NonSuperSingularEllipticCurve(module,a,b)</code>, для суперсингулярных эллиптических кривых над полем GF(2<sup>n</sup>) вида Y<sup>2</sup> + <em>a</em> Y = X<sup>3</sup> + <em>b</em> X + <em>c</em> используется <code>SuperSingularEllipticCurve(module,a,b,c)</code></p>
-          <p>Для определения порядка всех кривых, кроме суперсингулярных используется метод <code>getOrder()</code>(см. пример выше), а для суперсингулярных <code>getOrd()</code>.</p>
+          <p>Для определения порядка всех кривых используется метод <code>getOrder()</code>(см. пример выше)</code>.</p>
         </div>
         
     </div>
