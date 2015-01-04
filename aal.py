@@ -19,9 +19,9 @@ def handler(signum, frame):
 #signal.signal(signal.SIGALRM, handler)
 signal.signal(signal.SIGVTALRM, handler)
 
-# Завершаем работу при превышении лимита 300 сек процессорного времени.
+# Завершаем работу при превышении лимита 30 сек процессорного времени.
 from resource import setrlimit, RLIMIT_CPU
-setrlimit(RLIMIT_CPU, (300,500))
+setrlimit(RLIMIT_CPU, (30, 500))
 
 #<sessions>
 class ConsoleCache:
