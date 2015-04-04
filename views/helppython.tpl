@@ -65,6 +65,9 @@
             <li class="">
             <a href="#arithm">Математические функции</a>
             </li>
+            <li class="">
+            <a href="#hash">Хэш-функции</a>
+            </li>
         </ul>
     </div>
     <div class="span10 offset2" id="glossary-content">
@@ -301,8 +304,8 @@
         Блоки кода (функции, инструкций if, for и др.) определяются отступами. Увеличение отступа обозначает начало блока и уменьшение — его конец. Никакие дополнительные скобки или ключевые слова для этих целей не используются. Таким образом отступы являются значимыми и должны быть согласованными.
         </p>
         </div>
-
         </div>
+
         <div class='section'>
         <div class='page-header'>
         <h2 id='while_loop'>Цикл While</h2>
@@ -331,19 +334,46 @@
         <pre class="prettyprint"><code>>> # such features can be useful for concatenating strings&#x000A;>> my_var = 123&#x000A;>> my_var&#x000A;123&#x000A;&#x000A;>> str(my_var)&#x000A;'123'&#x000A;&#x000A;>> my_booking = "DB Airlines Flight " + str(my_var)&#x000A;>> my_booking&#x000A;'DB Airlines Flight 123'</code></pre>
         </div>
         </div>
-
         </div>
+
         <div class='section'>
         <div class='page-header'>
         <h2 id='arithm'>Математические функции</h2>
         </div>
         <div class='section'>
         <p>
-        Арифметика очень похожа на арифметику C. Операции, включающие два целых числа производят целое число; операции, включающие вещественные числа производят вещественные числа. Встроенные числовые функции включают в основном приведения типов и систем счисления: <code>abs, cmp, coerce, float, hex, int, long, max, min, oct, pow, round</code> и <code>divmod</code>-деление с остатком. Так же доступны тригонометрические и гиперболические тригонометрические функции и нескольких полезных констант из модуля <code>math(cmath)</code>. Описание модуля есть в <a href="http://ru.wikiversity.org/wiki/%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_%D0%B8_%D0%BD%D0%B0%D1%83%D1%87%D0%BD%D1%8B%D0%B5_%D0%B2%D1%8B%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F_%D0%BD%D0%B0_%D1%8F%D0%B7%D1%8B%D0%BA%D0%B5_Python/%C2%A72/%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5">викиучебнике</a>. 
+        Арифметика Python очень похожа на арифметику C: доступны основные арифметические опреации, а также остаток от деления целых чисел <code>a%b</code> и возведение в степень <code>a**b</code>. Операции, включающие два целых числа, производят целое число; операции, включающие вещественные числа, производят вещественные числа. Встроенные числовые функции включают в основном приведения типов и систем счисления: <code>abs, cmp, coerce, float, hex, int, long, max, min, oct, pow, round</code> и <code>divmod</code>-деление с остатком. Так же доступны вещественнозначные (напр. тригонометрические и гиперболические тригонометрические) функции и несколько полезных констант из модуля <code>math/cmath</code>. Описание модуля есть в <a href="http://ru.wikiversity.org/wiki/%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_%D0%B8_%D0%BD%D0%B0%D1%83%D1%87%D0%BD%D1%8B%D0%B5_%D0%B2%D1%8B%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F_%D0%BD%D0%B0_%D1%8F%D0%B7%D1%8B%D0%BA%D0%B5_Python/%C2%A72/%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5">викиучебнике</a>. 
         </p>
         </div>
         </div>
         
+        <div class='section'>
+        <div class='page-header'>
+        <h2 id='hash'>Вычисление хэш-функций</h2>
+        </div>
+        <div class='section'>
+        <p>
+        Для вычисления хэшей от сообщения можно использовать алгоритмы <code>md5, sha1, sha224, sha256, sha384, sha512</code> библиотеки <code>hashlib</code>. Пример генерации хэшей разной длины для сообщения 'Hello World': 
+        </p>
+        <div class='section'>
+        <h4>Пример</h4>
+        <pre class="prettyprint"><code>>>>hashlib.md5('Hello World').hexdigest()
+'b10a8db164e0754105b7a99be72e3fe5'
+>>>hashlib.sha1('Hello World').hexdigest()
+'0a4d55a8d778e5022fab701977c5d840bbc486d0'
+>>>hashlib.sha224('Hello World').hexdigest()
+'c4890faffdb0105d991a461e668e276685401b02eab1ef4372795047'
+>>>hashlib.sha256('Hello World').hexdigest()
+'a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e'
+>>>hashlib.sha384('Hello World').hexdigest()
+'99514329186b2f6ae4a1329e7ee6c610a729636335174ac6b740f9028396fcc803d0e93863a7c3d90f86beee782f4f3f'
+>>>hashlib.sha512('Hello World').hexdigest()
+'2c74fd17edafd80e8447b0d46741ee243b7eb74dd2149a0ab1b9246fb30382f27e853d8585719e0e67cbda0daa8f51671064615d645ae27acb15bfb1447f459b'</code></pre>
+        </div>
+        <p>Преобразовать полученных хэш из шеснадцациричной строковой формы  в число <code>Integer</code> можно через конструктор <code>Integer(hash,16)</code>, а обратно <code>a.ToString(16)</code>.</p>
+        </div>
+        </div>
+
         
         </div>
     </div>

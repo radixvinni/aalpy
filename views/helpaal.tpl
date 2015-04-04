@@ -87,7 +87,7 @@ Integer().TestLukaLemera(Integer(4))
               <h4>Диофантово уравнение(1071*x+462*y=z)</h4>
               <pre class="prettyprint"><code>a = Integer()&#x000A;b = Integer()&#x000A;x = Integer()&#x000A;x.ExEuclid(Integer(1071),Integer(462),a,b)&#x000A;#AAL.Integer(21)&#x000A;a&#x000A;#AAL.Integer(-3)&#x000A;b&#x000A;#AAL.Integer(7)</code></pre>
             </div>
-            <p>При работе с интерпретатором результат каждой операции выводится в формате, пригодном для чтения(через <code>str()</code> и <code>repr()</code>), поэтому необходимость преобразования объекта в строку возникает редко, например, если мы хотим преобразовать AAL.Integer в число python. Сделать это можно через функцию <code>int()</code>:   <code>int(a.ToString())</code>. Для сравнения чисел, их также можно преобразовывать в строки, поскольку <code>Integer(12)==Integer(12)</code> вернет <code>False</code>.</p>
+            <p>При работе с интерпретатором результат каждой операции выводится в формате, пригодном для чтения(через <code>str()</code> и <code>repr()</code>), поэтому необходимость преобразования объекта в строку возникает редко, например, если мы хотим преобразовать AAL.Integer в число python. Сделать это можно через функцию <code>int()</code>:   <code>int(a.ToString())</code>. Обратное преобразование: <code>Integer(str(b))</code>. Для сравнения чисел, их также можно преобразовывать в строки, поскольку <code>Integer(12)==Integer(12)</code> вернет <code>False</code>.</p>
           </div>
         </div>
         <div class='section'>
@@ -199,6 +199,17 @@ p.Generate()
           </div>
           <p>Аналогично для несуперсингулярных эллиптических кривых над полем GF(2<sup>n</sup>) вида Y<sup>2</sup> + X Y = X<sup>3</sup> + <em>a</em> X<sup>2</sup> + <em>b</em> используется <code>NonSuperSingularEllipticCurve(module,a,b)</code>, для суперсингулярных эллиптических кривых над полем GF(2<sup>n</sup>) вида Y<sup>2</sup> + <em>a</em> Y = X<sup>3</sup> + <em>b</em> X + <em>c</em> используется <code>SuperSingularEllipticCurve(module,a,b,c)</code></p>
           <p>Для определения порядка всех кривых используется метод <code>getOrder()</code>(см. пример выше)</code>.</p>
+          <p>Чтобы при каждом запуске программы использовать одну и ту же сгенерированную точку на кривой необходимо уставить её координаты методом <code>setXY(X,Y)</code>. Получить координаты можно через <code>getX()</code>, <code>getY()</code>:</p>
+          <div class='section'>
+              <h4>Пример</h4>
+              <pre class="prettyprint"><code>c=EllipticCurve(Integer(5),Integer(1),Integer(1))
+p=EllipticPoint(c)
+p.Generate()
+print 'x =',p.getX(),'y =',p.getY()
+#x = AAL.Integer(2) y = AAL.Integer(1)
+p.setXY(Integer(2),Integer(1))</code></pre>
+          </div>
+          <p>При использовании функций <code>getX()</code>, <code>getY()</code> нужно иметь в виду, что они не работают для точек на бесконечности, которые могут быть получены при сложении и умножении точек(но не при генерации). Для проверки точки на бесконечности используется метод <code>isInfinite()</code>. Для установки точки в бесконечность используется метод <code>setInfinite</code> c параметром <code>True</code>.</p>
         </div>
         
     </div>
