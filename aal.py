@@ -123,7 +123,7 @@ def change_pass(uid, password, newpass):
 def require_login(require_admin=0):
     sid = request.get_cookie("session")
     lock.acquire()
-    if sid in sessions and (not require_admin or sessions[sid].name == 'admin'):
+    if sid in sessions and (require_admin != 1 or sessions[sid].name == 'admin') and (require_admin == 2 or sessions[sid].name != 'user'):
         lock.release()
         return True
     else:
@@ -350,7 +350,7 @@ def guide_save():
 @route('/aal')
 @view('worksheet')
 def work():
-    require_login()
+    require_login(require_admin=2)
     return dict()
 
 @route('/authors')
@@ -361,7 +361,7 @@ def index():
 @route('/help')
 @route('/help/:sect')
 def index(sect='aal'):
-    require_login()
+    require_login(require_admin=2)
     if sect not in ['python','aal','dev','class']: redirect('/help')
     return template('help'+sect)
 
