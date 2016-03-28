@@ -319,7 +319,8 @@
       %end
       <div class="modal-footer">
         <button type="submit" name="action" value="save" class="btn btn-primary">Сохранить</button>
-        <button type="submit" name="action" value="delete" class="btn btn-danger">Удалить</button>
+        <button type="submit" name="action" value="delete" class="btn btn-danger" 
+        onclick="return confirm('Вы действительно хотите удалить {{name=='users' and "этого пользователя" or name=='courses' and "эту работу" or name=='tasks' and "это задание" or "это руководство"}}?')">Удалить</button>
         <button class="btn">Вернуться</button>
       </div>
     </form>
