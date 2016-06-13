@@ -128,7 +128,7 @@ def require_login(require_admin=0):
         return True
     else:
         lock.release()
-    return redirect("/login"+("?error=admin" if require_admin else ""))
+    return redirect("/login"+("?error=admin" if require_admin == 1 else ""))
 
 def is_admin():
     sid = request.get_cookie("session")
