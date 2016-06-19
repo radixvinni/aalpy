@@ -49,7 +49,7 @@ class Session(InteractiveConsole):
         self.push("import hashlib");
         self.push("from time import sleep");
         self.push("from fractions import *");
-        self.push("import share, random, AAL");
+        self.push("import share, random, AAL, Kar");
         self.push("__builtins__ = __builtins__.copy()");
         self.push("for k in ['reload', 'execfile', 'file', 'open', '__import__']: __builtins__.pop(k) and None","exec");
         self.push("");
