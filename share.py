@@ -40,6 +40,7 @@ if __name__ == '__main__':
   print dir(test)
 
 def Kar8x8():
+        global equ, sub, exchg, mul, add
         equ(81, 9, 8);
         sub(81, 1, 8);
         equ(89, 17, 8);
