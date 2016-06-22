@@ -13,7 +13,7 @@ import time
 
 
 def handler(signum, frame):
-    #print 'Выполнение команды приостановлено из-за превышения предела времени выполнения(10 секунд)'
+    #print 'Выполнение команды приостановлено из-за превышения предела времени выполнения(60 секунд)'
     sys.exit(0)
 
 #signal.signal(signal.SIGALRM, handler)
@@ -21,7 +21,7 @@ signal.signal(signal.SIGVTALRM, handler)
 
 # Завершаем работу при превышении лимита 30 сек процессорного времени.
 from resource import setrlimit, RLIMIT_CPU
-setrlimit(RLIMIT_CPU, (30, 500))
+setrlimit(RLIMIT_CPU, (60, 500))
 
 #<sessions>
 class ConsoleCache:
