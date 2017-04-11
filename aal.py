@@ -148,6 +148,7 @@ def init():
     cur.execute('CREATE TABLE IF NOT EXISTS complete(uid INTEGER, tid INTEGER, UNIQUE(uid, tid) ON CONFLICT IGNORE)')
     cur.execute('CREATE TABLE IF NOT EXISTS history(id INTEGER PRIMARY KEY AUTOINCREMENT, uid INTEGER, time INTEGER, command TEXT, result TEXT)')
     cur.execute('CREATE TABLE IF NOT EXISTS guide(id INTEGER PRIMARY KEY AUTOINCREMENT, uid INTEGER, name TEXT DEFAULT (datetime()), content TEXT)')
+    cur.execute('CREATE UNIQUE INDEX IF NOT EXISTS task_name ON tasks(cid, title)')
     conn.commit()
 
 def get_all(name):
