@@ -443,6 +443,7 @@ def run_prog():
     cmd = request.forms.get('cmd')
     typ = request.forms.get('type')
     sid = request.get_cookie("session")
+    if '__bases__' in cmd or '__subclasses__' in cmd or '__builtins__' in cmd: return 'не балуйся'
     try:
         lock.acquire()
         if sid in sessions: 
