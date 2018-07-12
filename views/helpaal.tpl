@@ -46,6 +46,9 @@ $(function(){
               <li class="">
                 <a href="#elliptic">Эллиптические кривые</a>
               </li>
+              <li class="">
+                <a href="#kerberos">GSSAPI/Kerberos</a>
+              </li>
           </ul>
       </div>
       <div class="span10 offset2" id="glossary-content">
@@ -210,6 +213,43 @@ print 'x =',p.getX(),'y =',p.getY()
 p.setXY(Integer(2),Integer(1))</code></pre>
           </div>
           <p>При использовании функций <code>getX()</code>, <code>getY()</code> нужно иметь в виду, что они не работают для точек на бесконечности, которые могут быть получены при сложении и умножении точек(но не при генерации). Для проверки точки на бесконечности используется метод <code>isInfinite()</code>. Для установки точки в бесконечность используется метод <code>setInfinite</code> c параметром <code>True</code>.</p>
+        </div>
+        <div class='section'>
+          <div class='page-header'>
+            <h2 id='kerberos'>Протокол аутентификации Kerberos</h2>
+          </div>
+          <div class='section'>
+            <p>Для авторизации и обмена сообщениями по протоколу Kerberos 5 используется библиотека <a href="http://pythonhosted.org/gssapi/basic-tutorial.html">GSSAPI</a>.</p>
+          </div>
+          <div class='section'>
+              <h4>Пример</h4>
+              <pre class="prettyprint"><code>server_name = gssapi.Name('s/localhost@') #s/localhost - имя службы, зарегистрированное на сервере авторизации
+
+#client
+client_ctx = gssapi.SecurityContext(name=server_name, usage='initiate')
+initial_client_token = client_ctx.step()
+
+#server получает initial_client_token
+server_creds = gssapi.Credentials(usage='accept', name=server_name)
+server_ctx = gssapi.SecurityContext(creds=server_creds, usage='accept')
+initial_server_token = server_ctx.step(initial_client_token)
+
+#Клиент и сервер используют client_ctx и server_ctx соотвественно, выполняют .step(сообщение) пока не получат .complete == True
+server_tok = initial_server_token
+while not (client_ctx.complete and server_ctx.complete):
+     client_tok = client_ctx.step(server_tok)
+     if not client_tok:
+         break
+     server_tok = server_ctx.step(client_tok)
+
+assert client_ctx.complete and server_ctx.complete
+
+#теперь можно шифровать и расшифровывать сообщения через методы encrypt, decrypt
+message = 'текст сообщения'
+encrypted_message = client_ctx.encrypt(message)
+print server_ctx.decrypt(encrypted_message)</code></pre>
+          </div>
+          <p>Обмен сообщениями можно вести как обычно, через модуль share.</p>
         </div>
         
     </div>

@@ -46,11 +46,11 @@ class Session(InteractiveConsole):
         InteractiveConsole.__init__(self)
         self.push("from AAL import *");
         self.push("from math import *");
-        self.push("import hashlib");
+        self.push("import json, hashlib, hmac, gssapi");
         self.push("from time import sleep");
         self.push("from fractions import *");
         self.push("from urllib import urlopen");
-        self.push("import share, random, AAL, Kar");
+        self.push("import share, random, AAL, Kar, aAl");
         self.push("__builtins__ = __builtins__.copy()");
         self.push("for k in ['reload', 'execfile', 'file', 'open', '__import__']: __builtins__.pop(k) and None","exec");
         self.push("");

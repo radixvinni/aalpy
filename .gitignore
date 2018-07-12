@@ -1,11 +1,18 @@
 *.py[cod]
+*.so
 AAL.py
-wiki.db
-_AAL.so
+wiki.db*
 MPEI_ASK
+AAF
+Bindings
+Decompositions
+Dev_Project
+CppUnitLite
+Tables
+*.old
 
 curveorder.log
-msieve.log
+msieve.*
 
 *.pdf
 *.doc
@@ -13,3 +20,4 @@ msieve.log
 *.PDF
 
 notebooks
+
