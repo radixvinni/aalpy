@@ -270,6 +270,7 @@
     <li><a href="#" rel="tooltip" data-placement="left" data-original-title="<strong>B1=НОК(A1,A2)</strong><br/>Аргументы: A1, A2 в Z" onclick="window.editor.insert('aAl.sCM()');window.editor.selection.moveCursorLeft();window.editor.focus()">НОК в Z</a></li>
     <li><a href="#" rel="tooltip" data-placement="left" data-original-title="<strong>B1=true если A1 - образующий элемент</strong><br/>Аргументы: модуль в Zn*, элемент в Zn*, разложение порядка группы, порядок поля" onclick="window.editor.insert('aAl.IsGenerator()');window.editor.selection.moveCursorLeft();window.editor.focus()">Тест образующего элемента</a></li>
     <li><a href="#" rel="tooltip" data-placement="left" data-original-title="<strong>Взятие достоверного простого элемента из Z<sub>n</sub>. B1=GeneratePrime(module,разложение n-1)</strong><br/>Аргументы: n &gt;= 1" onclick="window.editor.insert('aAl.generatePrime()');window.editor.selection.moveCursorLeft();window.editor.focus()">Генерация достоверного простого числа в Z<sub>n</sub></a></li>
+    <li><a href="#" rel="tooltip" data-placement="left" data-original-title="Вставить код модуля aAl" onclick="show_aAl()">Использование функций AAL посредством Python</a></li>
   </ul>
 </div>
 <div class="btn-group">
@@ -288,5 +289,10 @@
   </ul>
 </div>
 <script type="text/javascript">
+ function show_aAl() {
+      window.editor.setValue($.ajax({url:'/assets/doc/aAl.py',async:false}).responseText);
+      window.editor.selection.moveCursorTo(0,0);
+      window.editor.selection.clearSelection();
+ }
     $("[rel=tooltip]").tooltip({html:true});
 </script>
