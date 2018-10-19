@@ -240,6 +240,7 @@
   </a>
   <ul class="dropdown-menu">
     <!--li><a href="#" rel="tooltip" data-placement="left" data-original-title="<strong>Объявление нового числа</strong><br/>Аргументы: строка или число" onclick="window.editor.insert('Integer()');window.editor.selection.moveCursorLeft();window.editor.focus()">Объявление</a></li-->
+    <li><a href="#" rel="tooltip" data-placement="left" data-original-title="Генерация ненулевого элемента в Z<sub>N</sub><br/>Аргументы: N в Z" onclick="window.editor.insert('aAl.generate()');window.editor.selection.moveCursorLeft();window.editor.focus()">Генерация в Z<sub>N</sub></a></li>
     <li><a href="#" rel="tooltip" data-placement="left" data-original-title="<strong>B1 = -A1</strong><br/>Аргументы: A1 в Z" onclick="window.editor.insert('aAl.negate()');window.editor.selection.moveCursorLeft();window.editor.focus()">Отрицание в Z</a></li>
     <li><a href="#" rel="tooltip" data-placement="left" data-original-title="<strong>B1=A1+A2</strong><br/>Аргументы: A1, A2 в Z" onclick="window.editor.insert('aAl.add()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение в Z</a></li>
     <li><a href="#" rel="tooltip" data-placement="left" data-original-title="<strong>B1=A1+A2(mod n)</strong><br/>Аргументы: A1, A2 в Z" onclick="window.editor.insert('aAl.modAdd()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение в Z<sub>n</sub></a></li>

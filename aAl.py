@@ -11,9 +11,10 @@ c=negate(a)
 def generate(n):
     #print "Возвращает ненулевой элемент кольца Z_",n
     a=Integer()
-    a.Generate(Integer(str(int(n))))
+    while int(a.ToString())==0:
+        a.Generate(Integer(str(int(n))))
     return int(a.ToString())
-n=60
+#n=60
 #print "generate(",n,")", generate(n)
 def add(a,b):
     #print "Сложение в кольце Z"
@@ -122,7 +123,7 @@ def powInFp(a,d,module):
     c=Integer()
     c.PowInFp(Integer(str(int(a))),Integer(str(int(d))),Integer(str(int(module))))
     return int(c.ToString())
-#print powInFp(2,5,23)
+#print "powInFp(2,5,23)",powInFp(2,5,23)
 def modPow(a,d,module):
     #print "Возведение в неотрицательную целую степень в кольце Z",n    
     c=Integer()
@@ -190,16 +191,16 @@ a=5
 module=28
 c=inverse(a,module)
 #print "inverse(",a,",",module,")=",c
-def legandre(a,prime):
+def legendre(a,prime):
     #print "Возвращает символ Лежандра числа",a,"для простого числа",prime
     return Integer.LegendreSymbol(Integer (str(int(a))),Integer (str(int(prime))))
 a=5
 prime=29
-c=legandre(a,prime)
-#print "legandre(",a,",",prime,")=",c
+c=legendre(a,prime)
+print "legendre(",a,",",prime,")=",c
 def jacobySymbol(a,n):
-    #print "Возвращает символ Лежандра числа",a,"для   числа",n
-    return Integer.JacobySymbol(Integer(int(a)),Integer(int(prime)))
+    #print "Возвращает символ Якоби числа",a,"для   числа",n
+    return Integer.JacobySymbol(Integer(int(a)),Integer(int(n)))
 a=2
 n=28
 c=jacobySymbol(a,n)
@@ -316,6 +317,9 @@ def DecToBin(a):
         a=d[0]
     return Blist
 a=11
+b=4
 c=DecToBin(a)
 #print "c=DecToBin(",a,")=",c 
-#print div(a,b)[0]+mul(a,b)+euclid(a,b)+factorization(a)[0][0]
+
+
+

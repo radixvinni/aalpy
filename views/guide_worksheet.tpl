@@ -45,6 +45,9 @@
 <script src="/assets/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
 <script>
     var $obj = {{!content[3]}};
+    //convert to format for new ace editor
+    //$obj.deltas.forEach(x=>{x.start = x.range.start; x.end=x.range.end;x.lines=(x.text||'').split('\n'); x.action = x.action.substr(0,6)})
+
     var $max_slide = $obj.time.length;
     //---------------------------------------------
     var slider = $('.slider').slider({'max':$max_slide})
@@ -99,7 +102,7 @@
     }
     //set slide to editor and console
     function set_slide(slide) {
-      window.editor.setValue();
+      window.editor.setValue('');
       window.editor.getSelection().doc.applyDeltas($obj.deltas.slice(0,slide));
       $slide = slide;
       $counter = $obj.time[slide]/$speed;
