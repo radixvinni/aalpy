@@ -11,7 +11,7 @@ from multiprocessing import Lock
 lock = Lock()
 from datetime import datetime, timedelta
 import time
-
+from urllib import quote, unquote
 
 def handler(signum, frame):
     #print 'Выполнение команды приостановлено из-за превышения предела времени выполнения(60 секунд)'
@@ -193,7 +193,7 @@ def get_course(cid=None, tid=None, discipline=None, group=None):
     cur.execute('SELECT cid, courses.title, courses.descr, 100.0/COUNT(cid) as count FROM courses INNER JOIN tasks ON cid=courses.id '+sql+' GROUP BY cid', params)
     content=cur.fetchall()
     tasks = dict()
-    ret = dict(content=content, tasks=tasks, discipline=discipline, group=group)
+    ret = dict(content=content, tasks=tasks, discipline=discipline, group=group, quote=quote, unquote=unquote) 
     if not content: return ret
     cmpl = dict()
     for row in content: 
@@ -273,7 +273,7 @@ def index():
     require_login()
     discipline = request.params.get('discipline')
     group = request.params.get('group')
-    if group is None: return dict(discipline=discipline, group=group, courses=get_all("courses"))
+    if group is None: return dict(discipline=discipline, group=group, courses=get_all("courses"), quote=quote, unquote=unquote)
     return get_course(discipline=discipline, group=group)
 
 @route('/course/:cid')

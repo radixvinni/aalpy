@@ -5,7 +5,7 @@
       <div class="sections">
       %for item in sorted(set([x[4] or '' for x in courses])):
         <li class="span6">
-          <h4><a href="/?discipline={{item}}">{{item or 'Не задано'}}</a></h4>
+          <h4><a href="/?discipline={{quote(item.encode('utf8'))}}">{{item or 'Не задано'}}</a></h4>
         </li>
       %end
     </div>
@@ -14,15 +14,15 @@
   <h2><a href='/'>Дисциплины</a> &gt; {{discipline or 'Дисциплина не задана'}}</h2>
   <div class="row">
       <div class="sections">
-      %for item in sorted(set([x[3] or '' for x in courses if x[4] == discipline])):
+      %for item in sorted(set([x[3] or '' for x in courses if x[4].encode('utf8') == discipline])):
         <li class="span6">
-          <h4><a href="/?discipline={{discipline}}&group={{item}}">{{item or 'Не задано'}}</a></h4>
+          <h4><a href="/?discipline={{quote(discipline)}}&group={{quote(item.encode('utf8'))}}">{{item or 'Не задано'}}</a></h4>
         </li>
       %end
     </div>
   </div>
 %else:
-  <h2><a href='/'>Дисциплины</a> &gt; <a href='/?discipline={{discipline}}'>{{discipline or 'Дисциплина не задана'}}</a> &gt; {{group or 'Группа не задана'}}</h2>
+  <h2><a href='/'>Дисциплины</a> &gt; <a href='/?discipline={{quote(discipline)}}'>{{discipline or 'Дисциплина не задана'}}</a> &gt; {{group or 'Группа не задана'}}</h2>
   <div class="row">
       <div class="sections">
       %if not content:
