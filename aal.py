@@ -1,5 +1,6 @@
 # coding: utf-8
-
+#ALTER TABLE courses ADD COLUMN grp TEXT;
+#ALTER TABLE courses ADD COLUMN discipline TEXT;
 from code import InteractiveConsole
 from uuid import uuid1
 import sys
@@ -46,7 +47,7 @@ class Session(InteractiveConsole):
         InteractiveConsole.__init__(self)
         self.push("from AAL import *");
         self.push("from math import *");
-        self.push("import json, hashlib, hmac, gssapi");
+        self.push("import json, hashlib, hmac, gssapi, mpmath as g, gmpy");
         self.push("from time import sleep");
         self.push("from fractions import *");
         self.push("from urllib import urlopen");
@@ -144,7 +145,7 @@ def init():
     cur = conn.cursor()
     cur.execute('CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY AUTOINCREMENT, login TEXT UNIQUE, pass TEXT)')
     cur.execute("INSERT OR IGNORE INTO users(login, pass) VALUES ('admin',sha('123'))")
-    cur.execute('CREATE TABLE IF NOT EXISTS courses(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE, descr TEXT)')
+    cur.execute('CREATE TABLE IF NOT EXISTS courses(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE, descr TEXT, grp TEXT, discipline TEXT)')
     cur.execute('CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY AUTOINCREMENT, cid INTEGER, title TEXT UNIQUE, descr TEXT, goal TEXT)')
     cur.execute('CREATE TABLE IF NOT EXISTS complete(uid INTEGER, tid INTEGER, UNIQUE(uid, tid) ON CONFLICT IGNORE)')
     cur.execute('CREATE TABLE IF NOT EXISTS history(id INTEGER PRIMARY KEY AUTOINCREMENT, uid INTEGER, time INTEGER, command TEXT, result TEXT)')
@@ -170,26 +171,35 @@ def get_by_id(name,i):
     if r: return r
     return ''
     
-def get_course(cid=None, tid=None):
+def get_course(cid=None, tid=None, discipline=None, group=None):
     sid=request.get_cookie("session")
     uid=sessions[sid].uid
     conn = sqlite3.connect('wiki.db')
     conn.text_factory = lambda x: unicode(x, 'utf-8', 'ignore')
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
+    params = []
+    sql = ''
     if cid is not None:
-        cid = "WHERE cid="+str(cid)
+        sql = "WHERE cid=?"
+        params.append(cid)
+    elif discipline is not None:
+        sql = "WHERE discipline=?"
+        params.append(discipline)
+        if group is not None:
+            sql += " AND grp=?"
+            params.append(group)
     #content - данные по найденому курсу cid или всем курсам, если cid==None + всего заданий
-    cur.execute('SELECT cid, courses.title, courses.descr, 100.0/COUNT(cid) as count FROM courses INNER JOIN tasks ON cid=courses.id '+(cid or '')+' GROUP BY cid')
+    cur.execute('SELECT cid, courses.title, courses.descr, 100.0/COUNT(cid) as count FROM courses INNER JOIN tasks ON cid=courses.id '+sql+' GROUP BY cid', params)
     content=cur.fetchall()
-    if not content: return dict(content=[], tasks={})
-    ret = dict(content=content)
     tasks = dict()
+    ret = dict(content=content, tasks=tasks, discipline=discipline, group=group)
+    if not content: return ret
     cmpl = dict()
     for row in content: 
         cmpl[row['cid']] = 0
         tasks[row['cid']] = []
-    for row in cur.execute('SELECT tasks.id, tasks.title, tasks.descr, tasks.goal, uid, cid FROM courses INNER JOIN tasks ON cid=courses.id LEFT JOIN complete ON tasks.id=tid AND uid=? '+(cid or ''), [uid]):
+    for row in cur.execute('SELECT tasks.id, tasks.title, tasks.descr, tasks.goal, uid, cid FROM courses INNER JOIN tasks ON cid=courses.id LEFT JOIN complete ON tasks.id=tid AND uid=? '+sql, [uid]+params):
         status=row['uid'] and "bar-success" or cmpl[row['cid']]==0 and ' ' or None
         if row['goal']!='' and status !='bar-success': cmpl[row['cid']]+=1
         tasks[row['cid']].append((row['title'],status,row['id'],row['descr'],row['goal'],row['cid']))
@@ -200,7 +210,6 @@ def get_course(cid=None, tid=None):
             ret['descr']=row['descr']
             ret['uid']=row['uid']
     #tasks = индикаторы выполнения заданий: [(название, статус),...], 
-    ret['tasks']=tasks
     return ret
 
 def save(name,content):
@@ -262,7 +271,10 @@ from bottle import *
 @view('menu')
 def index():
     require_login()
-    return get_course()
+    discipline = request.params.get('discipline')
+    group = request.params.get('group')
+    if group is None: return dict(discipline=discipline, group=group, courses=get_all("courses"))
+    return get_course(discipline=discipline, group=group)
 
 @route('/course/:cid')
 @view('course')
@@ -519,7 +531,7 @@ def modify(name='users'):
     require_login(require_admin=1)
     if request.forms.action == 'save':
         save(name,name == 'users' and (request.forms.get('id') or None,request.forms.get('login'),sha(request.forms.get('pass')))
-            or name == 'courses' and (request.forms.get('id') or None,request.forms.get('title'),request.forms.get('descr'))
+            or name == 'courses' and (request.forms.get('id') or None,request.forms.get('title'),request.forms.get('descr'),request.forms.get('grp'),request.forms.get('discipline'))
             or name == 'tasks' and (request.forms.get('id') or None, request.forms.get('cid'), request.forms.get('title'),
             request.forms.get('descr'),sha(request.forms.get('newgoal')) if request.forms.get('newgoal') else request.forms.get('goal'))
             or name == 'guide' and (request.forms.get('id') or None, request.forms.get('uid'), request.forms.get('name'),request.forms.get('content'))

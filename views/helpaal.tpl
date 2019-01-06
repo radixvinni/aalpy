@@ -49,7 +49,23 @@ $(function(){
               <li class="">
                 <a href="#kerberos">GSSAPI/Kerberos</a>
               </li>
-          </ul>
+              <li class="nav-header">Библиотека GMP</li>
+              <li class="">
+                <a href="#mpf">Вещественные числа</a>
+              </li>
+              <li class="">
+                <a href="#matrix">Вещественные матрицы</a>
+              </li>
+              <li class="">
+                <a href="#iv">Вещественные интервалы</a>
+              </li>
+              <li class="">
+                <a href="#mpc">Комплексные числа</a>
+              </li>
+              <li class="">
+                <a href="#mpz">Целые числа</a>
+              </li>
+            </ul>
       </div>
       <div class="span10 offset2" id="glossary-content">
         <h1>Руководство MPEI AAL</h1>
@@ -250,6 +266,302 @@ encrypted_message = client_ctx.encrypt(message)
 print server_ctx.decrypt(encrypted_message)</code></pre>
           </div>
           <p>Обмен сообщениями можно вести как обычно, через модуль share.</p>
+        </div>
+        <h1>Руководство GMP</h1>
+        <p>Библиотека GMP предназначена для работы с числами со сколь угодно высокой точностью. В ней реализованы вещественнозначные типы, доступные в пакете <code>mpmath</code>: <code>g.mpf</code> - число с плавающей точкой, <code>g.mpс</code> - комплексное число, <code>g.matrix</code> - матрица фиксированного размера, <code>g.iv.mpf</code> - закрытый интервал, <code>g.iv.mpс</code> - закрытый комплексный интервал(прямоугольник). Также есть поддержка больших целых чисел <code>gmpy.mpz</code>.</p>
+        <div class='section'>
+          <div class='page-header'>
+            <h2 id='mpf'>Вещественные числа</h2>
+          </div>
+          <div class='section'>
+            <p><code>g.mpf</code> создаёт число с плавающей точкой (multiple precision float) из строки или числа:</p>
+            <pre class="prettyprint"><code>x=g.mpf('0.1')
+print x
+#0.1
+y=g.mpf(0.1)
+print y
+#0.1000000000000000055511151231257827021181583404541</code></pre>
+            <p>Здесь во втором случае 0.1 сначала преобразуется в число с плавающей точкой со стандартной (т.е. двойной) точностью, а потом уже оно преобразуется в <code>g.mpf</code>. Чтобы не терять точность, нужно делать mpf из строки или из отношения целых чисел:</p>
+            <pre class="prettyprint"><code>y=g.mpf(1)/10
+print y
+#0.1</code></pre>
+            <p>Точность контролируется глобальным контекстом <code>g.mp</code>:</p>
+            <pre class="prettyprint"><code>print(g.mp)
+#Mpmath settings:
+#  mp.prec = 53                [default: 53]
+#  mp.dps = 15                 [default: 15]
+#  mp.trap_complex = False     [default: False]</code></pre>
+            <p><code>prec</code> - число бит в мантиссе, <code>dps</code> - число значащих десятичных цифр. Если изменить один из этих атрибутов, другой изменится соответственно.</p>
+            <pre class="prettyprint"><code>g.mp.dps=50
+print g.mp
+#Mpmath settings:
+#  mp.prec = 169               [default: 53]
+#  mp.dps = 50                 [default: 15]
+#  mp.trap_complex = False     [default: False]</code></pre>
+            <p>Математические константы типа  <em>π</em>  или  <em>e</em>  реализованы в виде ленивых объектов. Они содержат сколько-то вычисленных бит плюс алгоритм, позволяющий получить больше бит, если потребуется. Когда такой объект встречается в выражении, из него делается число с текущей точностью.</p>
+            <pre class="prettyprint"><code>g.mp.prec=53
+print g.pi
+#3.14159265358979
+g.mp.prec=169
+print g.pi
+#3.1415926535897932384626433832795028841971693993751
++g.pi
+#mpf('3.1415926535897932384626433832795028841971693993751068')
+g.sin(g.pi/4)**2
+#mpf('0.50000000000000000000000000000000000000000000000000134')</code></pre>
+            <p>Преобразовать <code>g.mpf</code> в число python можно через функцию <code>float()</code>:   <code>float(x)</code>. Преобразование в строку: <code>str(x)</code>.</p>
+            <p>Реализованы арифметические операции и тригонометрические функции: <code>g.sqrt</code>, кубический корень <code>cbrt</code>, корень порядка n <code>g.root</code>, <code>g.exp</code>, <code>g.power</code>, <code>g.log</code>, <code>g.ln</code>, <code>g.log10</code>, <code>g.sin</code>, <code>g.cos</code>, <code>g.tan</code>, <code>g.sec</code>, <code>g.csc</code>, <code>g.cot</code>, <code>g.asin</code>, <code>g.acos</code>, <code>g.atan</code>, <code>g.asec</code>, <code>g.acsc</code>, <code>g.acot</code>, <code>g.sinh</code>, <code>g.cosh</code>, <code>g.tanh</code>, <code>g.sech</code>, <code>g.csch</code>, <code>g.coth</code>, <code>g.asinh</code>, <code>g.acosh</code>, <code>g.atanh</code>, <code>g.asech</code>, <code>g.acsch</code>, <code>g.acoth</code>, константы <code>g.pi</code>, <code>g.e</code>, <code>g.phi</code>, <code>g.euler</code>, <code>g.catalan</code>, <code>g.apery</code>, <code>g.khinchin</code>, <code>g.glaisher</code>, <code>g.mertens</code>, <code>g.twinprime</code>.</p>
+            <p><code>g.polyroots</code> - Корни многочлена, заданного списком коэффициентов, <code>g.polyval(l,x)</code> - значение многочлена в заданной точке:</p>
+            <pre class="prettyprint"><code>l=[1,0,0,0,1,1]
+r=g.polyroots(l)
+for x in r:
+    print x
+#-0.75487766624669276004950889635852869189460661777279
+#(0.8774388331233463800247544481792643459473033088864 - 0.74486176661974423659317042860439236724016308490682j)
+#(0.8774388331233463800247544481792643459473033088864 + 0.74486176661974423659317042860439236724016308490682j)
+#(-0.5 + 0.86602540378443864676372317075293618347140262690519j)
+#(-0.5 - 0.86602540378443864676372317075293618347140262690519j)
+for x in r:
+    print g.polyval(l,x)
+#0.0
+#(2.672764710092195646140536467151481878815196880105e-51 - 4.6512209026900071036135543450317217153701063147101e-51j)
+#(2.672764710092195646140536467151481878815196880105e-51 + 4.6512209026900071036135543450317217153701063147101e-51j)
+#(0.0 + 0.0j)
+#(0.0 + 0.0j)</code></pre>
+            <p>Решение уравнения заданного функцией python на заданном интервале.</p>
+            <pre class="prettyprint"><code>def f(x):
+    return g.exp(-x)-g.sin(x)
+print g.findroot(f,(0.5,0.7))
+#0.58853274398186107743245204570290368853127151610903053</code></pre>
+            <p>Также функция позволяет решать системы уравнений.</p>
+            <pre class="prettyprint"><code>g.findroot([lambda x,y:x**2+y**2-1,lambda x,y:x*y-1/4],(1,0.25))
+#matrix(
+#[['0.9659258262890682867497431997288973676339048390084'],
+#  ['0.25881904510252076234889883762404832834906890131993']])</code></pre>
+            <p>Производная для заданной функции в заданной точке заданного порядка (по умолчанию первого).</p>
+            <pre class="prettyprint"><code>g.diff(f,0.5)
+#mpf('-1.4841132216030061397200811175950101054335633325969314')
+g.diff(f,0.5,2)
+#mpf('1.085956198316836423877087470206751841523721503427788')
+g.diff(lambda x,y:sin(x)*cos(y),(pi,pi),(1,2))
+#mpf('-1.0')</code></pre>
+            <p><code>g.quad</code> вычисляет интеграл для функций на заданом отрезке. Дополнительный аргумент-отрезок вычислит двойной интеграл, ещё один - тройной. <code>g.extradps(5)</code> позволяет определить операции все вычисления которых будут производиться с точностью, на 5 значащих цифр большей; затем она вернётся к прежней.</p>
+            <pre class="prettyprint"><code>print g.quad(g.cos, [-g.pi/2, g.pi/2])
+#2.0
+with g.extradps(5):
+  I=g.quad(lambda x:g.log(x)**2/(1+x),(0,1))
+  print I
+#1.803085354739391428099607242267174986147479438510748322
+            </code></pre>
+            <p>Допустим, у нас есть причины подозревать, что число <code>I</code> равно числу <em>ζ(3)</em>, умноженному на рациональное число (с не очень большими числителем n<sub>1</sub> и знаменателем n<sub>2</sub>). <code>g.pslq([x1,x2,...])</code> находит целые числа  n<sub>1</sub>,  n<sub>2</sub>, ... такие, что <em>n<sub>1</sub>x<sub>1</sub>+n<sub>2</sub>x<sub>2</sub>+⋯&lt;eps</em>, где eps - очень маленькое число. Это - метод нахождения тождеств, называемый <em>экспериментальной математикой</em>. Для этого часто требуются вычисления с очень высокой точностью.</p>
+            <pre class="prettyprint"><code>g.pslq([I,g.zeta(3)])
+#[-2, 3]</code></pre>
+            <p>То есть <code>I</code> примерно равен <em>3/2*ζ(3)</em>.</p>
+            <p><code>g.nsum</code> позволяет посчитать сумму ряда, в том числе бесконечного. Для произведений можно аналогично использовать <code>g.nprod</code></p>
+            <pre class="prettyprint"><code>with g.extradps(5):
+    s=g.nsum(lambda n:(-1)**(n-1)/n**4,(1,g.inf))
+    print s
+#0.9470328294972459175765032344735219149279070829288860442
+print g.pslq([s,g.pi**4])
+#[-720, 7]</code></pre>
+            <p>То есть эта сумма, вероятно, равна <em>7/720*π<sup>4</sup></em>. Функция <code>g.identify</code> пытается по значению числа восстановить его точную формулу, возвращая либо строку с формулой, либо <code>None</code>.</p>
+            <pre class="prettyprint"><code>g.identify(s)
+#'(3**(165/26)*7**(159/52))/(2**(191/52)*5**(337/52))'</code></pre>
+            <p><code>g.odefun</code>возвращает функцию, являющаюся решением системы ОДУ</p>
+            <pre class="prettyprint"><code>a=g.mpf('0.2')
+def f(t,x):
+    global a
+    return [x[1],-x[0]-2*a*x[1]]
+x=g.odefun(f,0,[1,0])
+x(1)
+#[mpf('0.59496623263788777500734762840237378880987158574261147'),
+#  mpf('-0.69387986210972080683187214187798497495035321299936026')]</code></pre>
+            <p>Вычисление предела функции</p>
+            <pre class="prettyprint"><code>g.limit(lambda x: x/g.sin(x), 0)
+#mpf('1.0')</code></pre>
+          </div>
+        </div>
+        <div class='section'>
+          <div class='page-header'>
+            <h2 id='matrix'>Вещественные матрицы</h2>
+          </div>
+          <div class='section'>
+            <p>Матрицы разреженные, реализованы как словари.</p>
+              <pre class="prettyprint"><code>#Квадратная матрица
+g.matrix(2)
+#matrix(
+#[['0.0', '0.0'],
+#  ['0.0', '0.0']])
+#Прямоугольная матрица
+M=g.matrix(2,3)
+M
+#matrix(
+#[['0.0', '0.0', '0.0'],
+#  ['0.0', '0.0', '0.0']])
+M.rows,M.cols
+#(2, 3)
+M[0,1]=1
+M
+#matrix(
+#[['0.0', '1.0', '0.0'],
+#  ['0.0', '0.0', '0.0']])</code></pre>
+            <p>Операции с матрицами</p>
+            <pre class="prettyprint"><code>M1=g.matrix([[0,1],[1,0]])
+M2=g.matrix([[1,0],[0,-1]])
+print M1+M2
+#matrix(
+#[['1.0', '1.0'],
+# ['1.0', '-1.0']])
+print M1*M2
+#matrix(
+#[['0.0', '-1.0'],
+# ['1.0', '0.0']])
+print M2*M1
+#matrix(
+#[['0.0', '1.0'],
+# ['-1.0', '0.0']])
+print M1**(-1)
+#matrix(
+#[['0.0', '1.0'],
+# ['1.0', '0.0']])</code></pre>
+            <p>Решение системы линейных уравнений</p>
+            <pre class="prettyprint"><code>A=g.matrix([[1,2],[3,4]])
+b=g.matrix([1,-1])
+print b
+#matrix(
+#[['1.0'],
+# ['-1.0']])
+x=g.lu_solve(A,b)
+print x
+#matrix(
+#[['-3.0'],
+# ['2.0']])
+print A*x-b
+#matrix(
+#[['0.0'],
+# ['0.0']])</code></pre>
+            <!--p>Собственные значения и собственные векторы</p>
+            <pre class="prettyprint"><code>l,u=g.eig(A)
+print l
+#[mpf('-0.37228132326901432992530573410946465911013222899139797'),
+# mpf('5.3722813232690143299253057341094646591101322289914067')]
+print u
+#matrix(
+#[['-0.82456484013239376536905071707877267896095335074304', '-0.42222915041526045335929057758178658089159736117701'],
+# ['0.56576746496899228472288762798052673125191630934726', '-0.92305231425019333318861560854941073593095247730112']])</code></pre-->
+            <p>Диагональная матрица</p>
+            <pre class="prettyprint"><code>L=g.diag(l)
+print L
+#matrix(
+#[['-0.3722813232690143299253057341094646591101322289914', '0.0'],
+# ['0.0', '5.3722813232690143299253057341094646591101322289914']])
+<!--print A*u-u*L
+#matrix(
+#[['-2.0045735325691467346054023503636114091113976600788e-51', '5.3455294201843912922810729343029637576303937602101e-51'],
+# ['0.0', '1.069105884036878258456214586860592751526078752042e-50']])--></code></pre>
+          </div>
+        </div>
+        <div class='section'>
+          <div class='page-header'>
+            <h2 id='iv'>Вещественные интервалы</h2>
+          </div>
+          <div class='section'>
+            <p><code>g.iv.mpf</code> можно использовать для представления доверительного интервала вещественного числа. Интервал можно создать указав одно или пару значений-границ интервала. Рекомендуется использовать строки для точного представления границ. Для интервалов используется свой контекст точности <code>g.iv</code> аналогичный <code>g.mp</code>.</p>
+            <pre class="prettyprint"><code>g.iv.dps = 15
+print g.iv.mpf('0.1')
+#[0.099999999999999991673, 0.10000000000000000555]
+print iv.mpf(['0.1', '0.2'])
+#[0.099999999999999991673, 0.2000000000000000111]
+print(1 / g.iv.mpf([2, 'inf']))
+[0.0, 0.5]</code></pre>
+            <p>Для проверки наличия значения в интервале используется оператор <code>in</code>. Оператор <code>==</code> проверяет интервалы на равенство границ, <code>&lt;</code> и <code>&gt;</code> проверяют неравенство для обоих границ и в случае несовпадения результата возвращают <code>None</code>.</p>
+            <pre class="prettyprint"><code>print g.iv.mpf([0,2]) in g.iv.mpf([0,10])
+#True
+print 3 in g.iv.mpf(['-inf', 0])
+#False
+print g.iv.mpf([1,2]) == g.iv.mpf([1,2])
+#True
+print g.iv.mpf([1,2]) != g.iv.mpf([1,2])
+#False
+print g.iv.mpf([1,2]) &lt;= 2
+#True
+print g.iv.mpf([1,2]) &gt; 0
+#True
+print g.iv.mpf([1,2]) &lt; 1
+#False
+print g.iv.mpf([1,2]) &lt; 2    
+#None
+print g.iv.mpf([2,2]) &lt; 2
+#False
+print g.iv.mpf([1,2]) &lt;= g.iv.mpf([2,3])
+#True
+print g.iv.mpf([1,2]) &lt; g.iv.mpf([2,3])  
+#None
+print g.iv.mpf([1,2]) &lt; g.iv.mpf([-1,0])
+#False</code></pre>
+            <p>Для интервалов можно использовать все функции, описанные в разделе про вещественные числа, только вместо префикса <code>g</code> нужно использовать <code>g.iv</code>, либо предварительно присвоить <code>g = g.iv</code>.</p>
+
+          </div>
+        </div>
+        <div class='section'>
+          <div class='page-header'>
+            <h2 id='mpc'>Комплексные числа</h2>
+          </div>
+          <div class='section'>
+            <p>Создать число можно через <code>g.mpc</code> из строки или комплексного числа python:</p>
+            <pre class="prettyprint"><code>x=g.mpc('1')
+print x
+#(1.0 + 0.0j)
+y=g.mpc(1+1j)
+print y
+#(1.0 + 1.0j)</code></pre>
+            <p>Для комплексных чисел работают все функции, описанные в разделе про вещественные числа. Получить вещественную часть можно через <code>g.re</code>, мнимую через <code>g.im</code>, абсолютное значение и комплексный аргумент можно через <code>g.fabs</code> и <code>g.arg</code>, либо <code>g.polar</code> вернёт обе полярные координаты комплексного числа, получить число из полярных координат можно через <code>g.rect</code>, комплексное сопряжение - <code>g.conj</code>.</p>
+            <pre class="prettyprint"><code>print g.re(4+3j)
+#4.0
+print g.im(4+3j)
+#3.0
+print g.fabs(4+3j)
+#5.0
+print g.arg(4+3j)
+#0.64350110879328438680280922871732263804151059111531
+print g.polar(4+3j)
+#(mpf('5.0'), mpf('0.64350110879328438680280922871732263804151059111531185'))
+print g.rect(5,g.atan(0.75))
+#(4.0 + 3.0j)</code></pre>
+          </div>
+        </div>
+        <div class='section'>
+          <div class='page-header'>
+            <h2 id='mpz'>Целые числа</h2>
+          </div>
+          <div class='section'>
+            <p><code>gmpy.mpz</code> представляет длинные целые из строки или числа python, аналогично <code>AAL.Integer</code>. Доступны все арифметические операции чисел python.</p>
+            <pre class="prettyprint"><code>gmpy.mpz('123')+1
+#mpz(124)
+print 10-gmpy.mpz(10**100)
+#-9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999990</code></pre>
+            <p>Доспупны также следующие функции:
+<br/><code>gmpy.is_power</code> возвращает <code>True</code>, если переданое число идеальная степень, иначе <code>False</code>.
+<br/><code>gmpy.is_square</code> возвращает <code>True</code>, если переданое число идеальный квадрат, иначе <code>False</code>.
+<br/><code>gmpy.is_prime(a,n)</code> возвращает <code>True</code>, если переданое число, <b>вероятно</b>, простое число. <code>False</code> возвращается, если переданое число определенно составное. Переданое число проверяется на наличие малых делителей и выполняется до <code>n</code> (по умолчанию 25) тестов Миллера-Рабина.
+<br/><code>gmpy.bit_length</code> возвращает количество значащих бит в двоичном представлении переданного числа. Для совместимости с Python <code>gmpy.mpz(0).bit_length()</code> возвращает 0.
+<br/><code>gmpy.getbit(a,n)</code> возвращает бит <code>n</code> в двоичном представлении числа <code>a</code>.
+<br/><code>gmpy.digits(a,n)</code> возвращает строку, представляющую <code>a</code> по основанию <code>n</code>.
+<br/><code>gmpy.bincoef(a,n)</code> возвращает биномиальный коэффициент.
+<br/><code>gmpy.legendre(a,b)</code> возвращает символ Лежандра <em>(a | b)</em>. <em>b</em> предполагается нечетным простым числом.
+<br/><code>gmpy.hamdist(a,b)</code> возвращает расстояние Хемминга (количество битовых позиций, где биты различаются) между целыми числами.
+<br/><code>gmpy.invert(x,m)</code> возвращает <code>y</code> такой, что <code>x * y == 1</code> по модулю <code>m</code> или 0, если такого <code>y</code> не существует.
+<br/><code>gmpy.remove(x,f)</code> удалит множитель <code>f</code> из <code>x</code> столько раз, сколько возможно, и вернет кортеж <code>(y,m)</code>, где <code>y = x // (f ** m)</code>. <code>f</code> не делит <code>y</code>. <code>m</code> кратность множителя <code>f</code> в <code>x</code>. <code>f</code> должно быть больше 1.
+<br/><code>gmpy.next_prime</code> возвращает следующее, <b>вероятно</b>, простое число больше переданного.
+<br/><code>gmpy.popcount</code> возвращает количество битов со значением 1 в переданном числе. Если переданное число меньше 0, число битов со значением 1 бесконечно, поэтому в этом случае возвращается -1.
+<br/><code>gmpy.kronecker(a,b)</code> возвращает символ Кронекера-Якоби <em>(a | b)</em>.
+<br/><code>gmpy.jacobi(a,b)</code> возвращает символ Якоби <em>(a | b)</em>. <em>b</em> должен быть нечетным и положительным.
+<br/><code>gmpy.comb(x,n)</code> возвращает количество комбинаций из <code>x</code>, принимая <code>n</code> за раз. <code>n</code> должно быть больше или равно 0.
+<br/><code>gmpy.fdivmod(x,y)</code> возвращает частное и остаток от <code>x</code>, деленного на <code>y</code>. Частное округляется в сторону -Inf (округление в меньшую сторону), а остаток будет иметь тот же знак, что и <code>y</code>.
+<br/><code>gmpy.tdivmod(x,y)</code> возвращает частное и остаток от <code>x</code>, деленного на <code>y</code>. Частное округляется в сторону 0 (усечение), а остаток будет иметь тот же знак, что и <code>y</code>.
+<br/><code>gmpy.cdivmod(x,y)</code> возвращает частное и остаток от <code>x</code>, деленного на <code>y</code>. Частное округляется в сторону +Inf (округление в большую сторону), а остаток будет иметь противоположный к <code>y</code> знак.
+            </p>
+          </div>
         </div>
         
     </div>

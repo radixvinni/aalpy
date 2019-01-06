@@ -1,8 +1,38 @@
 <div class="container">
-  <h1>Практикум</h1>
+%if discipline is None:
+  <h2>Дисциплины</h2>
   <div class="row">
       <div class="sections">
+      %for item in sorted(set([x[4] or '' for x in courses])):
+        <li class="span6">
+          <h4><a href="/?discipline={{item}}">{{item or 'Не задано'}}</a></h4>
+        </li>
+      %end
+    </div>
+  </div>
+%elif group is None:
+  <h2><a href='/'>Дисциплины</a> &gt; {{discipline or 'Дисциплина не задана'}}</h2>
+  <div class="row">
+      <div class="sections">
+      %for item in sorted(set([x[3] or '' for x in courses if x[4] == discipline])):
+        <li class="span6">
+          <h4><a href="/?discipline={{discipline}}&group={{item}}">{{item or 'Не задано'}}</a></h4>
+        </li>
+      %end
+    </div>
+  </div>
+%else:
+  <h2><a href='/'>Дисциплины</a> &gt; <a href='/?discipline={{discipline}}'>{{discipline or 'Дисциплина не задана'}}</a> &gt; {{group or 'Группа не задана'}}</h2>
+  <div class="row">
+      <div class="sections">
+      %if not content:
+        <div class="alert alert-warning">
+          <strong>Предупреждение.</strong> Отсутствуют работы с заданиями в данном разделе. Добавьте задания, чтобы работа появилась в списке.
+        </div>
+      %end
+      
       %for item in content:
+      %if item[0] in tasks:
         <li class="span6">
           <h4><a href="/course/{{item[0]}}">{{item['title']}}</a></h4>
           <div class="progress indicator">
@@ -15,12 +45,13 @@
           <p>{{!item['descr']}}</p>
         </li>
       %end
-      </ul>
+      %end
+      
   </div>
 </div>
-
 <script>
   $(function() {$('.indicator .bar div').tooltip().click(function(){location.replace($(this).attr('href'));});});
 </script>
+%end
           
 %rebase layout title='Практикум', path='/', is_user=True, is_admin=False

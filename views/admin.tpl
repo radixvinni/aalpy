@@ -1,4 +1,6 @@
 <link rel="stylesheet" type="text/css" href="/assets/css/jquery.cleditor.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/jquery.editable-select.css" />
+<script type="text/javascript" src="/assets/js/jquery.editable-select.js"></script>
 <script type="text/javascript" src="/assets/js/jquery.cleditor.min.js"></script>
 <script type="text/javascript" src="/assets/js/knockout.min.js"></script>
 <div class="container">
@@ -113,6 +115,26 @@
             <label class="control-label" for="title">Название</label>
             <div class="controls">
               <input type="text" class="input-block-level" id="title" name="title" data-bind="value: $data[1]">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="title">Дисциплина</label>
+            <div class="controls">
+              <select class='select2' id='discipline' name='discipline' data-bind="value: $data[4]">
+                %for field in sorted(set([''] + [x[4] or '' for x in courses])):
+                  <option value="{{field}}">{{field}}</option>
+                %end
+              </select>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="title">Номер группы</label>
+            <div class="controls">
+              <select class='select2' id='grp' name='grp' data-bind="value: $data[3]">
+                %for field in sorted(set([''] + [x[3] or '' for x in courses])):
+                  <option>{{field}}</option>
+                %end
+              </select>
             </div>
           </div>
       %elif name == 'tasks':
@@ -328,14 +350,21 @@
  </div>
 </div>
 <script>
+  function renew_select2() { 
+    var grp = $('#grp').val();
+    var dsc = $('#discipline').val();
+    $('.select2').editableSelect({effects: 'slide'});
+    $('#grp').val(grp);
+    $('#discipline').val(dsc);
+  }
   function Admin() {
     var self = this;
     var content = {{!content}};
     var name = '{{name}}';
     self.content = ko.observable(content);
     self.edit = ko.observable();
-    self.editing = function(user) { self.content([]);self.edit(user);renew_editor(); };
-    self.creating = function(user) { self.content([]);self.edit([]); renew_editor(); };
+    self.editing = function(user) { self.content([]);self.edit(user);renew_editor();renew_select2(); };
+    self.creating = function(user) { self.content([]);self.edit([]); renew_editor();renew_select2(); };
     //self.listing = function(user) { self.content(content);self.edit(); };
   }
   ko.applyBindings(new Admin());
