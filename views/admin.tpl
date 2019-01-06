@@ -41,6 +41,31 @@
       </a>
       <!-- /ko -->
       %elif name == 'courses':
+      <!-- ko ifnot: edit -->
+        <div class="btn-group">
+          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            Дисциплина <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a tabindex="-1" href="#" data-bind="click: function() {$root.filter_dsc(null)}">Все</a></li>
+                %for field in sorted(set([x[4] or '' for x in courses])):
+                  <li data-bind="css: {disabled: current_dsc() == '{{field}}'}"><a tabindex="-1" href="#" data-bind="click: function() {$root.filter_dsc('{{field}}')}">{{field or 'Не задано'}}</a></li>
+                %end
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            Номер группы <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a tabindex="-1" href="#" data-bind="click: function()  {$root.filter_grp(null)}">Все</a></li>
+                %for field in sorted(set([x[3] or '' for x in courses])):
+                  <li data-bind="css: {disabled: current_grp() == '{{field}}'}"><a tabindex="-1" href="#" data-bind="click: function() {$root.filter_grp('{{field}}')}">{{field or 'Не задано'}}</a></li>
+                %end
+          </ul>
+        </div>
+        <div class='clear'></div>
+      <!-- /ko -->
       <!-- ko foreach: content -->
       <div class="span4" data-bind="click: $root.editing">
         <hr>
@@ -56,6 +81,18 @@
       %elif name == 'tasks':
       <!-- ko ifnot: edit -->
         <a href="#" class="btn" data-bind="click: $root.creating">Добавить</a>
+        <div class="btn-group">
+          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            Работа <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a tabindex="-1" href="#" data-bind="click: function() {$root.filter_dsc(null)}">Все</a></li>
+                %for field in (courses):
+                  <li data-bind="css: {disabled: current_dsc() == {{field[0]}}}"><a tabindex="-1" href="#" data-bind="click: function() {$root.filter_dsc({{field[0]}})}">{{field[1] or 'Не задано'}}</a></li>
+                %end
+          </ul>
+        </div>
+        
       <!-- /ko -->
       <!-- ko foreach: content -->
       <hr>
@@ -363,9 +400,34 @@
     var name = '{{name}}';
     self.content = ko.observable(content);
     self.edit = ko.observable();
+    self.current_grp = ko.observable(null);
+    self.current_dsc = ko.observable(null);
     self.editing = function(user) { self.content([]);self.edit(user);renew_editor();renew_select2(); };
     self.creating = function(user) { self.content([]);self.edit([]); renew_editor();renew_select2(); };
+    self.filter_grp = function(x) { self.current_grp(x);self.content(self.filterContent()); }
+    self.filter_dsc = function(x) { self.current_dsc(x);self.content(self.filterContent()); }
     //self.listing = function(user) { self.content(content);self.edit(); };
+    var filterCourses = (function() {
+        if(self.current_grp()===null && self.current_dsc()===null) {
+            return content; 
+        } else {
+            return content.filter(function(itm) {
+                return (self.current_grp()===null || itm[3] == self.current_grp()) && 
+                  (self.current_dsc()===null || itm[4] == self.current_dsc());
+            });
+        }
+    });
+    var filterTasks = function () {
+      if(self.current_dsc()===null) {
+            return content; 
+        } else {
+            return content.filter(function(itm) {
+                return (self.current_dsc()===null || itm[0] == self.current_dsc());
+            });
+        }
+    }
+    var filterContent = function () {return content}
+    self.filterContent = name == 'courses'?filterCourses:name=='tasks'?filterTasks:filterContent;
   }
   ko.applyBindings(new Admin());
 </script>
