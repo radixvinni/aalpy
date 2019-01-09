@@ -409,8 +409,9 @@ def logout():
     if sid in sessions: sessions.pop(sid)
     lock.release()
     #i can not use redirect
-    response.status=302;
-    response.add_header('Location','/');
+    response.status=302
+    response.add_header('Access-Control-Allow-Origin','*')
+    response.add_header('Location','/')
     return ''
 
 #@ajax(то есть никаких редиректов!)
@@ -419,6 +420,7 @@ def changepass():
     sid=request.get_cookie("session")
     oldpass = request.forms.get('oldpass')
     newpass = request.forms.get('newpass')
+    response.add_header('Access-Control-Allow-Origin','*')
     if sid not in sessions: return 'no session'
     if change_pass(sessions[sid].uid, oldpass, newpass):
         return 'ok'

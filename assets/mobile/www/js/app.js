@@ -1,7 +1,5 @@
 // Dom7
 var $$ = Dom7;
-var username = null;
-
 // Framework7 App main instance
 var app  = new Framework7({
   root: '#app', // App root element
@@ -12,7 +10,6 @@ var app  = new Framework7({
   // App root data
   data: function () {
     return {
-      username
     };
   },
   // App root methods
@@ -39,36 +36,50 @@ var mainView = app.views.create('.view-main', {
   url: '/'
 });
 
-// Login Screen Demo
-$$('.login-screen-content .login-button').on('click', function () {
-  app.input.validateInputs('.login-screen-content');
-  
-  var username = $$('.login-screen-content [name="username"]:valid').val();
-  var password = $$('.login-screen-content [name="password"]:valid').val();
-  var server = $$('.login-screen-content [name="url"]:valid').val() || 'http://mm.mpei.ac.ru:8080';
+// Restore saved login settings
+var server;
 
+//Left menu item clicked
+$$('.login-screen-content .chpass-button').on('click', function () {
+  app.input.validateInputs('.login-screen-content');
+  var oldpass = $$('.login-screen-content [name="oldpass"]:valid').val();
+  var newpass = $$('.login-screen-content [name="newpass"]:valid').val();
+  var newpass2 = $$('.login-screen-content [name="newpass2"]:valid').val();
+  if (newpass!==newpass2) return app.dialog.alert("Пароли не совпадают.");
   app.preloader.show();
   $.ajax({
     type: "POST",
-    url: server+"/login",
-    data: {username, password},
+    url: server+"/changepass",
+    data: {oldpass, newpass},
     timeout: 1500,
-    success: function(data, textStatus) {
-        if (data.redirect) {
-            // data.redirect contains the string URL to redirect to
-            console.log('ok',data);
-        }
-        else {
-            // data.form contains the HTML for the replacement form
-            console.log('err',data);
-        }
-        app.preloader.hide();
+    success: function(data) {
+      if (data=='ok') app.popup.close('#chpass-popup');
+      if (data=='wrong pass') app.dialog.alert("Старый пароль введён неверно.");
+      if (data=='no session') app.dialog.alert("Ваша сессия не найдена на сервере. Выйдите и войдите заново.");
+      app.preloader.hide();
     },
     error: function(data, textStatus) {
       app.dialog.alert(textStatus=="timeout"?"Сервер не отвечает.":"Ошибка при обращении к серверу.");
       app.preloader.hide();
     }
   });
-
-  // Alert username and password
+  
+});
+$$('.view-left #logout').on('click', function () {
+  app.preloader.show();
+  $.ajax({
+    type: "GET",
+    url: server+"/logout",
+    timeout: 1500,
+    success: function(data) {
+      console.log('cookie', document.cookie);
+      document.cookie = 'session=; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+      app.router.navigate('/');
+      app.preloader.hide();
+    },
+    error: function(data, textStatus) {
+      app.dialog.alert(textStatus=="timeout"?"Сервер не отвечает.":"Ошибка при обращении к серверу.");
+      app.preloader.hide();
+    }
+  });
 });

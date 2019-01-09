@@ -60,10 +60,10 @@
             <div class="list links-list">
               <ul>
                 <li>
-                  <a href="#" data-view=".view-main" class="panel-close">Сменить пароль</a>
+                  <a href="#" id="changePass" class="panel-close popup-open" data-popup="#chpass-popup">Сменить пароль</a>
                 </li>
                 <li>
-                  <a href="#" data-view=".view-main" class="panel-close">Выйти</a>
+                  <a href="#" id="logout" class="panel-close">Выйти</a>
                 </li>
                 <li>
                   <a href="/about/" data-view=".view-main" class="panel-close">О программе</a>
@@ -143,7 +143,54 @@
       </div>
     </div>
   </div>
-
+  
+  <div class="popup" id="chpass-popup">
+      <div class="view">
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-inner">
+              <div class="title">Сменить пароль</div>
+              <div class="right">
+                <a href="#" class="link popup-close">Отмена</a>
+              </div>
+            </div>
+          </div>
+          <div class="page-content login-screen-content">
+            <div class="list">
+                <ul>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Старый пароль</div>
+                      <div class="item-input-wrap">
+                        <input type="password" name="oldpass" placeholder="Старый пароль" required validate>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Новый пароль</div>
+                      <div class="item-input-wrap">
+                        <input type="password" name="newpass" placeholder="Ваш новый пароль" required validate>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Новый пароль ещё раз</div>
+                      <div class="item-input-wrap">
+                        <input type="password" name="newpass2" placeholder="Ваш новый пароль" required validate>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <a href="#" class="item-link list-button chpass-button">Сменить пароль</a>
+                  </li>
+                </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
   <!--
   <script src="cordova.js"></script>
   -->
