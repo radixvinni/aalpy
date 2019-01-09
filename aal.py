@@ -1,6 +1,7 @@
 # coding: utf-8
 #ALTER TABLE courses ADD COLUMN grp TEXT;
 #ALTER TABLE courses ADD COLUMN discipline TEXT;
+
 from code import InteractiveConsole
 from uuid import uuid1
 import sys
@@ -393,8 +394,9 @@ def login():
         lock.release()
         response.set_cookie("session", c.sid)
         #i can not use redirect
-        response.status=302;
-        response.add_header('Location','/aal');
+        response.status=302
+        response.add_header('Access-Control-Allow-Origin','*')
+        response.add_header('Location','/aal')        
         return ''
     else:
         return template('login', username=username, error=error, is_user=request.get_cookie("session"))
@@ -469,6 +471,7 @@ def run_prog():
                 
             res = sessions[sid].get_output(cmd)
             save('history', (None, sessions[sid].uid, int(time.time()), cmd, res))
+            response.add_header('Access-Control-Allow-Origin','*')
             return res
         else:
             lock.release()
@@ -577,6 +580,7 @@ def send_static(filename):
 def mistake(error):
     return static_file('error.html', root='views')
 
-Request.MEMFILE_MAX = 1024000
-init()
-run(host='0.0.0.0',port=8081,reloader=True, server='cherrypy')
+if __name__ == "__main__":
+    Request.MEMFILE_MAX = 1024000
+    init()
+    run(host='0.0.0.0',port=8081,reloader=True, server='cherrypy')
