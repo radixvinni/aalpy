@@ -7,7 +7,14 @@
           <i class="icon material-icons md-only">menu</i>
         </a>
       </div>
-      <div class="title sliding">Алгебраический процессор</div>
+      <div class="title sliding navbar-scroller">
+        <div>Алгебраический процессор</div>
+        <button class="button button-round button-raised button-fill color-green sheet-open" data-sheet=".result-sheet" onclick="app.methods.runWorkspace()"><i class="icon f7-icons" style="font-size: 14px;">play_fill</i>&nbsp;Запуск</button>
+        <button class="button button-round button-raised" onclick="app.workspace.undo()"><i class="icon material-icons">undo</i>Отмена</button>
+        <button class="button button-round button-raised color-gray" onclick="Blockly.duplicate_(Blockly.selected)"><i class="icon material-icons">content_copy</i>Дублировать</button>
+        
+      </div>
+      
       <!--div class="right">
         <a href="#" class="link icon-only panel-open" data-panel="right">
           <i class="icon f7-icons ios-only">menu</i>
@@ -27,43 +34,3 @@
     <div id="blocklyDiv" style="position: absolute;"></div>
   </div>
 </div>
-
-<xml id="toolbox" style="display: none">
-  <block type="controls_if"></block>
-  <block type="logic_compare"></block>
-  <block type="controls_repeat_ext"></block>
-  <block type="math_number">
-    <field name="NUM">123</field>
-  </block>
-  <block type="math_arithmetic"></block>
-  <block type="text"></block>
-  <block type="text_print"></block>
-</xml>
-
-<script>
-    var blocklyArea = document.getElementById('blocklyArea');
-    var blocklyDiv = document.getElementById('blocklyDiv');
-    var demoWorkspace = Blockly.inject(blocklyDiv,
-        {media: 'blockly/media/',
-        horizontalLayout:true,
-        scrollbars:true,
-        toolboxPosition:"end",
-        zoom: {
-          wheel: true,
-          startScale: 1.0,
-          maxScale: 3,
-          minScale: 0.3,
-          scaleSpeed: 1.2},
-        toolbox: document.getElementById('toolbox')});
-    var onresize = function(e) {
-      // Position blocklyDiv over blocklyArea.
-      blocklyDiv.style.left = blocklyArea.offsetLeft + 'px';
-      blocklyDiv.style.top = blocklyArea.offsetTop + 'px';
-      blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
-      blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
-      Blockly.svgResize(demoWorkspace);
-    };
-    window.addEventListener('resize', onresize, false);
-    onresize();
-    Blockly.svgResize(demoWorkspace);
-</script>

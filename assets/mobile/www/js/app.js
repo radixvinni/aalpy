@@ -12,34 +12,36 @@ var app  = new Framework7({
     return {
     };
   },
+  sheet: {
+    closeByOutsideClick: true,
+    backdrop: true,
+  },
   // App root methods
   methods: {
-    helloWorld: function () {
-      app.dialog.alert('Hello World!');
+    runWorkspace: function () {
+      if (!document.cookie || document.cookie.length < 40) return app.router.navigate('/');
+      var code = Blockly.Python.workspaceToCode(app.workspace);
+      
+      $('#results').append('\n======== начало исходного кода ========\n');
+      $('#results').append(code);
+      $('#results').append('\n======== конец исходного кода ========\n');
+      $("#results").scrollTop($("#results")[0].scrollHeight);
+
+      $.post(app.server+'/console/run', { cmd: code+'\n', type: "program" }, function(data) {
+        $('#results').append(data);
+        $("#results").scrollTop($("#results")[0].scrollHeight);
+      });
     },
   },
   // App routes
-  routes: routes,
+  routes,
   // Enable panel left visibility breakpoint
   panel: {
     leftBreakpoint: 960,
   },
 });
 
-// Init/Create left panel view
-var mainView = app.views.create('.view-left', {
-  url: '/'
-});
-
-// Init/Create main view
-var mainView = app.views.create('.view-main', {
-  url: '/'
-});
-
-// Restore saved login settings
-var server;
-
-//Left menu item clicked
+//Left menu change password button clicked
 $$('.login-screen-content .chpass-button').on('click', function () {
   app.input.validateInputs('.login-screen-content');
   var oldpass = $$('.login-screen-content [name="oldpass"]:valid').val();
@@ -49,7 +51,7 @@ $$('.login-screen-content .chpass-button').on('click', function () {
   app.preloader.show();
   $.ajax({
     type: "POST",
-    url: server+"/changepass",
+    url: app.server+"/changepass",
     data: {oldpass, newpass},
     timeout: 1500,
     success: function(data) {
@@ -65,15 +67,15 @@ $$('.login-screen-content .chpass-button').on('click', function () {
   });
   
 });
+//left menu logout button clicked
 $$('.view-left #logout').on('click', function () {
   app.preloader.show();
   $.ajax({
     type: "GET",
-    url: server+"/logout",
+    url: app.server+"/logout",
     timeout: 1500,
     success: function(data) {
-      console.log('cookie', document.cookie);
-      document.cookie = 'session=; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+      //document.cookie = 'session=; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
       app.router.navigate('/');
       app.preloader.hide();
     },
@@ -83,3 +85,4 @@ $$('.view-left #logout').on('click', function () {
     }
   });
 });
+Blockly.Python.text_print = function (a){return"print "+(Blockly.Python.valueToCode(a,"TEXT",Blockly.Python.ORDER_NONE)||"''")+"\n"}

@@ -31,3 +31,55 @@
   content: '';
   z-index: 6000;
 }
+
+.navbar-scroller {
+  display: flex!important;
+  overflow-x: scroll!important;
+  line-height: 30px!important;
+}
+
+.md .navbar-scroller > div {
+  position: relative;
+  top: 4px;
+}
+
+.navbar-scroller > * {
+  overflow: visible!important;
+  min-width: unset!important;
+  margin:5px;
+}
+
+#results {
+  overflow: scroll;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  margin: 0px;
+  padding:2px;
+}
+
+.mmLogo {
+  width:100%;
+}
+.about {
+  margin-top:0!important;
+}
+.authors dt {
+  font-weight: bold;
+}
+.poweredBy {
+  width:30%;
+  margin:0 10px;
+}
+.attribution {
+  display: block;
+  text-align: center;
+}
+.mpeiLogo {
+    clear: both;
+    margin: 16px auto;
+    display: block;
+    width: 200px;
+}
