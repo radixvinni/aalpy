@@ -1,3 +1,58 @@
+function injectBlockly() {
+  prettyPrint();
+  $('.injectBlockly').each(function() {
+    var btn = $('<button class="button button-round button-raised button-small button-right"><i class="icon f7-icons">eye_off</i></button>').insertAfter($(this));
+    var xml = Blockly.Xml.textToDom(this.innerHTML);
+    var params = {
+      media: 'blockly/media/',
+      scrollbars:true,
+      zoom: {
+        wheel: true,
+        startScale: 0.5,
+        maxScale: 3,
+        minScale: 0.1,
+        scaleSpeed: 1.2
+      }
+    };
+
+    btn.click(function() {
+      var eye = btn.find('i');
+      if (eye.html() == 'eye_fill') eye.html('eye_off');
+      else eye.html('eye_fill');
+      var blocklyArea = $(this).next();
+      var blocklyDiv = blocklyArea.next();
+      if (!blocklyDiv.hasClass('injected')) {
+        blocklyDiv = $('<div class="injected"></div>').insertAfter(blocklyArea);
+        blocklyDiv[0].style.left = blocklyArea[0].offsetLeft + 'px';
+        blocklyDiv[0].style.top = blocklyArea[0].offsetTop + 'px';
+        blocklyDiv[0].style.width = blocklyArea[0].offsetWidth + 'px';
+        blocklyDiv[0].style.height = blocklyArea[0].offsetHeight + 'px';
+        var workspace = Blockly.inject(blocklyDiv[0], params);
+        Blockly.Xml.domToWorkspace(xml, workspace);
+        Blockly.svgResize(workspace);
+      }
+      else blocklyDiv.toggle();
+      blocklyArea.toggle();
+      return false;
+    });
+
+  });
+}
+
+var saveWorkspace = () => Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(app.workspace))
+var restoreWorkspace = (i) => Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom($('.injectBlockly')[i].innerHTML), app.workspace)
+
+function toolboxXml() {
+  if (!app.toolboxXml) {
+        var toolboxText = document.getElementById('toolbox').outerHTML;
+        toolboxText = toolboxText.replace('###', app.dynamicToolbox);
+        toolboxText = toolboxText.replace(/(^|[^%]){(\w+)}/g,
+            function(m, p1, p2) {return p1 + MSG[p2];});
+        
+        app.toolboxXml = Blockly.Xml.textToDom(toolboxText);
+  }
+  return app.toolboxXml;
+}
 routes = [
   {
     path: '/',
@@ -56,11 +111,6 @@ routes = [
         }
       
         // Construct the toolbox XML, replacing translated variable names.
-        var toolboxText = document.getElementById('toolbox').outerHTML;
-        toolboxText = toolboxText.replace(/(^|[^%]){(\w+)}/g,
-            function(m, p1, p2) {return p1 + MSG[p2];});
-        
-        var toolboxXml = Blockly.Xml.textToDom(toolboxText);
         app.workspace = Blockly.inject(blocklyDiv,
             {media: 'blockly/media/',
             horizontalLayout:true,
@@ -72,7 +122,7 @@ routes = [
               maxScale: 3,
               minScale: 0.3,
               scaleSpeed: 1.2},
-            toolbox: toolboxXml});
+            toolbox: toolboxXml()});
         
         var onresize = function(e) {
           // Position blocklyDiv over blocklyArea.
@@ -100,7 +150,7 @@ routes = [
   {
     path: '/left-page-1/',
     url: './pages/left-page-1.html',
-    on:{pageInit:prettyPrint},
+    on:{pageInit:injectBlockly},
   },
   {
     path: '/left-page-2/',

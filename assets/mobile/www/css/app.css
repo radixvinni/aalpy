@@ -83,3 +83,8 @@
     display: block;
     width: 200px;
 }
+
+.injected .injectionDiv {width:100%}
+.button-right {
+  position:absolute;width:unset;background: white;right:0;z-index:100;margin-top: -40px;
+}
