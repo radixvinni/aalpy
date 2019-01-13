@@ -26,6 +26,8 @@ var app  = new Framework7({
       $('#results').append(code);
       $('#results').append('\n======== конец исходного кода ========\n');
       $("#results").scrollTop($("#results")[0].scrollHeight);
+      if (app.currentId == 'unsaved')
+        localStorage.setItem(app.currentId, saveWorkspace());
 
       $.post(app.server+'/console/run', { cmd: code+'\n', type: "program" }, function(data) {
         $('#results').append(data);
@@ -85,8 +87,15 @@ $$('.view-left #logout').on('click', function () {
     }
   });
 });
+//Remove imports and variable initialization
 Blockly.Python.finish = function(code) {return code}
+
+//Use python2 print statements
 Blockly.Python.text_print = function (a){return"print "+(Blockly.Python.valueToCode(a,"TEXT",Blockly.Python.ORDER_NONE)||"''")+"\n"}
+
+//Allow usage of '.' in variable names
+Blockly.Names.prototype.safeName_ = function (a){a?(a=encodeURI(a.replace(/ /g,"_")).replace(/[^\w.]/g,"_"),-1!="0123456789".indexOf(a[0])&&(a="my_"+a)):a="unnamed";return a}
+
 Blockly.Blocks['lists_getSublist2'] = {
   init: function() {
     this.appendValueInput("NAME")
@@ -267,7 +276,7 @@ Blockly.Python['python_hasattr'] = function(block) {
   if (variable_name.indexOf('.')<0) 
     return ['True', Blockly.Python.ORDER_NONE];
   
-  var [module, varname] = variable_name.split('.')[0];
+  var [module, varname] = variable_name.split('.');
   var code = 'hasattr(' + module + ', "' + varname + '")';
   return [code, Blockly.Python.ORDER_NONE];
 };
@@ -382,10 +391,10 @@ function addMethods(className, classMethods) {
       if (methodName == '__init__') code = className + '(';
       else code = self + '.' + methodName + '(';
       methodArguments.split(', ').forEach(arg => {
-        var argName = arg.split()[1];
+        var argName = arg.split(' ')[1];
         if (argName == 'self') return;
         var value = Blockly.Python.valueToCode(block, argName.toUpperCase(), Blockly.Python.ORDER_ATOMIC);
-        if (!value && argName.contains('=')) value = argName.split('=')[1];
+        if (!value && argName.includes('=')) value = argName.split('=')[1];
         code += value + ',';
       });
       if (code.endsWith(',')) code = code.slice(0, -1);

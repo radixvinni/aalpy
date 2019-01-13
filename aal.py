@@ -13,6 +13,7 @@ lock = Lock()
 from datetime import datetime, timedelta
 import time
 from urllib import quote, unquote
+import json
 
 def handler(signum, frame):
     #print 'Выполнение команды приостановлено из-за превышения предела времени выполнения(60 секунд)'
@@ -288,6 +289,24 @@ def index(cid):
     sessions[sid].goal=work['goal'] or None
     lock.release()
     return work
+
+@post('/blockly')
+def blockly():
+    require_login(require_admin=1)
+    name = request.forms.get('name')
+    descr = request.forms.get('descr')
+    blockid = request.forms.get('id')
+    action = request.forms.get('action')
+    visibility = request.forms.get('visibility')
+    index = json.load(open('assets/mobile/index.json'))
+    workspace = request.forms.get('workspace')
+    if action == 'save':
+        index[blockid] = {"name":name, "descr":descr, "workspace":workspace, "visibility":visibility}
+        json.dump(index, open('assets/mobile/index.json','w'), indent=4)
+    
+    elif action == 'delete':
+        del index[blockid]
+        json.dump(index, open('assets/mobile/index.json','w'), indent=4)
 
 @route('/notebook/:path')
 @view('notebook')

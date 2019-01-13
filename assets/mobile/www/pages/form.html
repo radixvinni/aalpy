@@ -10,8 +10,8 @@
       <div class="title">Сохранить программу как...</div>
     </div>
   </div>
-  <div class="page-content">
-    <div class="block-title">Form Example</div>
+  <div class="page-content save-form">
+    <div class="block-title">Отображение в меню</div>
     <div class="list no-hairlines-md">
       <ul>
         <li>
@@ -19,7 +19,7 @@
             <div class="item-inner">
               <div class="item-title item-label">Название программы</div>
               <div class="item-input-wrap">
-                <input type="text" placeholder="Название"/>
+                <input type="text" name="name" placeholder="Название"/>
               </div>
             </div>
           </div>
@@ -30,7 +30,7 @@
             <div class="item-inner">
               <div class="item-title item-label">Описание программы</div>
               <div class="item-input-wrap">
-                <textarea placeholder="Описание" class="resizable"></textarea>
+                <textarea placeholder="Описание" name="descr" class="resizable"></textarea>
               </div>
             </div>
           </div>
@@ -43,7 +43,7 @@
       <ul>
         <li>
           <label class="item-radio item-content">
-            <input type="radio" name="radio" value="Books" checked="checked"/>
+            <input type="radio" name="visibility" value="everyone" checked="checked"/>
             <i class="icon icon-radio"></i>
             <div class="item-inner">
               <div class="item-title">Показывать всем</div>
@@ -52,7 +52,7 @@
         </li>
         <li>
           <label class="item-radio item-content">
-            <input type="radio" name="radio" value="Movies"/>
+            <input type="radio" name="visibility" value="admin"/>
             <i class="icon icon-radio"></i>
             <div class="item-inner">
               <div class="item-title">Показывать только мне</div>
@@ -64,8 +64,8 @@
     <div class="block-title">Сохранить</div>
     <div class="block block-strong">
       <p class="row">
-        <a href="#" class="col button button-big button-fill button-raised color-red">Удалить</a>
-        <input type="submit" value="Сохранить" class="col button button-big button-fill button-raised color-green"/>
+        <a href="#" id="delete" class="col button button-big button-fill button-raised color-red">Удалить</a>
+        <a href="#" id="save" class="col button button-big button-fill button-raised color-green">Сохранить</a>
       </p>
     </div>
     

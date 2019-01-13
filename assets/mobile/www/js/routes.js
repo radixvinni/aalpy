@@ -1,3 +1,4 @@
+//create buttons to toggle between blockly and code with result examples
 function injectBlockly() {
   prettyPrint();
   $('.injectBlockly').each(function() {
@@ -40,10 +41,17 @@ function injectBlockly() {
 }
 
 var saveWorkspace = () => Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(app.workspace))
-var restoreWorkspace = (i) => Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom($('.injectBlockly')[i].innerHTML), app.workspace)
+var restoreWorkspace = (x) => Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(x), app.workspace)
+var copyToWorkspace = (i) => Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom($('.injectBlockly')[i].innerHTML), app.workspace)
 
+// Construct the toolbox XML, replacing translated variable names.
 function toolboxXml() {
   if (!app.toolboxXml) {
+        for (var messageKey in MSG) {
+          if (messageKey.indexOf('cat') == 0) {
+            Blockly.Msg[messageKey.toUpperCase()] = MSG[messageKey];
+          }
+        }
         var toolboxText = document.getElementById('toolbox').outerHTML;
         toolboxText = toolboxText.replace('###', app.dynamicToolbox);
         toolboxText = toolboxText.replace(/(^|[^%]){(\w+)}/g,
@@ -53,10 +61,12 @@ function toolboxXml() {
   }
   return app.toolboxXml;
 }
+
 routes = [
   {
     path: '/',
     url: './index.html',
+    //redirect: function (route, resolve, reject) { if (!document.cookie) resolve('/'); },
     on:{
       pageInit: function() {
         console.log('Restoring saved login settings'); 
@@ -71,6 +81,7 @@ routes = [
           var username = $$('.login-screen-content [name="username"]:valid').val();
           var password = $$('.login-screen-content [name="password"]:valid').val();
           app.server = $$('.login-screen-content [name="url"]:valid').val() || 'http://mm.mpei.ac.ru:8080';
+          app.username = username;
           window.localStorage.setItem("url", app.server);
           window.localStorage.setItem("username", username);
           if (save) window.localStorage.setItem("password", password);
@@ -83,7 +94,7 @@ routes = [
             timeout: 1500,
             success: function() {
                 if (document.cookie) {
-                  app.router.navigate('/aal')
+                  app.router.navigate('/aal/unsaved')
                 }
                 app.preloader.hide();
             },
@@ -97,20 +108,20 @@ routes = [
     }
   },
   {
-    path: '/aal',
+    path: '/aal/:program',
     url: './pages/aal.html',
     on: {
-      pageInit: function() {
-        console.log('Initializing blockly')
-        var blocklyArea = document.getElementById('blocklyArea');
-        var blocklyDiv = document.getElementById('blocklyDiv');
-        for (var messageKey in MSG) {
-          if (messageKey.indexOf('cat') == 0) {
-            Blockly.Msg[messageKey.toUpperCase()] = MSG[messageKey];
-          }
-        }
-      
-        // Construct the toolbox XML, replacing translated variable names.
+      pageInit: function(page) {
+        var program =  page.detail.route.params.program || 'unsaved';
+        app.currentId = program;
+        console.log('Initializing aal', program);
+        var state = window.localStorage.getItem(program) || '<xml/>';
+        if (program in app.data) state = app.data[program].workspace;
+        var xml = Blockly.Xml.textToDom(state);
+        var blocklyArea = $('.blocklyArea').last()[0];
+        var blocklyDiv = $('.blocklyDiv').last()[0];
+        //if (app.workspace) app.workspace.dispose();
+        
         app.workspace = Blockly.inject(blocklyDiv,
             {media: 'blockly/media/',
             horizontalLayout:true,
@@ -124,6 +135,7 @@ routes = [
               scaleSpeed: 1.2},
             toolbox: toolboxXml()});
         
+        Blockly.Xml.domToWorkspace(xml, app.workspace);
         var onresize = function(e) {
           // Position blocklyDiv over blocklyArea.
           blocklyDiv.style.left = blocklyArea.offsetLeft + 'px';
@@ -135,6 +147,27 @@ routes = [
         window.addEventListener('resize', onresize, false);
         onresize();
         Blockly.svgResize(app.workspace);
+        //if (!app.data)
+        $.ajax({
+            type: "GET",
+            url: app.server + '/assets/mobile/index.json',
+            timeout: 1500,
+            success: function(data) {
+                app.data = data;
+                $('.practice .dynamic').remove();
+                for(var key in data) {
+                  var workspace = data[key].workspace;
+                  var name = data[key].name;
+                  var visibility = data[key].visibility;
+                  if (visibility == 'admin' && app.username !== 'admin') return;
+                  //localStorage.setItem(key, workspace);
+                  $('.practice').prepend(`<li class="dynamic"><a href="/aal/${key}" data-view=".view-main" class="panel-close">${name}</a></li>`);
+                }
+            },
+            error: function(data, textStatus) {
+              app.dialog.alert(textStatus=="timeout"?"Сервер не отвечает.":"Ошибка при обращении к серверу.");
+            }
+        });
       }
     }
   },
@@ -145,6 +178,56 @@ routes = [
   {
     path: '/form/',
     url: './pages/form.html',
+    on: { pageInit: function() {
+      var curData = app.data[app.currentId];
+      if (curData) {
+        $$('.save-form [name="name"]').val(curData.name);
+        $$('.save-form [name="descr"]').val(curData.descr);
+        $$('.save-form [name="visibility"]').val(curData.visibility);
+      }
+      $$('.save-form #save').on('click', function () {
+        var name = $$('.save-form [name="name"]').val();
+        var descr = $$('.save-form [name="descr"]').val();
+        var visibility = $$('.save-form [name="visibility"]').val();
+        var id = app.currentId;
+        var workspace = saveWorkspace();
+        if (id=='unsaved') id = 'id'+Math.random();
+        app.preloader.show();
+        $.ajax({
+          type: "POST",
+          url: app.server + '/blockly',
+          timeout: 1500,
+          data: {name, descr, visibility, id, workspace, action:"save"},
+          success: function(data) {
+              app.router.back();
+              app.preloader.hide();
+          },
+          error: function(data, textStatus) {
+            app.dialog.alert(textStatus=="timeout"?"Сервер не отвечает.":"Ошибка при обращении к серверу.");
+            app.preloader.hide();
+          }
+        });
+      });
+      $$('.save-form #delete').on('click', function () {
+        var id = app.currentId;
+        if (id=='unsaved') return;
+        app.preloader.show();
+        $.ajax({
+          type: "POST",
+          url: app.server + '/blockly',
+          timeout: 1500,
+          data: {id, action:"delete"},
+          success: function(data) {
+              app.router.navigate('/aal/unsaved');
+              app.preloader.hide();
+          },
+          error: function(data, textStatus) {
+            app.dialog.alert(textStatus=="timeout"?"Сервер не отвечает.":"Ошибка при обращении к серверу.");
+            app.preloader.hide();
+          }
+        });
+      });
+    }}
   },
   // Left View Pages
   {
