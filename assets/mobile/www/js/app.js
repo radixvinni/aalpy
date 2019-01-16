@@ -36,7 +36,7 @@ var app  = new Framework7({
     },
   },
   // App routes
-  routes,
+  routes:routes,
   // Enable panel left visibility breakpoint
   panel: {
     leftBreakpoint: 960,
@@ -54,7 +54,7 @@ $$('.login-screen-content .chpass-button').on('click', function () {
   $.ajax({
     type: "POST",
     url: app.server+"/changepass",
-    data: {oldpass, newpass},
+    data: {oldpass:oldpass, newpass:newpass},
     timeout: 1500,
     success: function(data) {
       if (data=='ok') app.popup.close('#chpass-popup');
@@ -269,7 +269,8 @@ Blockly.Python['python_hasattr'] = function(block) {
   if (variable_name.indexOf('.')<0) 
     return ['True', Blockly.Python.ORDER_NONE];
   
-  var [module, varname] = variable_name.split('.');
+  var module = variable_name.split('.')[0];
+  var varname = variable_name.split('.')[1];
   var code = 'hasattr(' + module + ', "' + varname + '")';
   return [code, Blockly.Python.ORDER_NONE];
 };
@@ -351,7 +352,7 @@ function addMethods(className, classMethods) {
   app.dynamicToolbox += '<category name="'+className+'" colour="'+hueColor+'">';
   var dynamicBlocks = '';
   var seenMethods = new Map();
-  classMethods.forEach(e => {
+  classMethods.forEach(function(e) {
     if (e.indexOf(className+' self') < 0) return;
     var methodName = e.split('(')[0];
     var seenTimes = seenMethods.get(methodName) || 0;
@@ -365,7 +366,7 @@ function addMethods(className, classMethods) {
     var methodFullName = className + '_' + methodName + '_' + seenTimes;
     var methodArguments = e.split('(')[1].split(')')[0];
     var shadows = '';
-    methodArguments.split(', ').forEach(arg => {
+    methodArguments.split(', ').forEach(function(arg) {
       var argName = arg.split(' ')[1];
       var argType = arg.split(' ')[0];
       var argDefValue = '';
@@ -388,7 +389,7 @@ function addMethods(className, classMethods) {
     Blockly.Blocks[methodFullName] = {
       init: function() {
         var self = this;
-        methodArguments.split(', ').forEach(arg => {
+        methodArguments.split(', ').forEach(function(arg) {
           var argName = arg.split(' ')[1];
           var argType = arg.split(' ')[0];
           if (!argName || !argType) {
@@ -420,7 +421,7 @@ function addMethods(className, classMethods) {
       var self = Blockly.Python.valueToCode(block, 'SELF', Blockly.Python.ORDER_ATOMIC);
       if (methodName == '__init__') code = className + '(';
       else code = self + '.' + methodName + '(';
-      methodArguments.split(', ').forEach(arg => {
+      methodArguments.split(', ').forEach(function(arg) {
         var argName = arg.split(' ')[1];
         if (argName == 'self') return;
         var value = Blockly.Python.valueToCode(block, argName.toUpperCase(), Blockly.Python.ORDER_ATOMIC);

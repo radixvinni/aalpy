@@ -90,7 +90,7 @@ routes = [
           $.ajax({
             type: "POST",
             url: app.server+"/login",
-            data: {username, password},
+            data: {username:username, password:password},
             timeout: 1500,
             success: function() {
                 if (document.cookie) {
@@ -197,7 +197,7 @@ routes = [
           type: "POST",
           url: app.server + '/blockly',
           timeout: 1500,
-          data: {name, descr, visibility, id, workspace, action:"save"},
+          data: {name:name, descr:descr, visibility:visibility, id:id, workspace:workspace, action:"save"},
           success: function(data) {
               app.router.back();
               app.preloader.hide();
@@ -216,7 +216,7 @@ routes = [
           type: "POST",
           url: app.server + '/blockly',
           timeout: 1500,
-          data: {id, action:"delete"},
+          data: {id:id, action:"delete"},
           success: function(data) {
               app.router.navigate('/aal/unsaved');
               app.preloader.hide();
