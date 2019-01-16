@@ -281,6 +281,25 @@ Blockly.Python['python_hasattr'] = function(block) {
   return [code, Blockly.Python.ORDER_NONE];
 };
 
+Blockly.Blocks['python_delete'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("удалить")
+        .appendField(new Blockly.FieldVariable("item"), "NAME");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(65);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+Blockly.JavaScript['python_delete'] = function(block) {
+  var variable_name = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'del ' + variable_name + ';\n';
+  return code;
+};
+
 Blockly.Blocks['python_range'] = {
   init: function() {
     this.appendValueInput("FROM")
