@@ -93,9 +93,7 @@ routes = [
             data: {username:username, password:password},
             timeout: 1500,
             success: function() {
-                if (document.cookie) {
-                  app.router.navigate('/aal/unsaved')
-                }
+                app.router.navigate('/aal/unsaved')
                 app.preloader.hide();
             },
             error: function(data, textStatus) {

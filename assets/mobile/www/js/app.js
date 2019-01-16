@@ -19,7 +19,7 @@ var app  = new Framework7({
   // App root methods
   methods: {
     runWorkspace: function () {
-      if (!document.cookie || document.cookie.length < 40) return app.router.navigate('/');
+      //if (!document.cookie || document.cookie.length < 40) return app.router.navigate('/');
       var code = Blockly.Python.workspaceToCode(app.workspace);
       
       $('#results').append('\n======== начало исходного кода ========\n');
@@ -346,17 +346,56 @@ function convertType(t) {
   return conv[t] || t;
 }
 
+
+if (!String.prototype.startsWith) {
+  Object.defineProperty(String.prototype, 'startsWith', {
+    enumerable: false,
+    configurable: false,
+    writable: false,
+    value: function(searchString, position) {
+      position = position || 0;
+      return this.indexOf(searchString, position) === position;
+    }
+  });
+}
+if (!String.prototype.endsWith) {
+  Object.defineProperty(String.prototype, 'endsWith', {
+    value: function(searchString, position) {
+      var subjectString = this.toString();
+      if (position === undefined || position > subjectString.length) {
+        position = subjectString.length;
+      }
+      position -= searchString.length;
+      var lastIndex = subjectString.indexOf(searchString, position);
+      return lastIndex !== -1 && lastIndex === position;
+    }
+  });
+}
+if (!String.prototype.includes) {
+  String.prototype.includes = function(search, start) {
+    'use strict';
+    if (typeof start !== 'number') {
+      start = 0;
+    }
+    
+    if (start + search.length > this.length) {
+      return false;
+    } else {
+      return this.indexOf(search, start) !== -1;
+    }
+  };
+}
 app.dynamicToolbox = '';
 function addMethods(className, classMethods) {
   var hueColor = Math.abs((className.hashCode()) % 360);
   app.dynamicToolbox += '<category name="'+className+'" colour="'+hueColor+'">';
   var dynamicBlocks = '';
-  var seenMethods = new Map();
+  var seenMethods = {};
   classMethods.forEach(function(e) {
     if (e.indexOf(className+' self') < 0) return;
     var methodName = e.split('(')[0];
-    var seenTimes = seenMethods.get(methodName) || 0;
-    seenMethods.set(methodName, seenTimes + 1);
+    var seenTimes = seenMethods[methodName] || 0;
+    seenMethods[methodName] = seenTimes + 1;
     if (methodName.startsWith('_') && methodName !== "__init__") return;
     if (e.split(' -> ').length > 2) {
       console.warn('skipped due to many ->', className, methodName);
