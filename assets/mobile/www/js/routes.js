@@ -40,9 +40,9 @@ function injectBlockly() {
   });
 }
 
-var saveWorkspace = () => Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(app.workspace))
-var restoreWorkspace = (x) => Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(x), app.workspace)
-var copyToWorkspace = (i) => Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom($('.injectBlockly')[i].innerHTML), app.workspace)
+var saveWorkspace = function() { return Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(app.workspace)) }
+var restoreWorkspace = function(x) { return Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(x), app.workspace) }
+var copyToWorkspace = function(i) { return Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom($('.injectBlockly')[i].innerHTML), app.workspace) }
 
 // Construct the toolbox XML, replacing translated variable names.
 function toolboxXml() {
@@ -156,12 +156,12 @@ routes = [
                 app.data = data;
                 $('.practice .dynamic').remove();
                 for(var key in data) {
-                  var workspace = data[key].workspace;
+                  //var workspace = data[key].workspace;
                   var name = data[key].name;
                   var visibility = data[key].visibility;
                   if (visibility == 'admin' && app.username !== 'admin') return;
                   //localStorage.setItem(key, workspace);
-                  $('.practice').prepend(`<li class="dynamic"><a href="/aal/${key}" data-view=".view-main" class="panel-close">${name}</a></li>`);
+                  $('.practice').prepend('<li class="dynamic"><a href="/aal/'+key+'" data-view=".view-main" class="panel-close">'+name+'</a></li>');
                 }
             },
             error: function(data, textStatus) {

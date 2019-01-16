@@ -348,7 +348,7 @@ function convertType(t) {
 app.dynamicToolbox = '';
 function addMethods(className, classMethods) {
   var hueColor = Math.abs((className.hashCode()) % 360);
-  app.dynamicToolbox += `<category name="${className}" colour="${hueColor}">`;
+  app.dynamicToolbox += '<category name="'+className+'" colour="'+hueColor+'">';
   var dynamicBlocks = '';
   var seenMethods = new Map();
   classMethods.forEach(e => {
@@ -372,25 +372,19 @@ function addMethods(className, classMethods) {
       if (argName == 'self' && methodName == '__init__') return;
       switch(convertType(argType)) {
         case 'String':
-          argDefValue = `<shadow type="text">
-            <field name="TEXT">1</field>
-          </shadow>`;
+          argDefValue = '<shadow type="text"><field name="TEXT">1</field></shadow>';
           break;
         case 'Number':
           if (!argType.endsWith('System'))
-          argDefValue = `<shadow type="math_number">
-            <field name="NUM">1</field>
-          </shadow>`;
+          argDefValue = '<shadow type="math_number"><field name="NUM">1</field></shadow>';
           break;
         default:
-          argDefValue = `<block type="variables_get">
-            <field name="VAR">_</field>
-          </block>`;
+          argDefValue = '<block type="variables_get"><field name="VAR">_</field></block>';
       }
-      if (argDefValue) shadows += `<value name="${argName.toUpperCase()}">${argDefValue}</value>`;
+      if (argDefValue) shadows += '<value name="'+argName.toUpperCase()+'">'+argDefValue+'</value>';
     });
-    if (methodName == "__init__") app.dynamicToolbox += `<block type="${methodFullName}">${shadows}</block>`;
-    else dynamicBlocks += `<block type="${methodFullName}">${shadows}</block>`;
+    if (methodName == "__init__") app.dynamicToolbox += '<block type="'+methodFullName+'">'+shadows+'</block>';
+    else dynamicBlocks += '<block type="'+methodFullName+'">'+shadows+'</block>';
     Blockly.Blocks[methodFullName] = {
       init: function() {
         var self = this;
@@ -439,7 +433,7 @@ function addMethods(className, classMethods) {
     }
   });
   app.dynamicToolbox += dynamicBlocks;
-  app.dynamicToolbox += `</category>`
+  app.dynamicToolbox += '</category>'
 }
 
 var methods = JSON.parse(document.getElementById('aal_methods').innerHTML);
