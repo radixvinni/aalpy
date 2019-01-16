@@ -124,7 +124,6 @@ Blockly.Python['lists_getSublist2'] = function(block) {
   if (at1 == '0') at1 = '';
   if (at2 == '0') at1 = '';
   var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
   var code = list + '[' + at1 + ' : ' + at2 + ' : ' + value_name + ']';
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.Python.ORDER_NONE];
@@ -146,7 +145,6 @@ Blockly.Blocks['types_casting'] = {
 Blockly.Python['types_casting'] = function(block) {
   var dropdown_name = block.getFieldValue('NAME');
   var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
   var code = dropdown_name + '(' + value_name + ')';
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.Python.ORDER_NONE];
@@ -173,7 +171,6 @@ Blockly.Python['python_hashlib'] = function(block) {
   var dropdown_func = block.getFieldValue('FUNC');
   var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
   var dropdown_return = block.getFieldValue('RETURN');
-  // TODO: Assemble Python into code variable.
   var code = 'hashlib.' + dropdown_func + '(' + value_name + ').' + dropdown_return + '()';
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.Python.ORDER_NONE];
@@ -195,7 +192,6 @@ Blockly.Blocks['dict_copy'] = {
 
 Blockly.Python['dict_copy'] = function(block) {
   var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
   var code = value_name + '.copy()';
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.Python.ORDER_NONE];
@@ -225,7 +221,6 @@ Blockly.Python['dict_get'] = function(block) {
   var value_default = Blockly.Python.valueToCode(block, 'DEFAULT', Blockly.Python.ORDER_ATOMIC);
   var value_key = Blockly.Python.valueToCode(block, 'KEY', Blockly.Python.ORDER_ATOMIC);
   var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
   value_default = value_default && ', ' + value_default;
   var code = value_name + '.' + dropdown_name + '(' + value_key + value_default + ')';
   // TODO: Change ORDER_NONE to the correct strength.
@@ -252,7 +247,6 @@ Blockly.Blocks['dict_update'] = {
 Blockly.Python['dict_update'] = function(block) {
   var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
   var value_other = Blockly.Python.valueToCode(block, 'OTHER', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
   var code = value_name + '.update(' + value_other + ')\n';
   return code;
 };
@@ -272,7 +266,6 @@ Blockly.Blocks['python_hasattr'] = {
 
 Blockly.Python['python_hasattr'] = function(block) {
   var variable_name = Blockly.Python.variableDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
-  // TODO: Assemble Python into code variable.
   if (variable_name.indexOf('.')<0) 
     return ['True', Blockly.Python.ORDER_NONE];
   
@@ -293,11 +286,10 @@ Blockly.Blocks['python_delete'] = {
  this.setHelpUrl("");
   }
 };
-Blockly.JavaScript['python_delete'] = function(block) {
-  var variable_name = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
-  // TODO: Assemble JavaScript into code variable.
+Blockly.Python['python_delete'] = function(block) {
+  var variable_name = Blockly.Python.variableDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
   var code = 'del ' + variable_name + ';\n';
-  return code;
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
 Blockly.Blocks['python_range'] = {
