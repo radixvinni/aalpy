@@ -530,12 +530,51 @@
           </shadow>
         </value>
       </block>
-      <block type="dict_copy"></block>
-      <block type="dict_get"></block>
-      <block type="dict_update"></block>
+      <block type="dict_copy">
+        <value name="NAME">
+          <block type="variables_get">
+            <field name="VAR">a</field>
+          </block>
+        </value>
+      </block>
+      <block type="dict_get">
+        <value name="NAME">
+          <block type="variables_get">
+            <field name="VAR">a</field>
+          </block>
+        </value>
+      </block>
+      <block type="dict_update">
+        <value name="NAME">
+          <block type="variables_get">
+            <field name="VAR">a</field>
+          </block>
+        </value>
+        <value name="OTHER">
+          <block type="variables_get">
+            <field name="VAR">b</field>
+          </block>
+        </value>
+      </block>
       <block type="python_hasattr"></block>
       <block type="python_delete"></block>
-      <block type="python_range"></block>
+      <block type="python_range">
+        <value name="FROM">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+        <value name="TO">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+        <value name="STEP">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
     </category>
     ###
   </xml>
