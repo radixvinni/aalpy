@@ -33,20 +33,18 @@
 }
 
 .navbar-scroller {
-  display: flex!important;
-  overflow-x: scroll!important;
-  line-height: 30px!important;
-}
-
-.md .navbar-scroller > div {
-  position: relative;
-  top: 4px;
+  overflow: auto!important;
+  white-space: nowrap!important;
+  text-overflow: clip!important;
 }
 
 .navbar-scroller > * {
   overflow: visible!important;
+  text-overflow: clip!important;
   min-width: unset!important;
   margin:5px;
+  display: inline-block;
+  text-align: center;
 }
 
 #results {
