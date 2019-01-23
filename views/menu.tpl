@@ -34,7 +34,7 @@
       %for item in content:
       %if item[0] in tasks:
         <li class="span6">
-          <h4><a href="/course/{{item[0]}}">{{item['title']}}</a></h4>
+          <h4>{{item['title']}}</h4>
           <div class="progress indicator">
             %for task in tasks[item[0]]:
               %if task[1] is not None:
