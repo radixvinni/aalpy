@@ -4,7 +4,7 @@
   <div class="row">
       <div class="sections">
       %for item in sorted(set([x[4] or '' for x in courses])):
-        <li class="span6">
+        <li class="span12">
           <h4><a href="/?discipline={{quote(item.encode('utf8'))}}">{{item or 'Не задано'}}</a></h4>
         </li>
       %end
@@ -15,7 +15,7 @@
   <div class="row">
       <div class="sections">
       %for item in sorted(set([x[3] or '' for x in courses if x[4].encode('utf8') == discipline])):
-        <li class="span6">
+        <li class="span12">
           <h4><a href="/?discipline={{quote(discipline)}}&group={{quote(item.encode('utf8'))}}">{{item or 'Не задано'}}</a></h4>
         </li>
       %end
