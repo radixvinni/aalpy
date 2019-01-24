@@ -1,6 +1,5 @@
-*.py[cod]
+*.py[co]
 *.so
-AAL.py
 wiki.db*
 MPEI_ASK
 AAF

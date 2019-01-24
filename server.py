@@ -31,7 +31,7 @@ class Session(InteractiveConsole):
         self.name = name
         self.goal = False
         InteractiveConsole.__init__(self)
-        self.push("from AAL import *");
+        self.push("from __AAL import *");
         self.push("from math import *");
         self.push("import json, hashlib, hmac");
         self.push("from time import sleep");

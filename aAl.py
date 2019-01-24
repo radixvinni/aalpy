@@ -1,5 +1,5 @@
 #coding: utf-8
-from AAL import *
+from __AAL import *
 def negate(a):
     #print "Возвращает противоположный элемент в Z"
     c=Integer()
@@ -197,7 +197,7 @@ def legendre(a,prime):
 a=5
 prime=29
 c=legendre(a,prime)
-print "legendre(",a,",",prime,")=",c
+#print "legendre(",a,",",prime,")=",c
 def jacobySymbol(a,n):
     #print "Возвращает символ Якоби числа",a,"для   числа",n
     return Integer.JacobySymbol(Integer(int(a)),Integer(int(n)))
