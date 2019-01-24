@@ -1,30 +1,14 @@
 # coding: utf-8
-#ALTER TABLE courses ADD COLUMN grp TEXT;
-#ALTER TABLE courses ADD COLUMN discipline TEXT;
 
 from code import InteractiveConsole
 from uuid import uuid1
 import sys
 sessions = dict()
 
-import signal
-from multiprocessing import Lock
-lock = Lock()
 from datetime import datetime, timedelta
 import time
 from urllib import quote, unquote
 import json
-
-def handler(signum, frame):
-    #print 'Выполнение команды приостановлено из-за превышения предела времени выполнения(60 секунд)'
-    sys.exit(0)
-
-#signal.signal(signal.SIGALRM, handler)
-signal.signal(signal.SIGVTALRM, handler)
-
-# Завершаем работу при превышении лимита 30 сек процессорного времени.
-from resource import setrlimit, RLIMIT_CPU
-setrlimit(RLIMIT_CPU, (60, 500))
 
 #<sessions>
 class ConsoleCache:
@@ -49,11 +33,11 @@ class Session(InteractiveConsole):
         InteractiveConsole.__init__(self)
         self.push("from AAL import *");
         self.push("from math import *");
-        self.push("import json, hashlib, hmac, gssapi, mpmath as g, gmpy");
+        self.push("import json, hashlib, hmac");
         self.push("from time import sleep");
         self.push("from fractions import *");
         self.push("from urllib import urlopen");
-        self.push("import share, random, AAL, Kar, aAl");
+        self.push("import share, random, Kar, aAl");
         self.push("__builtins__ = __builtins__.copy()");
         self.push("for k in ['reload', 'execfile', 'file', 'open', '__import__']: __builtins__.pop(k) and None","exec");
         self.push("");
@@ -69,17 +53,13 @@ class Session(InteractiveConsole):
     def push(self,line, mode='single', name='auto'):
         self.last_op = datetime.now()
         self.accept_output()
-        signal.setitimer(signal.ITIMER_VIRTUAL,10)
         ret = InteractiveConsole.runsource(self,line,'<'+name+'>',mode)
-        signal.setitimer(signal.ITIMER_VIRTUAL,0)
         self.return_output()
         return ret
     def ic_push(self,line, mode='single', name='auto'):
         self.last_op = datetime.now()
         self.accept_output()
-        signal.setitimer(signal.ITIMER_VIRTUAL,10)
         ret = InteractiveConsole.push(self,line)
-        signal.setitimer(signal.ITIMER_VIRTUAL,0)
         self.return_output()
         return ret
     def get_output(self,cmd):
@@ -126,19 +106,13 @@ def change_pass(uid, password, newpass):
 
 def require_login(require_admin=0):
     sid = request.get_cookie("session")
-    lock.acquire()
     if sid in sessions and (require_admin != 1 or sessions[sid].name == 'admin') and (require_admin == 2 or sessions[sid].name != 'user'):
-        lock.release()
         return True
-    else:
-        lock.release()
     return redirect("/login"+("?error=admin" if require_admin == 1 else ""))
 
 def is_admin():
     sid = request.get_cookie("session")
-    lock.acquire()
     ret = sessions[sid].name == 'admin'
-    lock.release()
     return ret
 
 def init():
@@ -283,11 +257,9 @@ def index():
 def index(cid):
     require_login()
     sid=request.get_cookie("session")
-    lock.acquire()
     work=get_course(cid, request.query.task) or redirect('/')
     sessions[sid].tid=work['tid']
     sessions[sid].goal=work['goal'] or None
-    lock.release()
     return work
 
 @post('/blockly')
@@ -408,9 +380,7 @@ def login():
     uid = username and check_user_credentials(username, password)
     if uid:
         c = Session(uid, username)
-        lock.acquire()
         sessions[c.sid] = c
-        lock.release()
         response.set_cookie("session", c.sid)
         #i can not use redirect
         response.status=302
@@ -424,9 +394,7 @@ def login():
 def logout():
     sid=request.get_cookie("session")
     response.set_cookie("session", '')
-    lock.acquire()
     if sid in sessions: sessions.pop(sid)
-    lock.release()
     #i can not use redirect
     response.status=302
     response.add_header('Access-Control-Allow-Origin','*')
@@ -480,9 +448,7 @@ def run_prog():
     sid = request.get_cookie("session")
     if '__bases__' in cmd or '__subclasses__' in cmd or '__builtins__' in cmd: return 'не балуйся'
     try:
-        lock.acquire()
         if sid in sessions: 
-            lock.release()
             if typ=='program':
                 sessions[sid].push(cmd, 'exec', typ)
             elif typ=='console':
@@ -495,25 +461,16 @@ def run_prog():
             response.add_header('Access-Control-Allow-Origin','*')
             return res
         else:
-            lock.release()
             return "Ваша сессия закончилась. перезагрузите страницу.\n"
     except:
         return "Unexpected error: %s \n" % str(sys.exc_info())
-
-import resource
 
 @route('/stats')
 @view('stats')
 def stats():
     require_login()
-    usage = resource.getrusage(resource.RUSAGE_SELF)
-    stats = ['%-25s (%-10s) = %s' % (desc, name, getattr(usage, name)) for name, desc in [
-        ('ru_utime', 'User time'),
-        ('ru_stime', 'System time'),
-        ('ru_maxrss', 'Max. Resident Set Size') ]] + [
-        '%-35s    = %s' % ('Maintainance time', signal.getitimer(signal.ITIMER_REAL)[0])]
     
-    return dict(content=stats)
+    return dict(content=[])
 
 @route('/history')
 @route('/history/today')
@@ -604,4 +561,4 @@ def mistake(error):
 if __name__ == "__main__":
     Request.MEMFILE_MAX = 1024000
     init()
-    run(host='0.0.0.0',port=8081,reloader=True, server='cherrypy')
+    run(host='0.0.0.0',port=8080,reloader=True)
