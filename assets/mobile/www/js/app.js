@@ -478,3 +478,150 @@ function addMethods(className, classMethods) {
 
 var methods = JSON.parse(document.getElementById('aal_methods').innerHTML);
 for (var prop in methods) addMethods(prop, methods[prop]);
+
+Blockly.Blocks['gssapi_client_ctx'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .setCheck(null)
+        .appendField("контекст клиента GSSAPI сервиса");
+    this.setOutput(true, null);
+    this.setColour(60);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['gssapi_server_ctx'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .setCheck(null)
+        .appendField("контекст сервера GSSAPI сервиса");
+    this.setOutput(true, null);
+    this.setColour(60);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['gssapi_step'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .setCheck(null)
+        .appendField("выполнить шаг GSSAPI для токена");
+    this.appendValueInput("CTX")
+        .setCheck(null)
+        .appendField("контекст");
+    this.setOutput(true, null);
+    this.setColour(60);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['gssapi_complete'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .setCheck(null)
+        .appendField("обмен GSSAPI завершен для контекста");
+    this.setOutput(true, null);
+    this.setColour(60);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['gssapi_encrypt'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .setCheck(null)
+        .appendField("зашифровать текст");
+    this.appendValueInput("CTX")
+        .setCheck(null)
+        .appendField("GSSAPI контекст");
+    this.setOutput(true, null);
+    this.setColour(60);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['gssapi_decrypt'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .setCheck(null)
+        .appendField("расшифровать текст");
+    this.appendValueInput("CTX")
+        .setCheck(null)
+        .appendField("GSSAPI контекст");
+    this.setOutput(true, null);
+    this.setColour(60);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['python_eval'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .setCheck(null)
+        .appendField("значение выражения");
+    this.setOutput(true, null);
+    this.setColour(60);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Python['gssapi_client_ctx'] = function(block) {
+  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+  var code = 'gssapi.SecurityContext(name=gssapi.Name('+value_name+'), usage="initiate")';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['gssapi_server_ctx'] = function(block) {
+  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+  var code = 'gssapi.SecurityContext(creds=gssapi.Credentials(usage="accept", name=gssapi.Name('+value_name+')), usage="accept")';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['gssapi_step'] = function(block) {
+  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+  var value_ctx = Blockly.Python.valueToCode(block, 'CTX', Blockly.Python.ORDER_ATOMIC);
+  var code = value_ctx+'.step('+value_name+')';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['gssapi_complete'] = function(block) {
+  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+  var code = value_name+'.complete';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['gssapi_encrypt'] = function(block) {
+  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+  var value_ctx = Blockly.Python.valueToCode(block, 'CTX', Blockly.Python.ORDER_ATOMIC);
+  var code = value_ctx+'.encrypt('+value_name+')';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['gssapi_decrypt'] = function(block) {
+  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+  var value_ctx = Blockly.Python.valueToCode(block, 'CTX', Blockly.Python.ORDER_ATOMIC);
+  var code = value_ctx+'.decrypt('+value_name+')';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['python_eval'] = function(block) {
+  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+  var code = 'eval('+value_name+')';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python.math_change=function(a){var b=Blockly.Python.valueToCode(a,"DELTA",Blockly.Python.ORDER_ADDITIVE)||"0";a=Blockly.Python.variableDB_.getName(a.getFieldValue("VAR"),Blockly.Variables.NAME_TYPE);return a+" += "+b+"\n"};

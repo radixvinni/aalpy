@@ -148,6 +148,7 @@ routes = [
         //if (!app.data)
         $.ajax({
             type: "GET",
+            dataType: "json",
             url: app.server + '/assets/mobile/index.json',
             timeout: 1500,
             success: function(data) {
@@ -236,7 +237,7 @@ routes = [
   {
     path: '/left-page-2/',
     url: './pages/left-page-2.html',
-    on:{pageInit:prettyPrint},
+    on:{pageInit:injectBlockly},
   },
   // Default route (404 page). MUST BE THE LAST
   {

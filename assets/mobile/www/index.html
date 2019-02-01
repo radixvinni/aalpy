@@ -485,6 +485,13 @@
     <category name="%{BKY_CATFUNCTIONS}" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
     <category name="Python" colour="65">
       <block type="types_casting"></block>
+      <block type="python_eval">
+        <value name="NAME">
+          <shadow type="text">
+            <field name="TEXT">1+1</field>
+          </shadow>
+        </value>
+      </block>
       <block type="python_hashlib">
         <value name="NAME">
           <shadow type="text">
@@ -535,6 +542,58 @@
           <shadow type="math_number">
             <field name="NUM">1</field>
           </shadow>
+        </value>
+      </block>
+      <block type="variables_set">
+        <field name="VAR" variabletype="">ctx</field>
+        <value name="VALUE">
+          <block type="gssapi_client_ctx">
+            <value name="NAME">
+              <shadow type="text">
+                <field name="TEXT">s/localhost@</field>
+              </shadow>
+            </value>
+          </block>
+        </value>
+      </block>
+      <block type="variables_set">
+        <field name="VAR" variabletype="">ctx</field>
+        <value name="VALUE">
+          <block type="gssapi_server_ctx">
+            <value name="NAME">
+              <shadow type="text">
+                <field name="TEXT">s/localhost@</field>
+              </shadow>
+            </value>
+          </block>
+        </value>
+      </block>
+      <block type="gssapi_step">
+        <value name="CTX">
+          <block type="variables_get">
+            <field name="VAR">ctx</field>
+          </block>
+        </value>
+      </block>
+      <block type="gssapi_complete">
+        <value name="NAME">
+          <block type="variables_get">
+            <field name="VAR">ctx</field>
+          </block>
+        </value>
+      </block>
+      <block type="gssapi_encrypt">
+        <value name="CTX">
+          <block type="variables_get">
+            <field name="VAR">ctx</field>
+          </block>
+        </value>
+      </block>
+      <block type="gssapi_decrypt">
+        <value name="CTX">
+          <block type="variables_get">
+            <field name="VAR">ctx</field>
+          </block>
         </value>
       </block>
     </category>
