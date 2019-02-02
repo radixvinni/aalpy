@@ -10,8 +10,10 @@
       <div class="title sliding navbar-scroller">
         <div>Алгебраический процессор</div>
         <a class="button button-round button-raised button-fill color-green sheet-open" data-sheet=".result-sheet" onclick="app.methods.runWorkspace()"><i class="icon f7-icons" style="font-size: 14px;">play_fill</i>&nbsp;Запуск</a>
-        <a class="button button-round button-raised" onclick="app.workspace.undo()"><i class="icon material-icons">undo</i>Отмена</a>
-        <a class="button button-round button-raised color-gray" onclick="Blockly.duplicate_(Blockly.selected)"><i class="icon material-icons">content_copy</i>Дублировать</a>
+        <a class="button button-round button-raised button-fill color-gray sheet-open" data-sheet=".result-sheet" onclick="app.methods.runSelected()"><i class="icon f7-icons" style="font-size: 14px;">arrow_down</i>&nbsp;Продолжить</a>
+        <a class="button button-round button-raised button-fill color-blue sheet-open" data-sheet=".result-sheet" onclick="app.methods.runSelected(true)"><i class="icon f7-icons" style="font-size: 14px;">eye</i>&nbsp;Инспектировать</a>
+        <a class="button button-round button-raised color-black" onclick="app.methods.undo()"><i class="icon material-icons">undo</i>Отмена</a>
+        <a class="button button-round button-raised color-orange" onclick="app.methods.duplicate()"><i class="icon material-icons">content_copy</i>Дублировать</a>
         
       </div>
       

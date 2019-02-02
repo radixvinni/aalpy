@@ -18,10 +18,7 @@ var app  = new Framework7({
   },
   // App root methods
   methods: {
-    runWorkspace: function () {
-      //if (!document.cookie || document.cookie.length < 40) return app.router.navigate('/');
-      var code = Blockly.Python.workspaceToCode(app.workspace);
-      
+    run: function (code, type) {
       $('#results').append('\n======== начало исходного кода ========\n');
       $('#results').append(code);
       $('#results').append('\n======== конец исходного кода ========\n');
@@ -29,11 +26,28 @@ var app  = new Framework7({
       if (app.currentId == 'unsaved')
         localStorage.setItem(app.currentId, saveWorkspace());
 
-      $.post(app.server+'/console/run', { cmd: code+'\n', type: "program" }, function(data) {
+      $.post(app.server+'/console/run', { cmd: code+'\n', type: type||"program" }, function(data) {
         $('#results').append(data);
         $("#results").scrollTop($("#results")[0].scrollHeight);
       });
     },
+    runWorkspace: function () {
+      app.methods.run( Blockly.Python.workspaceToCode(app.workspace) );
+    },
+    runSelected: function (inspect) {
+      Blockly.Python.init(Blockly.selected.workspace);
+      var selected = Blockly.Python.blockToCode(Blockly.selected, inspect);
+      if (Array.isArray(selected)) selected = selected[0];
+      app.methods.run( selected, "console" );
+    },
+    undo: function () { app.workspace.undo() },
+    duplicate: function () {
+      if (app.workspace == Blockly.selected.workspace)
+        Blockly.duplicate_(Blockly.selected);
+      else
+        app.workspace.paste(Blockly.Xml.blockToDom(Blockly.selected));
+      
+    }
   },
   // App routes
   routes:routes,
