@@ -247,7 +247,7 @@ print "client_tok"
 print "Это всё бинарные сообщения, модифицирующие состояние протокола, они пересылаются между сервером и клиентом."
 print "1. В качестве имени сервера клиентом указывается известное ему имя's/localhost@'службы, зарегистрированное на сервере авторизации"
 server_name = gssapi.Name('s/localhost@') 
-print "2. Подготовка контекста клиента client_ctx, включающего имя сервера и команду об инициализации (чего -пояснить) и на его основе initial_client_token "
+print "2. Подготовка контекста клиента client_ctx, включающего имя сервера и команду об инициализации контекста клиента client_ctx и на его основе initial_client_token "
 client_ctx = gssapi.SecurityContext(name=server_name, usage='initiate')
 initial_client_token = client_ctx.step()
 print "3. Подготовка контекста сервера server_ctx. Сервер получает конекст клиента - сообщение длиной", len(initial_client_token)
