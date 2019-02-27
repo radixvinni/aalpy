@@ -239,31 +239,38 @@ p.setXY(Integer(2),Integer(1))</code></pre>
           </div>
           <div class='section'>
               <h4>Пример</h4>
-              <pre class="prettyprint"><code>server_name = gssapi.Name('s/localhost@') #s/localhost - имя службы, зарегистрированное на сервере авторизации
-
-#client
+              <pre class="prettyprint"><code>print "Инициализация и прочие действия производятся с контекстами client_ctx и server_ctx. Контекст - это объект хранящий состояние протокола - ключи и тикеты авторизации. В этом коде выполняется взаимодействие между сервером и клиентом после получения TGT. В данной реализации Kerberos(MIT Kerberos) TGT является долгосрочным, он получается пользователем, который запускает алгебраический процессор, через команду kinit."
+print "initial_client_token"
+print "initial_server_token"
+print "server_tok"
+print "client_tok"
+print "Это всё бинарные сообщения, модифицирующие состояние протокола, они пересылаются между сервером и клиентом."
+print "1. В качестве имени сервера клиентом указывается известное ему имя's/localhost@'службы, зарегистрированное на сервере авторизации"
+server_name = gssapi.Name('s/localhost@') 
+print "2. Подготовка контекста клиента client_ctx, включающего имя сервера и команду об инициализации (чего -пояснить) и на его основе initial_client_token "
 client_ctx = gssapi.SecurityContext(name=server_name, usage='initiate')
 initial_client_token = client_ctx.step()
-
-#server получает initial_client_token
+print "3. Подготовка контекста сервера server_ctx. Сервер получает конекст клиента - сообщение длиной", len(initial_client_token)
 server_creds = gssapi.Credentials(usage='accept', name=server_name)
+print "Сервер подтверждает свою учетную запись и создает конекст сервера, включающий подтветждение его учетной записи и на его основе с учетом initial_client_token создает initial_server_token"
 server_ctx = gssapi.SecurityContext(creds=server_creds, usage='accept')
 initial_server_token = server_ctx.step(initial_client_token)
-
-#Клиент и сервер используют client_ctx и server_ctx соотвественно, выполняют .step(сообщение) пока не получат .complete == True
+print "4. Клиент и сервер используют client_ctx и server_ctx соотвественно, выполняют ctx.step(сообщение) пока не получат ctx.complete == True"
 server_tok = initial_server_token
 while not (client_ctx.complete and server_ctx.complete):
      client_tok = client_ctx.step(server_tok)
+     print "Клиент получает сообщение длиной", len(server_tok), "статус контекста клиента и сервера", client_ctx.complete, server_ctx.complete
      if not client_tok:
          break
      server_tok = server_ctx.step(client_tok)
-
+     print "Сервер получает сообщение длиной", len(client_tok), "статус контекста клиента и сервера", client_ctx.complete, server_ctx.complete
+     
 assert client_ctx.complete and server_ctx.complete
-
-#теперь можно шифровать и расшифровывать сообщения через методы encrypt, decrypt
+print "5. Теперь можно шифровать и расшифровывать сообщения через методы encrypt, decrypt"
 message = 'текст сообщения'
 encrypted_message = client_ctx.encrypt(message)
-print server_ctx.decrypt(encrypted_message)</code></pre>
+print "Клиент отправляет зашифрованное сообщение длиной", len(encrypted_message)
+print "Сервер расшифровывает сообщение:", server_ctx.decrypt(encrypted_message)</code></pre>
           </div>
           <p>Обмен сообщениями можно вести как обычно, через модуль share.</p>
         </div>
