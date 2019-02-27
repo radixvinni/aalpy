@@ -270,7 +270,17 @@ print "5. Теперь можно шифровать и расшифровыва
 message = 'текст сообщения'
 encrypted_message = client_ctx.encrypt(message)
 print "Клиент отправляет зашифрованное сообщение длиной", len(encrypted_message)
-print "Сервер расшифровывает сообщение:", server_ctx.decrypt(encrypted_message)</code></pre>
+print "Сервер расшифровывает сообщение:", server_ctx.decrypt(encrypted_message)
+print "ПРИМЕЧАНИЕ"
+print "Здесь использованы методы encrypt, decrypt для шифрования и расшифрования сообщения. Методы wrap и unwrap позволяют подписывать сообщения и опционально шифровать их. "
+print "5а. Вызов wrap с шифрованием, проверяется, что зашифрованное сообщение не содержит исходное. "
+message = b'some message here'
+wrapped_message, msg_encrypted = client_ctx.wrap(message, True)
+print message not in wrapped_message, msg_encrypted
+print 'Результат unwrap', server_ctx.unwrap(wrapped_message)
+print "5б. Вызов wrap   без шифрования, проверяется, что зашифрованное сообщение содержит исходное:"
+signed_message, msg_encrypted = client_ctx.wrap(message, False)
+print message in wrapped_message, not msg_encrypted</code></pre>
           </div>
           <p>Обмен сообщениями можно вести как обычно, через модуль share.</p>
         </div>
