@@ -210,7 +210,7 @@ a.isPrimitivity()
           </div>
           <div class='section'>
             <p>Для класса доступны следующие методы:</p>
-            <table><tbody><tr><th>Метод</th><th>Описание</th></tr><tr><td>PolynomGF7N()</td><td>
+            <table class="table"><tbody><tr><th>Метод</th><th>Описание</th></tr><tr><td>PolynomGF7N()</td><td>
 Конструктор нулевого полинома </td></tr><tr><td>PolynomGF7N(int a_deg)</td><td>
 Конструктор нулевого полинома заданой длины </td></tr><tr><td>PolynomGF7N(const PolynomGF7N &amp;a_pgf7)</td><td>
 Конструктор копирования </td></tr><tr><td>PolynomGF7N(aal_uint16 *a_coeffs, int a_size)</td><td>
