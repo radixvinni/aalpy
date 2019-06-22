@@ -304,7 +304,7 @@ Blockly.Blocks['python_delete'] = {
 Blockly.Python['python_delete'] = function(block) {
   var variable_name = Blockly.Python.variableDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
   var code = 'del ' + variable_name + ';\n';
-  return [code, Blockly.Python.ORDER_NONE];
+  return code;
 };
 
 Blockly.Blocks['python_range'] = {
