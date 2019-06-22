@@ -218,7 +218,7 @@ a.isPrimitivity()
 a_coeffs -  массив коэффициентов полинома 
 a_size -  размер массива: степень полинома + 1 </td></tr><tr><td>PolynomGF7N(string &amp;a_strgf7)</td><td>
 Конструктор строковый </td></tr><tr><td>PolynomGF7N(char *a_str)</td><td>
-Конструктор строковой </td></tr><tr><td>~PolynomGF7N()</td><td>
+Конструктор строковый </td></tr><tr><td>~PolynomGF7N()</td><td>
 Деструктор </td></tr><tr><td>GetDeg() const</td><td>
 Возвращает степень полинома </td></tr><tr><td>SetDeg(int a_deg)</td><td>
 Устанавливает степень полинома </td></tr><tr><td>isNull()</td><td>
