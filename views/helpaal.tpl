@@ -44,6 +44,9 @@ $(function(){
                 <a href="#polynom">Класс Polynom</a>
               </li>
               <li class="">
+                <a href="#polynomGF7N">Класс PolynomGF7N</a>
+              </li>
+              <li class="">
                 <a href="#elliptic">Эллиптические кривые</a>
               </li>
               <li class="">
@@ -200,6 +203,190 @@ a.isPrimitivity()
 #True</code></pre>
         <p>Работа в классах <code>PolynomGF3</code> и <code>PolynomGF7</code> происходит аналогично.</p>
         </div>
+        
+        <div class='section'>
+          <div class='page-header'>
+            <h2 id='polynomGF7N'>Класс PolynomGF7N</h2>
+          </div>
+          <div class='section'>
+            <p>Для класса доступны следующие методы:</p>
+            <table><tbody><tr><th>Метод</th><th>Описание</th></tr><tr><td>PolynomGF7N()</td><td>
+Конструктор нулевого полинома </td></tr><tr><td>PolynomGF7N(int a_deg)</td><td>
+Конструктор нулевого полинома заданой длины </td></tr><tr><td>PolynomGF7N(const PolynomGF7N &amp;a_pgf7)</td><td>
+Конструктор копирования </td></tr><tr><td>PolynomGF7N(aal_uint16 *a_coeffs, int a_size)</td><td>
+Конструктор: 
+a_coeffs -  массив коэффициентов полинома 
+a_size -  размер массива: степень полинома + 1 </td></tr><tr><td>PolynomGF7N(string &amp;a_strgf7)</td><td>
+Конструктор строковый </td></tr><tr><td>PolynomGF7N(char *a_str)</td><td>
+Конструктор строковой </td></tr><tr><td>~PolynomGF7N()</td><td>
+Деструктор </td></tr><tr><td>GetDeg() const</td><td>
+Возвращает степень полинома </td></tr><tr><td>SetDeg(int a_deg)</td><td>
+Устанавливает степень полинома </td></tr><tr><td>isNull()</td><td>
+Проверяется условие равенства '0' всех коэффициентов полинома - true - все коэффициенты = 0 </td></tr><tr><td>GetCoeffsPtr() const</td><td>
+Возвращает указатель на массив коэффициентов полинома </td></tr><tr><td>GetParCoeffsPtr(int a_num) const</td><td>
+Возвращает указатель на массив 0-х, 1-х или 2-х битов коэффициентов 
+a_num = {0, 1, 2} </td></tr><tr><td>ToString()</td><td>
+Возвращает строку коэффициентов полинома </td></tr><tr><td>ParPackToUnPack()</td><td>
+Преобразование коэффициентов из трёх параллельных массивов в один линейный </td></tr><tr><td>UnPackToParPack()</td><td>
+Преобразование коэффициентов из одного линейного в три параллельных массива </td></tr><tr><td>TrimZero()</td><td>
+Удаление лишних нулей </td></tr><tr><td>Generate(PolynomGF7N &amp;a_mod_pol)</td><td>
+Генерация случайного полинома из кольца, образованным многочленом a_mod_pol, степень генерируемоо полинома на 1 меньше степени a_mod_pol </td></tr><tr><td>Shift_R_ParallelPack(aal_uint32 a_val)</td><td>
+Сдвиг полинома вправо на a_val коэффициентов (умножение на полином x^a_val) упаковка в 3 массива </td></tr><tr><td>Shift_L_ParallelPack(aal_uint32 a_val)</td><td>
+Сдвиг полинома вправо на a_val коэффициентов (умножение на полином x^a_val) упаковка в 3 массива </td></tr><tr><td>DegDecomp(aal_uint32 *a_decomp, aal_uint32 a_deg, int a_p)</td><td>
+Разложение показателя степени по степеням a_p </td></tr><tr><td>DegDecompLength(aal_uint32 a_val, int a_p)</td><td>
+Количество элементов в массиве разложения </td></tr><tr><td>GetPermutation(int a_n)</td><td>
+Метод вычисления перестановки для переставленного базиса </td></tr><tr><td>InversePermutation(std::vector&lt; int &gt; &amp;a_perm)</td><td>
+Метод вычисления обратной перестановки к заданной </td></tr><tr><td>Factorization(std::vector&lt; DecompositionMemberN &gt; &amp;a_fact, aal_uint32 a_deg, bool degreeFlag=false)</td><td>
+Разложение числа на простые множители 
+a_fact -  вектор разложения 
+a_deg -  разлагаемая степень 
+degreeFlag
+= false (по умолчанию), если требуется разложение без показателей степеней у множителей (с дублированием множителей) 
+degreeFlag
+= true, если требуется разложение с показателями степеней  -  произведение </td></tr><tr><td>reverseBits(aal_uint32 n)</td><td>
+Функция, меняющая порядок следования битов в 32 битном целом числе на противоположный </td></tr><tr><td>operator=(PolynomGF7N a_pol)</td><td>
+Перегрузка операторa = </td></tr><tr><td>operator==(PolynomGF7N &amp;a_pol)</td><td>
+Перегрузка логических операторов: == </td></tr><tr><td>operator !=(PolynomGF7N &amp;a_pol)</td><td>
+Перегрузка логических операторов: != </td></tr><tr><td>gf7_mul_coeffs(aal_uint16 &amp;a_val1, aal_uint16 &amp;a_val2)</td><td>
+Побитовое умножение двух элементов поля GF(7) по алгоритму из статьи С.Б.Гашкова, А.Б.Фролова 
+a_val1 -  1-е слагаемое 
+a_val1 -  2-е слагаемое 
+произведение </td></tr><tr><td>gf7_add_coeffs(aal_uint16 &amp;a_val1, aal_uint16 &amp;a_val2)</td><td>
+Побитовое сложение двух элементов поля GF(7) по алгоритму из статьи С.Б.Гашкова, А.Б.Фролова 
+a_val1 -  1-е слагаемое 
+a_val1 -  2-е слагаемое 
+произведение </td></tr><tr><td>Div(PolynomGF7N &amp;a_pol1, PolynomGF7N &amp;a_pol2, PolynomGF7N &amp;a_pol_quot=default_quot)</td><td>
+Деление полиномов с остатком с использованием побитовых операций 
+a_pol1 -  1-й делимое 
+a_pol2 -  2-й делитель 
+a_pol_quot -  полином для хранения частного (необязательный параметр)  -  остаток от деления a_pol1 на a_pol2 </td></tr><tr><td>InverseMod(PolynomGF7N &amp;a_pol, PolynomGF7N &amp;a_simple_pol, bool a_is_irr)</td><td>
+Обращение полинома на основании алгоритма Евклида с использованием побитовых операций 
+a_pol -  обращаемый полином 
+a_simple_pol -  полином, взаимно простой с первым 
+a_is_irr -  признак второго полинома (если =true - неприводимый)  -  обратный полином </td></tr><tr><td>Add(PolynomGF7N &amp;a_pol1, PolynomGF7N &amp;a_pol2)</td><td>
+побитовое сложение двух полиномов в кольце GF(7)[X] с упаковкой коэффициентов в три массива по алгоритму из статьи С.Б.Гашкова, А.Б.Фролова и др. 
+a_pol1 -  1-е слагаемое 
+a_pol2 -  2-е слагаемое  -  сумма </td></tr><tr><td>ModAdd(PolynomGF7N &amp;a_pol1, PolynomGF7N &amp;a_pol2, PolynomGF7N &amp;a_pol_mod)</td><td>
+побитовое сложение двух полиномов в кольце GF7[X](x)mod f(x) с упаковкой коэффициентов в три массива по алгоритму из статьи С.Б.Гашкова, А.Б.Фролова и др.
+a_pol1 -  1-е слагаемое 
+a_pol2 -  2-е слагаемое  -  сумма </td></tr><tr><td>AddInGF7_n(PolynomGF7N &amp;a_pol1, PolynomGF7N &amp;a_pol2, PolynomGF7N &amp;a_pol_mod)</td><td>
+побитовое сложение двух полиномов в GF(7^n) с упаковкой коэффициентов в три массива по алгоритму из статьи С.Б.Гашкова, А.Б.Фролова и др.
+a_pol1 -  1-е слагаемое 
+a_pol2 -  2-е слагаемое  -  сумма </td></tr><tr><td>Mul(PolynomGF7N &amp;a_pol1, PolynomGF7N &amp;a_pol2)</td><td>
+побитовое умножение двух полиномов в кольце GF(7)[X] по алгоритму из статьи С.Б.Гашкова, А.Б.Фролова и др. с упаковкой в три массива типа aal_uint32 СТОЛБИКОМ
+a_pol1 -  1-й сомножитель 
+a_pol2 -  2-й сомножитель  -  произведение </td></tr><tr><td>ModMul(PolynomGF7N &amp;a_pol1, PolynomGF7N &amp;a_pol2, PolynomGF7N &amp;a_pol_mod)</td><td>
+побитовое умножение двух полиномов в кольце GF(7)[X] mod f(x) по алгоритму из статьи С.Б.Гашкова, А.Б.Фролова и др. с упаковкой в три массива типа aal_uint32 СТОЛБИКОМ
+a_pol1 -  1-й сомножитель 
+a_pol2 -  2-й сомножитель  -  произведение </td></tr><tr><td>MulGF7_n(PolynomGF7N &amp;a_pol1, PolynomGF7N &amp;a_pol2, PolynomGF7N &amp;a_pol_mod)</td><td>
+побитовое умножение двух полиномов в поле GF(7^n) по алгоритму из статьи С.Б.Гашкова, А.Б.Фролова и др. с упаковкой в три массива типа aal_uint32 СТОЛБИКОМ
+a_pol1 -  1-й сомножитель 
+a_pol2 -  2-й сомножитель  -  произведение </td></tr><tr><td>MulGF7_n_ONB(PolynomGF7N &amp;a_pol1, PolynomGF7N &amp;a_pol2, int a_n)</td><td>
+побитовое умножение двух полиномов в поле GF(7^n) по алгоритму из статьи С.Б.Гашкова, А.Б.Фролова и др. с упаковкой в три массива типа aal_uint32 СТОЛБИКОМ и с использованием оптимальных нормальных базисов для приведения по mod
+a_pol1 -  1-й сомножитель 
+a_pol2 -  2-й сомножитель 
+a_n -  степень расширения поля  -  произведение </td></tr><tr><td>Sub(PolynomGF7N &amp;a_pol1, PolynomGF7N &amp;a_pol2)</td><td>
+побитовое вычитание двух полиномов над полем GF7[X] с упаковкой в три массива типа aal_uint32 
+a_pol1 -  уменьшаемое 
+a_pol2 -  вычитаемое  -  разность </td></tr><tr><td>GCD(PolynomGF7N &amp;a_pol1, PolynomGF7N &amp;a_pol2)</td><td>
+Вычисление НОД двух полиномов по алгоритму Евклида с использованием стандартных операций 
+a_pol1 -  1-й полином 
+a_pol2 -  2-й полином -  НОД a_pol1 и a_pol2 </td></tr><tr><td>Pow(PolynomGF7N &amp;a_pol, aal_uint32 a_deg)</td><td>
+Возведение полинома a_pol в степень a_deg в кольце GF(7)[x] с использованием операций упаковки 3x32 
+a_pol -  полином 
+a_deg -  показатель степени -  степень полинома a_pol^a_deg </td></tr><tr><td>ModPow(PolynomGF7N &amp;a_pol, aal_uint32 a_deg, PolynomGF7N &amp;a_pol_mod)</td><td>
+Возведение полинома a_pol в степень a_deg в кольце GF(7)[x] mod f(x) с использованием операций упаковки 3x32 
+a_pol -  полином 
+a_deg -  показатель степени 
+a_pol_mod -  модулярный полином  -  степень полинома a_pol^a_deg </td></tr><tr><td>PowGF7_n(PolynomGF7N &amp;a_pol, aal_uint32 a_deg, PolynomGF7N &amp;a_pol_mod)</td><td>
+Возведение полинома a_pol в степень a_deg GF(7^n) с использованием операций упаковки 3x32 
+a_pol -  полином 
+a_deg -  показатель степени 
+a_pol_mod -  неприводимый модулярный полином  -  степень полинома a_pol^a_deg </td></tr><tr><td>PowGF7_n_ONB(PolynomGF7N &amp;a_pol, aal_uint32 a_deg, PolynomGF7N &amp;a_pol_mod)</td><td>
+Возведение полинома a_pol в степень a_deg GF(7^n) с использованием ОНБ 2 или 3 типов при возведении в степень характеристики поля. Используется для теста и сравнения результатов со стандартной реализацией 
+a_pol -  полином в переставленном ОНБ 
+a_deg -  показатель степени 
+a_pol_mod -  неприводимый модулярный полином  -  степень полинома a_pol^a_deg </td></tr><tr><td>isIrreducible()</td><td>
+Тестирование неприводимости многочлена 
+a_pol -  тестируемый полином </td></tr><tr><td>GenerateBinIrreducible(aal_uint32 a_deg)</td><td>
+Генерация неприводимого двучлена 
+a_deg -  степень генерируемого полинома  -  неприводимый двучлен над GF7 </td></tr><tr><td>GenerateTrinIrreducible(aal_uint32 a_deg)</td><td>
+Генерация неприводимого трёхчлена 
+a_deg -  степень генерируемого полинома  -  неприводимый двучлен над GF7 </td></tr><tr><td>GenerateGNBIrreducible(aal_uint32 a_deg)</td><td>
+Генерация неприводимого полинома для ОНБ 2-го или 3-го типа 
+a_deg -  степень генерируемого полинома  -  неприводимый двучлен над GF7 </td></tr><tr><td>ElementOrder(PolynomGF7N &amp;a_pol, PolynomGF7N &amp;a_pol_mod, const int a_ord)</td><td>
+Вычсление порядка элемента (полинома) мультипликативной группы поля GF(7^n) 
+a_pol -  элемент мультипликативной группы 
+a_pol_mod -  неприводимый многочлен над полем GF(7^n) 
+a_ord -  порядок мультипликативной группы поля  -  порядок элемента мультипликативной группы поля GF(7^n) </td></tr><tr><td>IsGenerator(PolynomGF7N &amp;a_pol, PolynomGF7N &amp;a_pol_mod, const int a_ord)</td><td>
+Тестирование образующего элемента 
+a_pol -  элемент мультипликативной группы 
+a_pol_mod -  неприводимый многочлен над полем GF(7^n) 
+a_ord -  порядок поля  -  неприводимый двучлен над GF7 </td></tr><tr><td>isPrimitivity()</td><td>
+Тестирование полинома на примитивность 
+a_pol -  многочлен над полем GF(7^n)  -  true, если полином примитивный false - в противном случае </td></tr><tr><td>GNB_Test(int a_n)</td><td>
+Функция, проверяющая существования гауссова нормального базиса 1-го или 2-го порядка для указанной степени расширения поля 
+a_n -  степень расширения поля 
+0 - гауссовых нормальных базисов не существует 1 - существует гауссов нормальный базис 1-го порядка 2 - существует гауссов нормальный базис 2-го порядка 3 - существуют гауссовы нормальные базисы 1-го и 2-го порядка </td></tr><tr><td>gf7_sum_Parallelpack(const aal_uint32 a_val11, const aal_uint32 a_val12, const aal_uint32 a_val13, const aal_uint32 a_val21, const aal_uint32 a_val22, const aal_uint32 a_val23, aal_uint32 *a_sum1, aal_uint32 *a_sum2, aal_uint32 *a_sum3)</td><td>
+побитовое сложение 32 чисел над полем GF7[X] с упаковкой в три массива типа aal_uint32 по алгоритму из статьи С.Б.Гашкова, А.Б.Фролова и др.
+a_val1 -  1-е слагаемое 
+a_val2 -  2-е слагаемое  -  сумма </td></tr><tr><td>gf7_mul_Parallelpack(const aal_uint32 a_val11, const aal_uint32 a_val12, const aal_uint32 a_val13, const aal_uint32 a_val21, const aal_uint32 a_val22, const aal_uint32 a_val23, aal_uint32 *a_prod1, aal_uint32 *a_prod2, aal_uint32 *a_prod3)</td><td>
+побитовое умножение 32 чисел над полем GF7[X] с упаковкой в три массива типа aal_uint32 по алгоритму из статьи С.Б.Гашкова, А.Б.Фролова и др.
+a_val1 -  1-е слагаемое 
+a_val2 -  2-е слагаемое  -  произведение </td></tr><tr><td>gf7_mult_num_ParPack(PolynomGF7N &amp;a_pol, aal_uint32 a_val)</td><td>
+Побитовое умножение полинома на число в GF7[X] 
+a_pol1 -  полином 
+a_val -  константа 
+произведение </td></tr><tr><td>Pow7(PolynomGF7N &amp;a_pol)</td><td>
+Возведение в 7 степень в полиномиальном базисе 
+a_pol -  полином  -  полином в степени 7 </td></tr><tr><td>Pow7_NB(PolynomGF7N &amp;a_pol, aal_uint32 a_7deg, PolynomGF7N &amp;a_pol_mod)</td><td>
+Возведение в степень характеристики поля в переставленном базисе 
+a_pol -  полином 
+a_7deg -  показатель степени характеристики поля 
+a_pol_mod -  неприводимый многочлен  -  полином в степени 7^a_7deg </td></tr><tr><td>Pow7_NB_TEST(PolynomGF7N &amp;a_pol, vector&lt; int &gt; &amp;a_perm, vector&lt; int &gt; a_inv_perm, int a_7deg, int a_n)</td><td>
+Возведение в степень характеристики поля в переставленном базисе используется в ТЕСТОВОМ методе возведения полинома в любую степень для сравнения со стандартной реализацией 
+a_pol -  полином 
+a_perm -  прямая перестановка 
+a_inv_perm -  обратная перестановка 
+a_7deg -  показатель степени характеристики поля 
+a_n -  степень расширения поля  -  полином в степени 7^a_7deg </td></tr><tr><td>PowGFp(aal_uint32 a_elem, int a_deg, int a_p)</td><td>
+Возведение элемента поля в степень 
+a_elem -  элемент поля GF(p) 
+a_deg -  показатель степени 
+a_p -  характеристика поля  -  степень a_deg элемента поля a_elem </td></tr><tr><td>PolynomialToReduced(PolynomGF7N &amp;a_pol, int a_n)</td><td>
+Перевод из полиномиального базиса в приведённый param a_pol - полином в полиномиальном базисе полином в приведённом базисе </td></tr><tr><td>PToR_TEST(PolynomGF7N &amp;a_pol, int a_n, int &amp;add_f0, int &amp;add_fk, int &amp;mul_f0, int &amp;mul_fk, int &amp;b_size, int &amp;k_step)</td><td>
+тест </td></tr><tr><td>PToR_TEST_OLD(PolynomGF7N &amp;a_pol, int a_n, int &amp;add_f0, int &amp;add_fk, int &amp;mul_f0, int &amp;mul_fk, int &amp;b_size, int &amp;k_step)</td><td>
+тест </td></tr><tr><td>ReducedToPolynomial(PolynomGF7N &amp;a_pol, int a_n)</td><td>
+Перевод из приведённого базиса в полиномиальный param a_pol - полином в приведённом базисе полином в приведённом базисе </td></tr><tr><td>RToP_TEST(PolynomGF7N &amp;a_pol, int a_n, int &amp;add_f0, int &amp;add_fk, int &amp;mul_f0, int &amp;mul_fk, int &amp;b_size, int &amp;k_step)</td><td>
+тест </td></tr><tr><td>ReducedToRedundant(PolynomGF7N &amp;a_pol, int a_n)</td><td>
+Перевод из приведённого базиса в полиномиальный param a_pol - полином в приведённом базисе param a_n - степень расширения поля полином в приведённом базисе </td></tr><tr><td>RedundantToReduced(PolynomGF7N &amp;a_pol, int a_n)</td><td>
+Перевод из редундантного базиса в приведённый param a_pol - полином в редундантном базисе param a_n - степень расширения поля полином в приведённом базисе </td></tr><tr><td>ReducedToPermuted(PolynomGF7N &amp;a_pol, int a_n)</td><td>
+Перевод из приведённого базиса в переставленный param a_pol - полином в приведённом базисе param a_n - степень расширения поля полином в переставленном базисе </td></tr><tr><td>PermutedToReduced(PolynomGF7N &amp;a_pol, int a_n)</td><td>
+Перевод из переставленного базиса в приведённый param a_pol - полином в переставленном базисе param a_n - степень расширения поля полином в приведённом базисе </td></tr></tbody></table>
+          </div>
+          <div class='section'>
+              <h4>Пример</h4>
+              <pre class="prettyprint"><code>x1 = PolynomGF7N()
+print x1.GNB_Test(100) != 0
+#True
+irr = PolynomGF7N()
+irr.GenerateGNBIrreducible(100);
+x1.Generate(irr);
+x2 = PolynomGF7N()
+x2.Generate(irr);
+prod = PolynomGF7N()
+prod.Mul(x1, x2);
+xbetalon = PolynomGF7N()
+xbetalon.Div(prod, irr);
+prod.PolynomialToReduced(prod, 100);
+prod.ReducedToRedundant(prod, 100);
+prod.RedundantToReduced(prod, 100);
+prod.ReducedToPolynomial(prod, 100);
+print prod == xbetalon
+#True</code></pre>
+          </div>
+        </div>
+
         <div class='section'>
           <div class='page-header'>
             <h2 id='elliptic'>Классы эллиптических точек и кривых</h2>
