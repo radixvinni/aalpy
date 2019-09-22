@@ -11,6 +11,7 @@
     <link href="/assets/css/prettify.css" rel="stylesheet">
     <link href="/assets/css/ansi.css" rel="stylesheet">
     <link href="/assets/css/slider.css" rel="stylesheet">
+    <link property="sagecell-root" href="http://mm.mpei.ac.ru:8080/sage/">
     <link rel="shortcut icon" href="/assets/ico/favicon.ico">
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>

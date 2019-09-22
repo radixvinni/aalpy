@@ -27,12 +27,13 @@
   window.editor.getSession().setMode("ace/mode/python");
   window.editor.selection.clearSelection();
   $(function () {
+      window.$post = $.post;
       window.jqconsole = $('#console').jqconsole('', '>>>');
       window.jqconsole.SetIndentWidth(1);  
       var startPrompt = function () {
         window.jqconsole.Prompt(true, function (input) {
           window.jqconsole.Disable();
-          $.post('/console/run', { cmd: input, type: "console" }, function(data) {
+          $post('/console/run', { cmd: input, type: "console" }, function(data) {
             window.jqconsole.Write(data, 'jqconsole-output');
             window.jqconsole.Enable();
             window.jqconsole.Focus();
@@ -57,7 +58,7 @@
   function run() {
     $.cookie('saved', window.editor.getValue());
     window.jqconsole.Disable();
-    $.post('/console/run', { cmd: window.editor.getValue()+'\n', type: "program" }, function(data) {
+    $post('/console/run', { cmd: window.editor.getValue()+'\n', type: "program" }, function(data) {
             window.jqconsole.Write(data, 'jqconsole-output');
             if(console[deltas.length])
               console[deltas.length] += data;
