@@ -23748,7 +23748,9 @@ define('main',[
             s.output = function (html, block_id) {
                 if (block_id === null) {
                     //if standard output, creates <span class='jqconsole-output'>{{html}}</span> in console div and returns it
-                    callback($(html).text());
+                    var txt = $(html).text();
+                    if (txt.slice(-1) !== '\n') txt += '\n';
+                    callback(txt);
                     return $('#console .jqconsole-output').last()
                 }
                 return s._output(html, block_id);
