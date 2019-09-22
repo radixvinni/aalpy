@@ -8,7 +8,8 @@ define([
     function install () {
         s = new Session($('#console'), "sage", [], undefined, true);
         window.$post = function (url, data, callback) {
-            s.execute(data.cmd);
+            if (data.cmd.trim())
+                s.execute(data.cmd);
             s._output = s.output;
             s.output = function (html, block_id) {
                 if (block_id === null) {
