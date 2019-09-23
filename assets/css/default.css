@@ -92,9 +92,6 @@ label {
   max-width: 350px!important;
   overflow:hidden; 
 }
-.indicator .complete {
-  
-}
 .adminModal {
   width: 660px!important;
   margin-left: -330px!important;
@@ -124,6 +121,10 @@ label {
 .worksheet-console {
   height:450px!important;
 }
+.newline:after {
+    content: "\A";
+}
+
 /*Admin styles*/
 .userbox {margin-bottom:10px;}
 .user_add {text-decoration:none;text-align: center;height:70px}

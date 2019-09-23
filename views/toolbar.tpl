@@ -1,4 +1,5 @@
-<button type="button" class="btn btn-small btn-primary" data-toggle="button" onclick="toggle_sage()">Sage</button>
+<button type="button" class="btn btn-small btn-primary" data-toggle="button" onclick="toggle_sage()"><i
+            class="icon-sage" style="background-image: url(/assets/img/sage.png);background-position: 0 0;"></i> Sage</button>
 
 <div class="btn-group">
   <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#">
@@ -804,7 +805,7 @@
   </ul>
 </div>
 <div class="btn-group">
-  <a class="btn btn dropdown-toggle" data-toggle="dropdown" href="#">
+  <a class="btn btn btn-small dropdown-toggle" data-toggle="dropdown" href="#">
     Примеры
     <span class="caret"></span>
   </a>
