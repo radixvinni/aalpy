@@ -396,7 +396,7 @@ def index():
 @route('/help/:sect')
 def index(sect='aal'):
     require_login(require_admin=2)
-    if sect not in ['python','aal','dev','class']: redirect('/help')
+    if sect not in ['python','aal','dev','class','sage']: redirect('/help')
     return template('help'+sect)
 
 @route('/login')

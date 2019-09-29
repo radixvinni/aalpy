@@ -29,6 +29,7 @@ $(function(){
       <li class="active"><a href="/help/aal">Библиотека AAL</a></li>
       <li><a href="/help/class">Список классов AAL</a></li>
       <li><a href="/help/dev">Для разработчиков AAL</a></li>
+      <li><a href="/help/sage">Язык Sage</a></li>
     </ul>
     <div class="row sidebar" id="pythonhelp">
       <div class="span2 affix visible-desktop">
