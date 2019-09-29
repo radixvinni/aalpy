@@ -253,7 +253,7 @@ a+b
 a-b
 a*b
 a/b
-a^b
+a^n
 1/a
 GF, FiniteField # в кольце Fp, группе Fp*
 #Конструктор
@@ -271,6 +271,8 @@ GF(2)['x'], PolynomialRing #обозначения GF(2)[X]
 #Конструктор
 poly = GF(2)['x'] # или PolynomialRing(GF(2), 'x')
 b = poly("x^0+x^1+x^3+x^6")
+#Операции GF(2)[X]_f(x)
+poly_f = poly.extension(m); poly_f(a)+poly_f(b)
 EllipticCurve
 #Конструктор
 E = EllipticCurve(GF(101),[2,3])
@@ -286,8 +288,8 @@ a.Negate()
 .Add(a,b)
 .Div(a,b,remainder)
 .Mul(a,b)
-.Sub(arg1,arg2)
-.Sqrt(arg)
+.Sub(a,b)
+.Sqrt(a)
 .isPrime()
 .Pow(a,n)
 .LCM(i, j)
@@ -304,12 +306,12 @@ AAL.Integer #в кольце Zn
 #Конструктор
 a = AAL.Integer('123')
 #Операции в кольце Zn
-.ModAdd(arg1,arg2,n)
-.ModSub(arg1,arg2,n)
-.ModMul(arg1,arg2,n)
-.ModDiv(arg1,arg2,n)
-.ModPow(arg1,arg2,n)
-.Inverse(arg,n)
+.ModAdd(a,b,n)
+.ModSub(a,b,n)
+.ModMul(a,b,n)
+.ModDiv(a,b,n)
+.ModPow(a,b,n)
+.Inverse(a,n)
 AAL.Integer #в кольце Fp, группе Fp*
 #Конструктор
 a = AAL.Integer('123')
@@ -326,6 +328,8 @@ Polynom #GF(2)[X]
 #Конструктор
 a = Polynom("1101001")
 b = Polynom("0 1 3 6",Dec)
+#Операции GF(2)[X]_f(x)
+.ModAdd(a,b,m)
 EllipticCurve # кривая характеристики > 3
 #Конструктор
 E = EllipticCurve(Integer(101), Integer(2), Integer(3))
@@ -351,8 +355,9 @@ print x^2 in poly</pre>
 True</pre>
                     </div>
                     <p>
-                        Получить все генераторы(порождающее множество) можно через метод gens(), отдельный генератор
-                        через gen(номер), эти методы универсальны во всех структурах sage:
+                        Получить все генераторы(порождающее множество) можно через метод <code>.gens()</code>, отдельный
+                        генератор через <code>.gen(<i>номер</i>)</code>, для <code>.gen(0)</code> работает сокращение
+                        <code>.0</code>. Эти методы универсальны во всех структурах sage:
                     </p>
                     <div class='section'>
                         <h4>Режим Sage</h4>
