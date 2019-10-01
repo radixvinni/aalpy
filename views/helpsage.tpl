@@ -265,8 +265,8 @@ a*b
 a/b
 a^b
 1/a
-a.order()
-a.order() == Fp.order()
+a.multiplicative_order()
+a.multiplicative_order() == Fp.order() - 1
 GF(2)['x'], PolynomialRing #обозначения GF(2)[X]
 #Конструктор
 poly = GF(2)['x'] # или PolynomialRing(GF(2), 'x')
