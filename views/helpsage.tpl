@@ -270,7 +270,8 @@ a.multiplicative_order() == Fp.order() - 1
 GF(2)['x'], PolynomialRing #обозначения GF(2)[X]
 #Конструктор
 poly = GF(2)['x'] # или PolynomialRing(GF(2), 'x')
-b = poly("x^0+x^1+x^3+x^6")
+a=poly([1,1,0,1,0,0,1])
+b=poly("x^0+x^1+x^3+x^6")
 #Операции GF(2)[X]_f(x)
 poly_f = poly.extension(m); poly_f(a)+poly_f(b)
 EllipticCurve
@@ -326,8 +327,9 @@ a = AAL.Integer('123')
 .isGenerator
 Polynom #GF(2)[X]
 #Конструктор
+
 a = Polynom("1101001")
-b = Polynom("0 1 3 6",Dec)
+b = Polynom("0 1 3 6", Dec)
 #Операции GF(2)[X]_f(x)
 .ModAdd(a,b,m)
 EllipticCurve # кривая характеристики > 3
@@ -376,20 +378,56 @@ print R.xy()</pre>
                     </div>
                     <p>
                         Также в программах sage часто можно встретить особую синтаксическую конструкцию, позволяющую
-                        одновременно объявить множество и его генератор:
+                        одновременно объявить множество и его генератор (для этого также можно использовать метод
+                        <code>.objgen()</code> и <code>.objgens()</code>):
                     </p>
                     <div class="row-fluid">
                         <div class='section span6'>
                             <h4>Режим Sage</h4>
                             <pre class="prettyprint">poly.&lt;x&gt; = GF(2)[]
-E.&lt;P,Q&gt; = EllipticCurve(GF(97),[2,3])</pre>
+E.&lt;P,Q&gt; = EllipticCurve(GF(97),[2,3])
+E, P = EllipticCurve(GF(97),[2,3]).objgen()</pre>
                         </div>
                         <div class='section span6'>
                             <h4>Это эквивалентно</h4>
                             <pre class="prettyprint">poly = GF(2)['x']; x = poly.gen()
-E = EllipticCurve(GF(97),[2,3]); P,Q = E.gens()</pre>
+E = EllipticCurve(GF(97),[2,3]); P,Q = E.gens()
+E = EllipticCurve(GF(97),[2,3]); P = E.0</pre>
                         </div>
                     </div>
+                    <!--p>
+                        Пример GF(p<sup>2</sup>):
+                    </p>
+                    <div class="row-fluid">
+                        <div class='section span6'>
+                            <h4>Режим Sage</h4>
+                            <pre class="prettyprint">F.<x> = GF(7)[]
+K.<a> = GF(7^2, modulus=x^2 + 1)
+e = K([2,1]) #или e = a + 2
+print e.multiplicative_order()
+print 1/e</pre>
+                            <pre>48
+4*a + 6</pre>
+                        </div>
+                        <div class='section span6'>
+                            <h4>Эквивалент AAL</h4>
+                            <pre class="prettyprint">a0 = Integer(1)
+a1 = Integer(0)
+p = Integer(7)
+m = IntegerBinomModulePolynom(a0,a1,p)
+#m = a0 + a1 X + X^2
+#a0, a1 принадлежат GF(p)
+a = Integer(2)
+b = Integer(1)
+#e = элемент GF(p^2) в виде a + b X
+#a, b принадлежат GF(p)
+e = IntegerBinom(a, b, m)
+print e.getMulGroupOrder()
+print e.Inverse()</pre>
+                            <pre>48
+AAL.IntegerBinom(6,4,module=7)</pre>
+                        </div>
+                    </div-->
                 </div>
             </div>
         </div>
