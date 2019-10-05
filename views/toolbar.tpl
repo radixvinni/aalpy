@@ -857,6 +857,16 @@
       window.$post = $.post;
     }
     else
-      require(['main'], main => { window.sess = main.install(); });
+      require(['main'], main => { 
+          if (main.install)
+            window.sess = main.install();
+          else  window.sess = 'install';
+        });
+  }
+
+  function afterLoad() {
+      if (window.sess === 'install') {
+          require(['main'], main => { window.sess = main.install(); });
+      }
   }
 </script>
