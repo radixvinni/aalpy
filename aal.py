@@ -594,7 +594,10 @@ def poll_list(user,passw,var):
 
 @route('/assets/<filename:path>')
 def send_static(filename):
-    return static_file(filename, root='assets')
+    response = static_file(filename, root='assets')
+    if filename == 'sagejs/embedded_sagecell.js':
+        response.set_header("Cache-Control", "public, max-age=604800")
+    return response
 
 @error(404)
 @error(500)
