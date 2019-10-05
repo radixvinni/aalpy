@@ -852,16 +852,19 @@
 
   function toggle_sage() {
     if (window.sess) {
-      window.sess.kernel.kill();
+      if (window.sess.kernel)
+        window.sess.kernel.kill();
       window.sess = undefined;
       window.$post = $.post;
     }
     else
+      if (window.require)
       require(['main'], main => { 
           if (main.install)
             window.sess = main.install();
           else  window.sess = 'install';
         });
+      else window.sess = 'install';
   }
 
   function afterLoad() {
