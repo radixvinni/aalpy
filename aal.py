@@ -592,7 +592,7 @@ def poll_list(user,passw,var):
         return str(polls[uid][var])
 
 @post('/poll/:user/:passw/del/:var')
-def poll_list(user,passw,var):
+def poll_del(user,passw,var):
     uid = user and check_user_credentials(user, passw)
     if uid:
         if not polls.get(uid):
