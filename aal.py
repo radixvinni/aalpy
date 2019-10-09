@@ -597,7 +597,7 @@ def poll_list(user,passw,var):
     if uid:
         if not polls.get(uid):
           polls[uid] = dict()
-        del polls[uid][var]
+        if var in polls[uid]: polls[uid].pop(var)
         return ''
 #/polling
 
