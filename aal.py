@@ -591,7 +591,7 @@ def poll_list(user,passw,var):
         polls[uid][var] = request.forms.get('value')
         return str(polls[uid][var])
 
-@post('/poll/:user/:passw/del/:var')
+@get('/poll/:user/:passw/del/:var')
 def poll_del(user,passw,var):
     uid = user and check_user_credentials(user, passw)
     if uid:
