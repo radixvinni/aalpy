@@ -590,6 +590,15 @@ def poll_list(user,passw,var):
           polls[uid] = dict()
         polls[uid][var] = request.forms.get('value')
         return str(polls[uid][var])
+
+@post('/poll/:user/:passw/del/:var')
+def poll_list(user,passw,var):
+    uid = user and check_user_credentials(user, passw)
+    if uid:
+        if not polls.get(uid):
+          polls[uid] = dict()
+        del polls[uid][var]
+        return ''
 #/polling
 
 @route('/assets/<filename:path>')

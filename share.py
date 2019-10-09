@@ -24,7 +24,11 @@ class Session(object):
         data = urlopen(self.url_base+'/get/'+name).read()
         if not len(data): raise KeyError
         return data
-
+    
+    def __delattr__(self, name):
+      if name != 'url_base':
+        urlopen(self.url_base+'/del/'+name).read()
+      
     @property
     def __dict__(self):
         data = urlopen(self.url_base+'/list').read()
