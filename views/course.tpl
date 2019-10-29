@@ -157,7 +157,5 @@
   window.require = undefined;
 </script>
 <script src="/assets/sagejs/embedded_sagecell.js" type="text/javascript" onload="afterLoad()" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"
-  type="text/javascript"></script>
 
 %rebase layout title='', path='/', is_user=True, is_admin=False
