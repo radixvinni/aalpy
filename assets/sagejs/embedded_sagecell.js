@@ -23738,7 +23738,7 @@ define('main',[
     "session",
 ], function (
     $,
-    Session,
+    Session
 ) {
     function install () {
         s = new Session($('#console'), "sage", [], undefined, true);
