@@ -1,5 +1,7 @@
 <link rel="stylesheet" type="text/css" href="/assets/css/jquery.cleditor.css" />
 <link rel="stylesheet" type="text/css" href="/assets/css/jquery.editable-select.css" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <script type="text/javascript" src="/assets/js/jquery.editable-select.js"></script>
 <script type="text/javascript" src="/assets/js/jquery.cleditor.min.js"></script>
 <script type="text/javascript" src="/assets/js/knockout.min.js"></script>
@@ -59,7 +61,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a tabindex="-1" href="#" data-bind="click: function()  {$root.filter_grp(null)}">Все</a></li>
-                %for field in sorted(set([x[3] or '' for x in courses])):
+                %for field in sorted(set([y or '' for x in courses for y in x[3].split(', ')])):
                   <li data-bind="css: {disabled: current_grp() == '{{field}}'}"><a tabindex="-1" href="#" data-bind="click: function() {$root.filter_grp('{{field}}')}">{{field or 'Не задано'}}</a></li>
                 %end
           </ul>
@@ -167,8 +169,8 @@
           <div class="control-group">
             <label class="control-label" for="title">Номер группы</label>
             <div class="controls">
-              <select class='select2' id='grp' name='grp' data-bind="value: $data[3]">
-                %for field in sorted(set([''] + [x[3] or '' for x in courses])):
+              <select class='select3' id='grp' name='grp' data-bind="selectedOptions: $root.edit_grp()" multiple="multiple">
+                %for field in sorted(set([''] + [y or '' for x in courses for y in x[3].split(', ')])):
                   <option>{{field}}</option>
                 %end
               </select>
@@ -391,7 +393,8 @@
     var grp = $('#grp').val();
     var dsc = $('#discipline').val();
     $('.select2').editableSelect({effects: 'slide'});
-    $('#grp').val(grp);
+    $('.select3').select2();
+    //$('#grp').val(grp);
     $('#discipline').val(dsc);
   }
   function Admin() {
@@ -407,12 +410,15 @@
     self.filter_grp = function(x) { self.current_grp(x);self.content(self.filterContent()); }
     self.filter_dsc = function(x) { self.current_dsc(x);self.content(self.filterContent()); }
     //self.listing = function(user) { self.content(content);self.edit(); };
+    self.edit_grp = (function() {
+        return (self.edit()||[0,1,2,'3'])[3].split(', ');
+    });
     var filterCourses = (function() {
         if(self.current_grp()===null && self.current_dsc()===null) {
             return content; 
         } else {
             return content.filter(function(itm) {
-                return (self.current_grp()===null || itm[3] == self.current_grp()) && 
+                return (self.current_grp()===null || itm[3].indexOf(self.current_grp()) >= 0) && 
                   (self.current_dsc()===null || itm[4] == self.current_dsc());
             });
         }

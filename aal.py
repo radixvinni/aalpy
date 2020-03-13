@@ -189,8 +189,8 @@ def get_course(cid=None, tid=None, discipline=None, group=None):
         sql = "WHERE discipline=?"
         params.append(discipline)
         if group is not None:
-            sql += " AND grp=?"
-            params.append(group)
+            sql += " AND grp like ?"
+            params.append('%'+group+'%')
     #content - данные по найденому курсу cid или всем курсам, если cid==None + всего заданий
     cur.execute('SELECT cid, courses.title, courses.descr, 100.0/COUNT(cid) as count FROM courses INNER JOIN tasks ON cid=courses.id '+sql+' GROUP BY cid', params)
     content=cur.fetchall()
@@ -555,7 +555,7 @@ def modify(name='users'):
     require_login(require_admin=1)
     if request.forms.action == 'save':
         save(name,name == 'users' and (request.forms.get('id') or None,request.forms.get('login'),sha(request.forms.get('pass')))
-            or name == 'courses' and (request.forms.get('id') or None,request.forms.get('title'),request.forms.get('descr'),request.forms.get('grp'),request.forms.get('discipline'))
+            or name == 'courses' and (request.forms.get('id') or None,request.forms.get('title'),request.forms.get('descr'),', '.join(request.forms.getall('grp')),request.forms.get('discipline'))
             or name == 'tasks' and (request.forms.get('id') or None, request.forms.get('cid'), request.forms.get('title'),
             request.forms.get('descr'),sha(request.forms.get('newgoal')) if request.forms.get('newgoal') else request.forms.get('goal'))
             or name == 'guide' and (request.forms.get('id') or None, request.forms.get('uid'), request.forms.get('name'),request.forms.get('content'))
