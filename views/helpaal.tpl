@@ -69,6 +69,11 @@ $(function(){
               <li class="">
                 <a href="#mpz">Целые числа</a>
               </li>
+              <li class="nav-header">Другое</li>
+              <li class="">
+                <a href="#uni">Библиотека Universal</a>
+              </li>
+              
             </ul>
       </div>
       <div class="span10 offset2" id="glossary-content">
@@ -768,7 +773,519 @@ print 10-gmpy.mpz(10**100)
             </p>
           </div>
         </div>
-        
+        <h1 id='uni'>Библиотека Universal</h1>
+        <p>Даны обозначения операций и перечни операндов, а также параметров <code>Uni.&lt;параметр&gt;</code>, определяющих модули используемых в операции алгебраических структур. Они должны быть объявлены в программе перед использованием данной операции. Операции сложения, вычитания и умножения обозначены <code>+,-,*</code>, операции взятия частного и остатка от деления в кольце обозначены <code>\\</code> и <code>%</code>, операция возведения в степень обозначена <code>^</code>.</p>
+        <table class="table">
+      <tr>
+      <th>
+      Название
+      </th>
+      <th>
+      Функция
+      </th>
+      <th>
+      Подсказка
+      </th>
+      </tr>
+      <tr>
+      <td colspan="7"><center>
+      Операции в кольцах Z, Zn и в поле Fp</center>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Сумма в кольце Z
+      </td>
+      <td><code>Uni.addZ</code></td>
+      <td>
+      B=A1+A2. B,A1,A2 в Z
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Сумма в кольце Zn
+      </td>
+      <td><code>Uni.addZn</code></td>
+      <td>
+      B=A1+A2. B,A1,A2 в Zn, Uni.n в N
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Сумма в поле Fp
+      </td>
+      <td><code>Uni.addFp</code></td>
+      <td>
+      B=A1+A2. B,A1,A2 в Zp, Uni.p-простое число
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Разность в кольце Z
+      </td>
+      <td><code>Uni.subZ</code></td>
+      <td>
+      B=A1-A2. B,A1,A2 в Z
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Разность в кольце Zn
+      </td>
+      <td><code>Uni.subZn</code></td>
+      <td>
+      B=A1-A2. B,A1, A2 в Zn, Uni.n в N
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Разность в поле Fp
+      </td>
+      <td><code>Uni.subFp</code></td>
+      <td>
+      B=A1-A2. B,A1,A2 в Zp, Uni.p-простое число
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Умножение в кольце Z
+      </td>
+      <td><code>Uni.mulZ</code></td>
+      <td>
+      B=A1*A2. B,A1,A2 в Z
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Умножение в кольце Zn
+      </td>
+      <td><code>Uni.mulZn</code></td>
+      <td>
+      B=A1*A2.
+      B,A1, A2 в Zn, Uni.n в Z
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Умножение в поле Fp
+      </td>
+      <td><code>Uni.mulFp</code></td>
+      <td>
+      B=A1*A2. B,A1,A2 в Zp, Uni.p-простое число
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Деление с остатком в кольце Z
+      </td>
+      <td><code>Uni.divZ</code></td>
+      <td>
+      B1=A1\\A2, B2=A1%A2. B1,B2,A1,A2 в Z[X],A2&ne;0.
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Расширенный алгоритм Евклида в кольце Z
+      </td>
+      <td><code>Uni.EuclidZ</code></td>
+      <td>
+      Нахождение корней B1=X,B2=Y,&nbsp; уравнения A1*X+A2*Y=НОД(A1,A2) и числа B3=НОД(A1,A2). B1,B2,B3,A1,A2 в Z, A1*A2 не равно 0.
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Обращение в кольце Zn
+      </td>
+      <td>
+      &nbsp;
+      </td>
+      <td>
+      B=A^(-1). B,A в Fn, B*A=1, Uni.n в N
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Обращение в поле Fp
+      </td>
+      <td><code>Uni.invFp</code></td>
+      <td>
+      B=A^(-1). B,A в Fp, A не равно 0, Uni.p-простое число
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Возведение в степень в кольце Z
+      </td>
+      <td><code>Uni.powerZ</code></td>
+      <td>
+      B=A^D. B,A,D в N<sup>+</sup>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Возведение в степень в кольце Zn
+      </td>
+      <td><code>Uni.powerZn</code></td>
+      <td>
+      B=A^D. B,A в Zn, D в Z<sup>+</sup>, Uni.n в Z
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Возведение в степень в поле Fp
+      </td>
+      <td><code>Uni.powerFp</code></td>
+      <td>
+      B=A^D. B,A в Fp, D в Z<sup>+</sup>, Uni.p-простое число
+      </td>
+      </tr>
+      <tr>
+      <td colspan="7"><center>
+      Операции в кольцах Z[x], Zn[n] и Fp[X]</center>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Сложение в кольце Z[X]
+      </td>
+      <td><code>Uni.addZX</code></td>
+      <td>
+      B=A1+A2. B,A1,A2 в Z[X]
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Сложение в кольце Zn[X]
+      </td>
+      <td><code>Uni.addZnX</code></td>
+      <td>
+      B=A1+A2. B,A1,A2 в Z[X], Uni.n в N
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Сложение в кольце Fp[X]
+      </td>
+      <td><code>Uni.addFpX</code></td>
+      <td>
+      B=A1+A2. B,A1,A2 в Fp[X], Uni.p-простое число
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Вычитание в кольце Z[X]
+      </td>
+      <td><code>Uni.subZX</code></td>
+      <td>
+      B=A1-A2. B,A1,A2 в Z[X]
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Вычитание в кольце Zn[X]
+      </td>
+      <td><code>Uni.subZnX</code></td>
+      <td>
+      B=A1-A2. B,A1,A2 в Zn[X],Uni.n в N
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Вычитание в кольце Fp[X]
+      </td>
+      <td><code>Uni.subFpX</code></td>
+      <td>
+      B=A1-A2. B,A1,A2 в Fp[X], Uni.p-простое число
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Умножение на скаляр в кольце Z[X]
+      </td>
+      <td><code>Uni.smulZX</code></td>
+      <td>
+      B=С*A. С в Z, B,A в Z[X]
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Умножение на скаляр в кольце Zn[X]
+      </td>
+      <td><code>Uni.smulZnX</code></td>
+      <td>
+      B=С*A. С в Zn, B,A в Zn[X], Uni.n в N
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Умножение на скаляр в кольце Fp[X]
+      </td>
+      <td><code>Uni.smulFpX</code></td>
+      <td>
+      B=С*A. С в Fp, B,A в Fp[X], Uni.p-простое число
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Умножение в кольце Z[X]
+      </td>
+      <td><code>Uni.mulZX</code></td>
+      <td>
+      B=A1*A2. B,A1,A2 в Z[X]
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Умножение в кольце Zn[X]
+      </td>
+      <td><code>Uni.mulZnX</code></td>
+      <td>
+      B=A1*A2. B,A1,A2 в Zn[X], Uni.n в Z
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Умножение в кольце Fp[X]
+      </td>
+      <td><code>Uni.mulZnX</code></td>
+      <td>
+      B=A1*A2. B,A1,A2 в Fp[X], Uni.p-простое число
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Возведение в степень в кольце Z[X]
+      </td>
+      <td><code>Uni.powerZX</code></td>
+      <td>
+      B=A^D. B,A в Z[X], D в Z<sup>+</sup>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Возведение в степень в кольце Zn[X]
+      &nbsp;
+      </td>
+      <td><code>Uni.powerZnX</code></td>
+      <td>
+      B=A^D. B,A в Zn[X], D в Z<sup>+</sup>, Uni.n в Z
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Возведение в степень в кольце Fp[X]
+      </td>
+      <td><code>Uni.powerFpX</code></td>
+      <td>
+      B=A^D. B,A в Fp[X], D в Z<sup>+</sup>, Uni.p-простое число
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Деление многочленов с остатком в кольце Fp[X]
+      </td>
+      <td><code>Uni.divZX</code></td>
+      <td>
+      B1=A1\\A2, B2=A1%A2 B1,B2,A1,A2 в Fp[X], A2&ne;[0] Uni.p-простое число
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Расширенный алгоритм Евклида в кольце Fp[X]
+      </td>
+      <td><code>Uni.EuclidZnX</code></td>
+      <td>
+      Нахождение корней B1=X,B2=Y,&nbsp; уравнения A1*X+A2*Y=НОД(A1,A2) и многочлена B3=НОД(A1,A2) при A1*A2 не равном [0]. B1,B2,B3,A1,A2 в Fp[Z], A1*A2 &ne; [0], Uni.p-простое число
+      </td>
+      </tr>
+      <tr>
+      <td colspan="7"><center>
+      Операции в поле Fp[X]_f(x)=Fpl</center>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Сложение в поле Fp[X]_f(x)=Fpl
+      </td>
+      <td><code>Uni.addFpl</code></td>
+      <td>
+      B1=A1+A2. B1,A1,A2 в Fp[X]_f, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f в Fp[X].
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Вычитание в поле
+      Fp[X]_f(x)=Fpl
+      </td>
+      <td><code>Uni.subFpl</code></td>
+      <td>
+      B1=A1-A2. B1,A1,A2 в Fp[X]_f, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f в Fp[X].
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Умножение на скаляр в поле Fp[X]_f(x)=Fpl
+      </td>
+      <td><code>Uni.smulFpl</code></td>
+      <td>
+      B=A1*A2. A1&isin;Fp[X], B,A2&isin;Fp[X]_f, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X].
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Умножение в поле Fp[X]_f(x)=Fpl
+      </td>
+      <td><code>Uni.mulFpl</code></td>
+      <td>
+      B=A1*A2. B, A1, A2 в Fp[X]_f, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X].
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Возведение в степень в поле Fp[X]_f(x)=Fpl
+      </td>
+      <td><code>Uni.powerFpl</code></td>
+      <td>
+      B=A<sup>K</sup>. B, A в Fp[X]_f, K в N, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X].
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Обращение поле Fp[X]_f(x)=Fpl
+      </td>
+      <td><code>Uni.invFpl</code></td>
+      <td>
+      B=A<sup>-1</sup>. &nbsp;&nbsp;B, A в Fp[X]_f, A&ne;0, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X].
+      </td>
+      </tr>
+      <tr>
+      <td colspan="7"><center>
+      Операции в кольце Fp^l[Y]=FplY</center>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Сложение в кольце Fp^l[Y]=FplY
+      </td>
+      <td><code>Uni.addFplY</code></td>
+      <td>
+      B=A1+A2. B,A1,A2 в Fp^l[Y], Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X].
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Вычитание в кольце Fp^l[Y]
+      </td>
+      <td><code>Uni.subFplY</code></td>
+      <td>
+      B=A1-A2. B,A1,A2 в Fp^l[Y], Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X].
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Умножение на скаляр в кольце Fp^l[Y]=FplY
+      </td>
+      <td><code>Uni.smulFplY</code></td>
+      <td>
+      B=A*С. A в Fp^l[Y], C в Fp^l, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X].
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Деление c остатком в кольце Fp^l[Y] =FplY
+      </td>
+      <td><code>Uni.divFplY</code></td>
+      <td>
+      B1=A1//A2. B1,B2,A1,A2 в Fp^l[Y],A2 не равно [[0]], Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X].
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Умножение в кольце Fp^l[Y]
+      </td>
+      <td><code>Uni.mulFplY</code></td>
+      <td>
+      B=A1*A2. B,A1,A2 в Fp^l[Y], Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X].
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Расширенный алгоритм Евклида в кольце Fp^l[Y]
+      </td>
+      <td><code>Uni.EuclidFplY</code></td>
+      <td>
+      Нахождение корней B1=X,B2=Y,&nbsp; уравнения A1*X+A2*Y=НОД(A1,A2) и многочлена B3=НОД(A1,A2). B1,B2,B3,A1,A2 в Fp^l[Y], A1*A2 &ne; [[0]], Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f в Fp[X].
+      </td>
+      </tr>
+      <tr>
+      <td colspan="7"><center>
+      Операции в кольце Fp^l[Y]_f(Y)=Fpld</center>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Сложение в поле Fp^l[Y]_f(Y)=Fpld
+      </td>
+      <td><code>Uni.addFpld</code></td>
+      <td>
+      B=A1+A2. B,A1,A2 в Fpld, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X], Uni.d в N, Uni.g- примитивный многочлен степени d+1, g&isin;Fpl[X],
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Вычитание в поле Fp^l[Y]_f(Y)=Fpld
+      </td>
+      <td><code>Uni.subFpld</code></td>
+      <td>
+      B=A1-A2. B,A1,A2 в Fpld, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X], Uni.d в N, Uni.g- примитивный многочлен степени d+1, g&isin;Fpl[X],
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Умножение на скаляр в поле Fp^l[Y]_f(Y)=Fpld
+      </td>
+      <td><code>Uni.smulFpld</code></td>
+      <td>
+      B=A*С. A в Fp^ld, C в Fp^l, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X], Uni.g- примитивный многочлен степени d+1, g&isin;Fpl[X]
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Умножение в поле Fp^l[Y]f(Y)=Fp^ld
+      </td>
+      <td><code>Uni.mulFpld</code></td>
+      <td>
+      B=A1*A2 Аргументы: B,A1,A2 в Fp^ld, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X], Uni.g- примитивный многочлен степени d+1, g&isin;Fpl[X]
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Возведение в степень в кольце Fp^l[Y]
+      </td>
+      <td><code>Uni.powerFplY</code></td>
+      <td>
+      B=A^D. B,A в Fp^l[Y], D в Z<sup>+</sup>, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X].
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Возведение в степень в поле Fp^l[Y]f(Y)=Fp^ld
+      </td>
+      <td><code>Uni.powerFpld</code></td>
+      <td>
+      B=A1^D. mod f(Y) Аргументы: A в Fp^ld, D в Z<sup>+</sup>, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X], Uni.g- примитивный многочлен степени d+1, g&isin;Fpl[X]
+      </td>
+      </tr>
+      <tr>
+      <td>
+      Обращение в поле Fp^l[Y]_f(Y)=Fp^ld
+      </td>
+      <td><code>Uni.invFpld</code></td>
+      <td>
+      B=A^(-1). B,A в Fp^ld, A не равно [[0]], Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X], Uni.g- примитивный многочлен степени d+1, g&isin;Fpl[X]
+      </td>
+      </tr>
+      </table>
     </div>
 </div>
 

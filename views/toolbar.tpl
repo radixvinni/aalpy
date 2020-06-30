@@ -669,172 +669,287 @@
         группы n-кручения E[n]</a></li>
   </ul>
 </div>
+</div><div class="btn-toolbar">
 <div class="btn-group">
   <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#">
     Python
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu">
-    <!--li><a href="#" rel="tooltip" data-placement="left" data-original-title="<strong>Объявление нового числа</strong><br/>Аргументы: строка или число" onclick="window.editor.insert('Integer()');window.editor.selection.moveCursorLeft();window.editor.focus()">Объявление</a></li-->
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <!--li><a href="#" rel="tooltip" data-placement="right" data-original-title="<strong>Объявление нового числа</strong><br/>Аргументы: строка или число" onclick="window.editor.insert('Integer()');window.editor.selection.moveCursorLeft();window.editor.focus()">Объявление</a></li-->
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="Генерация ненулевого элемента в Z<sub>N</sub><br/>Аргументы: N в Z"
         onclick="window.editor.insert('aAl.generate()');window.editor.selection.moveCursorLeft();window.editor.focus()">Генерация
         в Z<sub>N</sub></a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1 = -A1</strong><br/>Аргументы: A1 в Z"
         onclick="window.editor.insert('aAl.negate()');window.editor.selection.moveCursorLeft();window.editor.focus()">Отрицание
         в Z</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=A1+A2</strong><br/>Аргументы: A1, A2 в Z"
         onclick="window.editor.insert('aAl.add()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение
         в Z</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=A1+A2(mod n)</strong><br/>Аргументы: A1, A2 в Z"
         onclick="window.editor.insert('aAl.modAdd()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение
         в Z<sub>n</sub></a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=A1+A2(mod p)</strong><br/>Аргументы: A1, A2 в Z, p-простое"
         onclick="window.editor.insert('aAl.modAddInFp()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение
         в F<sub>p</sub></a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=A1-A2</strong><br/>Аргументы: A1, A2 в Z"
         onclick="window.editor.insert('aAl.sub()');window.editor.selection.moveCursorLeft();window.editor.focus()">Вычитание
         в Z</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=A1-A2(mod n)</strong><br/>Аргументы: A1, A2 в Z"
         onclick="window.editor.insert('aAl.modSub()');window.editor.selection.moveCursorLeft();window.editor.focus()">Вычитание
         в Z<sub>n</sub></a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=A1-A2(mod p)</strong><br/>Аргументы: A1, A2 в Z, p-простое"
         onclick="window.editor.insert('aAl.subInFp()');window.editor.selection.moveCursorLeft();window.editor.focus()">Вычитание
         в F<sub>p</sub></a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=A1*A2</strong><br/>Аргументы: A1, A2 в Z"
         onclick="window.editor.insert('aAl.mul()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение
         в Z</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=A1*A2(mod n)</strong><br/>Аргументы: A1, A2 в Z"
         onclick="window.editor.insert('aAl.modMul()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение
         в Z<sub>n</sub></a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=A1*A2(mod p)</strong><br/>Аргументы: A1, A2 в Z, p-простое"
         onclick="window.editor.insert('aAl.mulInFp()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение
         в F<sub>p</sub></a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=[A1/A2] mod n=0;B2=A1*A2<sup>-1</sup></strong><br/>Аргументы: A1, A2 в Z, A2 не равно 0"
         onclick="window.editor.insert('aAl.div()');window.editor.selection.moveCursorLeft();window.editor.focus()">Деление
         и деление с остатком в Z</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=A1<sup>A2</sup></strong><br/>Аргументы: A1, A2 в Z, A2 &gt;= 0"
         onclick="window.editor.insert('aAl.power()');window.editor.selection.moveCursorLeft();window.editor.focus()">Возведение
         в степепь в Z</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=A1<sup>A2</sup>(mod n)</strong><br/>Аргументы: A1, A2 в Z, A2 &gt;= 0"
         onclick="window.editor.insert('aAl.modPow()');window.editor.selection.moveCursorLeft();window.editor.focus()">Возведение
         в степепь в Z<sub>n</sub></a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=A1<sup>A2</sup>(mod p)</strong><br/>Аргументы: A1, A2 в Z, A2 &gt;= 0, p-простое"
         onclick="window.editor.insert('aAl.powInFp()');window.editor.selection.moveCursorLeft();window.editor.focus()">Возведение
         в степепь в F<sub>p</sub></a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=[sqrt(A1)]</strong><br/>Аргументы: A1 в Z"
         onclick="window.editor.insert('aAl.sqrt()');window.editor.selection.moveCursorLeft();window.editor.focus()">Взятие
         целой части квадратного корня в Z</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=sqrt(A1)(mod p)</strong><br/>Аргументы: A1 в Z, p-простое"
         onclick="window.editor.insert('aAl.modSqrt()');window.editor.selection.moveCursorLeft();window.editor.focus()">Взятие
         квадратного корня в F<sub>p</sub></a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=НОД(A1,A2)</strong><br/>Аргументы: A1, A2 в Z, A1 или A2 не равны 0"
         onclick="window.editor.insert('aAl.euclid()');window.editor.selection.moveCursorLeft();window.editor.focus()">НОД
         в Z</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>Решение уравнения A1*x+A2*y=GCD(A1,A2), найденные корни:  B1=x B2=y</strong><br/>Аргументы: A1, A2 в Z, A1 или A2 не равны 0"
         onclick="window.editor.insert('aAl.exEuclid()');window.editor.selection.moveCursorLeft();window.editor.focus()">Расширенный
         алгоритм Евклида в Z</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=A1<sup>-1</sup>(mod n). Аргументы: A1 и p взаимно просты</strong><br/>G(n), иначе B1=false. Аргументы: A1 в Z, A1 не равны 0"
         onclick="window.editor.insert('aAl.inverse()');window.editor.selection.moveCursorLeft();window.editor.focus()">Обращение
         в Z<sub>n</sub>*</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=A1<sup>-1</sup>(mod p). Аргументы: p-простое</strong><br/>G(p), иначе B1=false. <br/>Допустимые значения; A1 в Z, A1 не равны 0, p - простое"
         onclick="window.editor.insert('aAl.inverseInFp()');window.editor.selection.moveCursorLeft();window.editor.focus()">Обращение
         в F<sub>p</sub>*</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=Legandre(A1,A2)</strong><br/>Аргументы: A2 - простое<br/>Результат: число(-1, 0 или 1)"
         onclick="window.editor.insert('aAl.legendre()');window.editor.selection.moveCursorLeft();window.editor.focus()">Символ
         Лежандра</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=Jacobi(A1/A2)</strong><br/>Аргументы: A1, A2 в Z, A2 &gt; 0<br/>Результат: число(-1, 0 или 1)"
         onclick="window.editor.insert('aAl.jacobySymbol()');window.editor.selection.moveCursorLeft();window.editor.focus()">Символ
         Якоби</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>Тест простоты(Миллера-Рабина). B1=IsPrime(A1). B1=true если A1 - вероят-</strong><br/>-ностно простое, иначе B1=false. Аргументы: A1 &gt; 0"
         onclick="window.editor.insert('aAl.IsPrime()');window.editor.selection.moveCursorLeft();window.editor.focus()">Тест
         простоты Миллера-Рабина</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>Взятие случайного вероятно простого числа. B1=GeneratePrime(A1).</strong><br/>Аргументы: 0 &lt; A1 &lt; 1024, A1 длина простого числа в битах"
         onclick="window.editor.insert('aAl.generatePrime()');window.editor.selection.moveCursorLeft();window.editor.focus()">Генерация
         вероятностно простого числа</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=true если A1 - образующий элемент</strong><br/>Аргументы: p - простое, A1 в Fp"
         onclick="window.editor.insert('aAl.IsGenerator()');window.editor.selection.moveCursorLeft();window.editor.focus()">Тест
         образующего элемента в Fp*</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>Тест простоты(Люка).</strong><br/>B1=IsPrime(n).B1=true если n - простое, иначе B1=false. Аргументы: n - нечетно"
         onclick="window.editor.insert('aAl.modifiedTestLuka()');window.editor.selection.moveCursorLeft();window.editor.focus()">Тест
         простоты Люка</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>Тест простоты(Поклингтона)</strong><br/>B1=IsPrime(n).B1=true если n - простое, иначе B1=false. Аргументы: n - нечетно"
         onclick="window.editor.insert('aAl.testPoklingtona()');window.editor.selection.moveCursorLeft();window.editor.focus()">Тест
         простоты Поклингтона</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=НОК(A1,A2)</strong><br/>Аргументы: A1, A2 в Z"
         onclick="window.editor.insert('aAl.sCM()');window.editor.selection.moveCursorLeft();window.editor.focus()">НОК в
         Z</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>B1=true если A1 - образующий элемент</strong><br/>Аргументы: модуль в Zn*, элемент в Zn*, разложение порядка группы, порядок поля"
         onclick="window.editor.insert('aAl.IsGenerator()');window.editor.selection.moveCursorLeft();window.editor.focus()">Тест
         образующего элемента</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>Взятие достоверного простого элемента из Z<sub>n</sub>. B1=GeneratePrime(module,разложение n-1)</strong><br/>Аргументы: n &gt;= 1"
         onclick="window.editor.insert('aAl.generatePrime()');window.editor.selection.moveCursorLeft();window.editor.focus()">Генерация
         достоверного простого числа в Z<sub>n</sub></a></li>
-    <li><a href="#" rel="tooltip" data-placement="left" data-original-title="Вставить код модуля aAl"
+    <li><a href="#" rel="tooltip" data-placement="right" data-original-title="Вставить код модуля aAl"
         onclick="show_aAl()">Использование функций AAL посредством Python</a></li>
   </ul>
 </div>
+<div class="btn-group">
+  <a class="btn btn btn-small dropdown-toggle" data-toggle="dropdown" href="#">
+    Universal
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1+A2. B,A1,A2 в Z" onclick="window.editor.insert('Uni.addZ()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сумма в кольце Z</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1+A2. B,A1,A2 в Zn, Uni.n в N" onclick="window.editor.insert('Uni.addZn()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сумма в кольце Zn</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1+A2. B,A1,A2 в Zp, Uni.p-простое число " onclick="window.editor.insert('Uni.addFp()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сумма в поле Fp</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1-A2. B,A1,A2 в Z" onclick="window.editor.insert('Uni.subZ()');window.editor.selection.moveCursorLeft();window.editor.focus()">Разность в кольце Z</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1-A2. B,A1, A2 в Zn, Uni.n в N" onclick="window.editor.insert('Uni.subZn()');window.editor.selection.moveCursorLeft();window.editor.focus()">Разность в кольце Zn</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1-A2. B,A1,A2 в Zp, Uni.p-простое число" onclick="window.editor.insert('Uni.subFp()');window.editor.selection.moveCursorLeft();window.editor.focus()">Разность в поле Fp</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1*A2. B,A1,A2 в Z" onclick="window.editor.insert('Uni.mulZ()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение в кольце Z</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1*A2. B,A1, A2 в Zn, Uni.n в Z" onclick="window.editor.insert('Uni.mulZn()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение в кольце Zn</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1*A2. B,A1,A2 в Zp, Uni.p-простое число" onclick="window.editor.insert('Uni.mulFp()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение в поле Fp</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B1=A1\\A2, B2=A1%A2. B1,B2,A1,A2 в Z[X],A2&ne;0." onclick="window.editor.insert('Uni.divZ()');window.editor.selection.moveCursorLeft();window.editor.focus()">Деление с остатком в кольце Z</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="Нахождение корней B1=X,B2=Y,  уравнения A1*X+A2*Y=НОД(A1,A2) и числа B3=НОД(A1,A2). B1,B2,B3,A1,A2 в Z, A1*A2 не равно 0." onclick="window.editor.insert('Uni.EuclidZ()');window.editor.selection.moveCursorLeft();window.editor.focus()">Расширенный алгоритм Евклида в кольце Z</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A^(-1). B,A в Fn, B*A=1, Uni.n в N" onclick="window.editor.insert('');window.editor.selection.moveCursorLeft();window.editor.focus()">Обращение в кольце Zn</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A^(-1). B,A в Fp, A не равно 0, Uni.p-простое число" onclick="window.editor.insert('Uni.invFp()');window.editor.selection.moveCursorLeft();window.editor.focus()">Обращение в поле Fp</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A^D. B,A,D в N+" onclick="window.editor.insert('Uni.powerZ()');window.editor.selection.moveCursorLeft();window.editor.focus()">Возведение в степень в кольце Z</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A^D. B,A в Zn, D в Z+, Uni.n в Z" onclick="window.editor.insert('Uni.powerZn()');window.editor.selection.moveCursorLeft();window.editor.focus()">Возведение в степень в кольце Zn</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A^D. B,A в Fp, D в Z+, Uni.p-простое число" onclick="window.editor.insert('Uni.powerFp()');window.editor.selection.moveCursorLeft();window.editor.focus()">Возведение в степень в поле Fp</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1+A2. B,A1,A2 в Z[X]" onclick="window.editor.insert('Uni.addZX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение в кольце Z[X]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1+A2. B,A1,A2 в Z[X], Uni.n в N" onclick="window.editor.insert('Uni.addZnX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение в кольце Zn[X]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1+A2. B,A1,A2 в Fp[X], Uni.p-простое число" onclick="window.editor.insert('Uni.addFpX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение в кольце Fp[X]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1-A2. B,A1,A2 в Z[X]" onclick="window.editor.insert('Uni.subZX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Вычитание в кольце Z[X]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1-A2. B,A1,A2 в Zn[X],Uni.n в N" onclick="window.editor.insert('Uni.subZnX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Вычитание в кольце Zn[X]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1-A2. B,A1,A2 в Fp[X], Uni.p-простое число" onclick="window.editor.insert('Uni.subFpX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Вычитание в кольце Fp[X]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=С*A. С в Z, B,A в Z[X]" onclick="window.editor.insert('Uni.smulZX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение на скаляр в кольце Z[X]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=С*A. С в Zn, B,A в Zn[X], Uni.n в N" onclick="window.editor.insert('Uni.smulZnX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение на скаляр в кольце Zn[X]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=С*A. С в Fp, B,A в Fp[X], Uni.p-простое число " onclick="window.editor.insert('Uni.smulFpX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение на скаляр в кольце Fp[X]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1*A2. B,A1,A2 в Z[X]" onclick="window.editor.insert('Uni.mulZX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение в кольце Z[X]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1*A2. B,A1,A2 в Zn[X], Uni.n в Z" onclick="window.editor.insert('Uni.mulZnX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение в кольце Zn[X]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1*A2. B,A1,A2 в Fp[X], Uni.p-простое число " onclick="window.editor.insert('Uni.mulZnX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение в кольце Fp[X]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A^D. B,A в Z[X], D в Z+" onclick="window.editor.insert('Uni.powerZX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Возведение в степень в кольце Z[X]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A^D. B,A в Zn[X], D в Z+, Uni.n в Z" onclick="window.editor.insert('Uni.powerZnX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Возведение в степень в кольце Zn[X]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A^D. B,A в Fp[X], D в Z+, Uni.p-простое число" onclick="window.editor.insert('Uni.powerFpX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Возведение в степень в кольце Fp[X]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B1=A1\\A2, B2=A1%A2 B1,B2,A1,A2 в Fp[X], A2&ne;[0] Uni.p-простое число" onclick="window.editor.insert('Uni.divZX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Деление многочленов с остатком в кольце Fp[X]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="Нахождение корней B1=X,B2=Y,  уравнения A1*X+A2*Y=НОД(A1,A2) и многочлена B3=НОД(A1,A2) при A1*A2 не равном [0]. B1,B2,B3,A1,A2 в Fp[Z], A1*A2 &ne; [0], Uni.p-простое число" onclick="window.editor.insert('Uni.EuclidZnX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Расширенный алгоритм Евклида в кольце Fp[X]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B1=A1+A2. B1,A1,A2 в Fp[X]_f, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f в Fp[X]." onclick="window.editor.insert('Uni.addFpl()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение в поле Fp[X]_f(x)=Fpl</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B1=A1-A2. B1,A1,A2 в Fp[X]_f, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f в Fp[X]." onclick="window.editor.insert('Uni.subFpl()');window.editor.selection.moveCursorLeft();window.editor.focus()">Вычитание в поле Fp[X]_f(x)=Fpl</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1*A2. A1&isin;Fp[X], B,A2&isin;Fp[X]_f, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X]." onclick="window.editor.insert('Uni.smulFpl()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение на скаляр в поле Fp[X]_f(x)=Fpl</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1*A2. B, A1, A2 в Fp[X]_f, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X]." onclick="window.editor.insert('Uni.mulFpl()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение в поле Fp[X]_f(x)=Fpl</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A^K. B, A в Fp[X]_f, K в N, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X]." onclick="window.editor.insert('Uni.powerFpl()');window.editor.selection.moveCursorLeft();window.editor.focus()">Возведение в степень в поле Fp[X]_f(x)=Fpl</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A^(-1).   B, A в Fp[X]_f, A&ne;0, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X]." onclick="window.editor.insert('Uni.invFpl()');window.editor.selection.moveCursorLeft();window.editor.focus()">Обращение поле Fp[X]_f(x)=Fpl</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1+A2. B,A1,A2 в Fp^l[Y], Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X]." onclick="window.editor.insert('Uni.addFplY()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение в кольце Fp^l[Y]=FplY</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1-A2. B,A1,A2 в Fp^l[Y], Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X]." onclick="window.editor.insert('Uni.subFplY()');window.editor.selection.moveCursorLeft();window.editor.focus()">Вычитание в кольце Fp^l[Y]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A*С. A в Fp^l[Y], C в Fp^l, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X]." onclick="window.editor.insert('Uni.smulFplY()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение на скаляр в кольце Fp^l[Y]=FplY</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B1=A1//A2. B1,B2,A1,A2 в Fp^l[Y],A2 не равно [[0]], Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X]. " onclick="window.editor.insert('Uni.divFplY()');window.editor.selection.moveCursorLeft();window.editor.focus()">Деление c остатком в кольце Fp^l[Y] =FplY</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1*A2. B,A1,A2 в Fp^l[Y], Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X]." onclick="window.editor.insert('Uni.mulFplY()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение в кольце Fp^l[Y]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="Нахождение корней B1=X,B2=Y,  уравнения A1*X+A2*Y=НОД(A1,A2) и многочлена B3=НОД(A1,A2). B1,B2,B3,A1,A2 в Fp^l[Y], A1*A2 &ne; [[0]], Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f в Fp[X]." onclick="window.editor.insert('Uni.EuclidFplY()');window.editor.selection.moveCursorLeft();window.editor.focus()">Расширенный алгоритм Евклида в кольце Fp^l[Y]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1+A2. B,A1,A2 в Fpld, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X], Uni.d в N, Uni.g- примитивный многочлен степени d+1, g&isin;Fpl[X]," onclick="window.editor.insert('Uni.addFpld()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение в поле Fp^l[Y]_f(Y)=Fpld</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1-A2. B,A1,A2 в Fpld, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X], Uni.d в N, Uni.g- примитивный многочлен степени d+1, g&isin;Fpl[X]," onclick="window.editor.insert('Uni.subFpld()');window.editor.selection.moveCursorLeft();window.editor.focus()">Вычитание в поле Fp^l[Y]_f(Y)=Fpld</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A*С. A в Fp^ld, C в Fp^l, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X], Uni.g- примитивный многочлен степени d+1, g&isin;Fpl[X]" onclick="window.editor.insert('Uni.smulFpld()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение на скаляр в поле Fp^l[Y]_f(Y)=Fpld</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1*A2 Аргументы: B,A1,A2 в Fp^ld, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X], Uni.g- примитивный многочлен степени d+1, g&isin;Fpl[X]" onclick="window.editor.insert('Uni.mulFpld()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение в поле Fp^l[Y]f(Y)=Fp^ld</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A^D. B,A в Fp^l[Y], D в Z+, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X]." onclick="window.editor.insert('Uni.powerFplY()');window.editor.selection.moveCursorLeft();window.editor.focus()">Возведение в степень в кольце Fp^l[Y]</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1^D. mod f(Y) Аргументы: A в Fp^ld, D в Z+, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X], Uni.g- примитивный многочлен степени d+1, g&isin;Fpl[X]" onclick="window.editor.insert('Uni.powerFpld()');window.editor.selection.moveCursorLeft();window.editor.focus()">Возведение в степень в поле Fp^l[Y]f(Y)=Fp^ld</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A^(-1). B,A в Fp^ld, A не равно [[0]], Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X], Uni.g- примитивный многочлен степени d+1, g&isin;Fpl[X] " onclick="window.editor.insert('Uni.invFpld()');window.editor.selection.moveCursorLeft();window.editor.focus()">Обращение в поле Fp^l[Y]_f(Y)=Fp^ld</a></li>
+
+  </ul>
+</div>
+
 <div class="btn-group">
   <a class="btn btn btn-small dropdown-toggle" data-toggle="dropdown" href="#">
     Примеры
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu">
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>Вычисление некоторых хешей</strong>"
         onclick="window.editor.insert('#Хеши в удобочитаемом шестнадцатеричном представлении байтов хеша\n\n#md5\nprint hashlib.md5(\'123\').hexdigest()\n#sha1\nprint hashlib.sha1(\'123\').hexdigest()\n#sha2 с разной длинной хешей\nprint hashlib.sha224(\'123\').hexdigest()\nprint hashlib.sha256(\'123\').hexdigest()\nprint hashlib.sha384(\'123\').hexdigest()\nprint hashlib.sha512(\'123\').hexdigest()\n\n#Для получения самого хеша применяется .digest()\nprint hashlib.md5(\'123\').digest()\n');window.editor.focus()">Некоторые
         хеш-фукции</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>Сложение чисел двух чисел в Z</strong><br/>r=Integer()<br/>r.Add(Integer(111),Integer(22))"
         onclick="window.editor.insert('r=Integer()\nr.Add(Integer(111),Integer(222))\n');window.editor.focus()">Сложение
         чисел 111 и 22 в Z</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>Нахождение НОД чисел 1071 и 462</strong><br/>r=Integer()<br/>r.Euclid(Integer(1071),Integer(462))"
         onclick="window.editor.insert('r=Integer()\nr.Euclid(Integer(1071),Integer(462))\n');window.editor.focus()">Нахождение
         НОД</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>Нахождение НОД чисел 1071 и 462 расширенным алгоритмом Евклида</strong><br/>r=Integer()<br/>a=Integer()<br/>b=Integer()<br/>r.ExEuclid(Integer(1071),Integer(462),a,b)"
         onclick="window.editor.insert('r=Integer()\na=Integer()\nb=Integer()\nr.ExEuclid(Integer(1071),Integer(462),a,b)\n');window.editor.focus()">Нахождение
         НОД расшир. алг. Евклида</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>Получить разложение числа 84 методом msieve</strong><br/>FactorizationAlgorithms(Integer(84)).MsieveDecomposition()"
         onclick="window.editor.insert('FactorizationAlgorithms(Integer(84)).MsieveDecomposition()\n');window.editor.focus()">Получить
         разложение msieve</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>Объявление и сравнение двух многочленов над GF(2)</strong><br/>a = Polynom(&quot;1101001&quot;)<br/>b = Polynom(&quot;0 1 3 6&quot;,Dec)<br/>a.ToString()==b.ToString()"
         onclick="window.editor.insert('a = Polynom(&quot;1101001&quot;)\nb = Polynom(&quot;0 1 3 6&quot;,Dec)\na.ToString()==b.ToString()\n');window.editor.focus()">Cравнение
         многочленов над GF(2)</a></li>
-    <li><a href="#" rel="tooltip" data-placement="left"
+    <li><a href="#" rel="tooltip" data-placement="right"
         data-original-title="<strong>Генерация точки эллиптической кривой</strong><br/>c=EllipticCurve(Integer(5),Integer(1),Integer(1))<br/>p=EllipticPoint(c)<br/>p.Generate()"
         onclick="window.editor.insert('c=EllipticCurve(Integer(5),Integer(1),Integer(1))\np=EllipticPoint(c)\np.Generate()\n');window.editor.focus()">Генерация
         точки эллип. кривой</a></li>

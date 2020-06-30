@@ -1,53 +1,133 @@
 #coding:utf-8
+
+
+
+
+
+
 def copymas(a):
     ret=[]
     for i in range(0,len(a)):
         ret.append(a[i])
     return ret
 
+# удаление при старших степенях нулей
+def delzeroend(a):
+    while(len(a)>0):
+        if(a[len(a)-1] != 0):
+            return a
+        else:
+            a.pop()
+    return [0]
+
 # сумма в кольце Z
+# возвращает сумму элементов a и b
+# a, b - элементы кольца Z
 def addZ(a, b):
     return a+b
 
+
+
+
+
+
 # сумма в кольце Zn
+# возвращает сумму элементов a и b
+# a, b - элементы кольца Zn
 def addZn(a, b):
     global n
     return (a+b)%n
 
+
+
+
+
+
 # сумма в кольце Zp
+# возвращает сумму элементов a и b
+# a, b - элементы кольца Zp
 def addZp(a, b):
     global p
     return (a+b)%p
 
+
+
+
+
+
 # разность в кольце Z
+# возвращает разность элементов a и b
+# a, b - элементы кольца Z
 def subZ(a, b):
     return a-b
 
+
+
+
+
+
 # разность в кольце Zn
+# возвращает разность элементов a и b
+# a, b - элементы кольца Zn
 def subZn(a, b):
     global n
     return (a-b)%n
 
+
+
+
+
+
 # разность в кольце Zp
+# возвращает разность элементов a и b
+# a, b - элементы кольца Zp
 def subZp(a, b):
     global p
     return (a-b)%p
 
+
+
+
+
+
 # умножение в кольце Z
+# возвращает произведение элементов a и b
+# a, b - элементы кольца Z
 def mulZ(a, b):
     return a*b
 
+
+
+
+
+
 # умножение в кольце Zn
+# возвращает произведение элементов a и b
+# a, b - элементы кольца Zn
 def mulZn(a, b):
     global n
     return (a*b)%n
 
+
+
+
+
+
 # умножение в кольце Zp
+# возвращает произведение элементов a и b
+# a, b - элементы кольца Zp
 def mulZp(a, b):
     global p
     return (a*b)%p
 
-# сумма в кольце ZX
+
+
+
+
+
+# сумма в кольце Z[X]
+# возвращает сумму элементов a и b
+# a, b - элементы кольца Z[X]
 def addZX(a, b):
     s=[]
     ret=[]
@@ -63,7 +143,14 @@ def addZX(a, b):
         s.append((ret[i]))
     return delzeroend(s)
 
-# сумма в кольце ZnX
+
+
+
+
+
+# сумма в кольце Zn[X]
+# возвращает сумму элементов a и b
+# a, b - элементы кольца Zn[X]
 def addZnX(a, b):
     global n
     s=[]
@@ -80,7 +167,14 @@ def addZnX(a, b):
         s.append((ret[i]%n))
     return delzeroend(s)
 
-# разность в кольце ZX
+
+
+
+
+
+# разность в кольце Z[X]
+# возвращает разность элементов a и b
+# a, b - элементы кольца Z[X]
 def subZX(a, b):
     s=[]
     ret=[]
@@ -97,7 +191,14 @@ def subZX(a, b):
         s.append((ret[i]))
     return delzeroend(s)
 
-# разность в кольце ZnX
+
+
+
+
+
+# разность в кольце Zn[X]
+# возвращает разность элементов a и b
+# a, b - элементы кольца Zn[X]
 def subZnX(a, b):
     global n
     s=[]
@@ -115,7 +216,15 @@ def subZnX(a, b):
         s.append((ret[i]%n))
     return delzeroend(s)
 
-# умножение на скаляр в кольце ZX
+
+
+
+
+
+# умножение на скаляр в кольце Z[X]
+# возвращает произведение элемента c на вектор a
+# c - элемент кольца Z
+# a - элемент кольца Z[X]
 def smulZX(c, a):
     s=[]
     l=len(a)
@@ -123,7 +232,15 @@ def smulZX(c, a):
         s.append((a[i]*c))
     return delzeroend(s)
 
-# умножение на скаляр в кольце ZnX
+
+
+
+
+
+# умножение на скаляр в кольце Zn[X]
+# возвращает произведение элемента c на вектор a
+# c - элемент кольца Zn
+# a - элемент кольца Zn[X]
 def smulZnX(c, a):
     global n
     s=[]
@@ -132,7 +249,14 @@ def smulZnX(c, a):
         s.append(((a[i]*c)%n))
     return delzeroend(s)
 
+
+
+
+
+
 # перемножение методом сдвигов и сложений в кольце Z[X]
+# возвращает произведение элементов a и b
+# a, b - элементы кольца Z[X]
 def mulZX(a, b):
     s=[0 for i in range(0,len(a)+len(b)-1)]
     for i in range(0,len(b)):
@@ -140,7 +264,14 @@ def mulZX(a, b):
             s[i+j]=addZ(s[i+j],mulZ(b[i],a[j]))
     return delzeroend(s)
 
+
+
+
+
+
 # перемножение методом сдвигов и сложений в кольце Zn[X]
+# возвращает произведение элементов a и b
+# a, b - элементы кольца Zn[X]
 def mulZnX(a, b):
     global n
     s=[0 for i in range(0,len(a)+len(b)-1)]
@@ -149,11 +280,26 @@ def mulZnX(a, b):
             s[i+j]=addZn(s[i+j],mulZn(b[i],a[j]))
     return delzeroend(s)
 
+
+
+
+
+
 # деление с остатком в кольце Z
+# возвращает целую часть и остаток от деления a на b
+# a, b - элементы кольца Z
 def divZ(a, b):
     return a//b, a%b
 
-# расширенный алгоритм Евклида в кольце Z(возвращает: x, y, НОД из уравнения a*x+b*y=НОД)
+
+
+
+
+
+
+# расширенный алгоритм Евклида в кольце Z
+# возвращает x, y, НОД из уравнения a*x+b*y=НОД
+# a, b - элементы кольца Z
 def EuclidZ(a, b):
     if b == 0:
         return 1, 0, a
@@ -162,12 +308,28 @@ def EuclidZ(a, b):
         return y, x-y*(a//b), d
 
 
+
+
+
+
+
+
+
 # обратный элемент в кольце Fp
+# возвращает обратный элемент a^(-1) к элементу a
+# a - элемент кольца Fp
 def invFp(a):
     global p
     return divZ(EuclidZ(a,p)[0],p)[1]
 
+
+
+
+
+
 # возведение в степень в кольце Z
+# возвращает степень pw числа a
+# a, pw - элементы кольца Z
 def powerZ(a, pw):
     ret=1
     pr=a
@@ -180,7 +342,16 @@ def powerZ(a, pw):
             pw/=2
     return ret
 
+
+
+
+
+
+
 # возведение в степень в кольце Zn
+# возвращает степень pw числа a
+# a - элемент кольца Zn
+# pw - элемент кольца Z
 def powerZn(a, pw):
     global n
     ret=1
@@ -194,7 +365,16 @@ def powerZn(a, pw):
             pw/=2
     return ret
 
+
+
+
+
+
+
 # возведение в степень в кольце Zp
+# возвращает степень pw числа a
+# a - элемент кольца Zp
+# pw - элемент кольца Z
 def powerZp(a, pw):
     global p
     ret=1
@@ -208,41 +388,67 @@ def powerZp(a, pw):
             pw/=2
     return ret
 
+
+
+
+
+
+
 # возведение в степень в кольце Z[X]
+# возвращает степень pw вектора a
+# a - элемент кольца Z[X]
+# pw - элемент кольца Z
 def powerZX(a, pw):
     l=len(a)
-    ret=1
+    ret=[1]
     pr=copymas(a)
     while pw!=0:
         if pw%2==1:
             if ret==1:
                 ret=copymas(a)
             else:
-                mulZX(ret,pr)
+                ret=mulZX(ret,pr)
             pw-=1
         else:
-            mulZX(pr,pr)
+            pr=mulZX(pr,pr)
             pw/=2
     return ret
+
+
+
+
+
+
 
 # возведение в степень в кольце Zn[X]
+# возвращает степень pw вектора a
+# a - элемент кольца Zn[X]
+# pw - элемент кольца Z
 def powerZnX(a, pw):
     l=len(a)
-    ret=1
+    ret=[1]
     pr=copymas(a)
     while pw!=0:
         if pw%2==1:
             if ret==1:
                 ret=copymas(a)
             else:
-                mulZnX(ret,pr)
+                ret=mulZnX(ret,pr)
             pw-=1
         else:
-            mulZnX(pr,pr)
+            pr=mulZnX(pr,pr)
             pw/=2
     return ret
 
+
+
+
+
+
+
 # деление многочленов с остатком в кольце Zn[X]
+# возвращает целую часть и остаток от деления a на b
+# a, b - элементы кольца Zn[X]
 def divZnX(a, b):
     if (b == [0]):
         return "error"
@@ -270,16 +476,15 @@ def divZnX(a, b):
             break
     return ddiv, buf
 
-# удаление при старших степенях нулей
-def delzeroend(a):
-    while(len(a)>0):
-        if(a[len(a)-1] != 0):
-            return a
-        else:
-            a.pop()
-    return [0]
+
+
+
+
+
 
 # деление многочленов с остатком в кольце Z[X]
+# возвращает целую часть и остаток от деления a на b
+# a, b - элементы кольца Z[X]
 def divZX(a, b):
     if (b == [0]):
         "Ошибка деление на 0 !"
@@ -308,7 +513,15 @@ def divZX(a, b):
             break
     return ddiv, buf
 
+
+
+
+
+
+
 # алгоритм Евклида в кольце Z[X]
+# возвращает x, y, НОД из уравнения a*x+b*y=НОД
+# a, b - элементы кольца Z[X]
 def EuclidZX(a, b):
     c1 = [0]
     c = [1]
@@ -318,9 +531,7 @@ def EuclidZX(a, b):
     v = delzeroend(b)
     while not v == [0]:
         qr = divZX(u, v)
-        print(u,v,qr)
         q = qr[0]
-        #print(q)
         r = qr[1]
         cold = c
         c = c1
@@ -333,7 +544,16 @@ def EuclidZX(a, b):
     return c, d, u
 
 
+
+
+
+
+
+
+
 # алгоритм Евклида в кольце Zn[X]
+# возвращает x, y, НОД из уравнения a*x+b*y=НОД
+# a, b - элементы кольца Zn[X]
 def EuclidZnX (a, b):
     c1 = [0]
     c = [1]
@@ -356,38 +576,34 @@ def EuclidZnX (a, b):
     return c, d, u
 
 
-#Функии Клягина , которые я и спользую в своих функциях:
-# 1)сумма в кольце Zp
-def addZp(a,b):
-    global p
-    return (a+b)%p
-# 2)умножение в кольце Zp
-def mulZp(a,b):
-    global p
-    return (a*b)%p
-# 3) деление с остатком в кольце Z
-def divZ(a, b):
-    return a//b, a%b
-    
-# 4)расширенный алгоритм Евклида в кольце Z(возвращает: НОД, x, y из уравнения a*x+b*y=НОД)
-def EuclidZ(a, b):
-    if b == 0:
-        return 1, 0, a
-    else:
-        x, y, d = EuclidZ(b, a%b)
-        return y, x-y*(a//b), d
-# 5)обратный элемент в кольце Fp
-def invFp(a):
-    global p
-    return divZ(EuclidZ(a,p)[0],p)[1]
 
 
-global p
-p=3
-a=[2,0,1,2,2] #[1,2,1] #1*x^0 + 2*x^1 + 1*x^2
-b=[1,2,1,2] #[1,0,2] #1*x^0 + 0*x^1 + 2*x^2
-scalr=2
 
+
+
+
+
+#############################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Функция удаления не значащих нулей
+#a - элемент кольца Z(Fp)[X]
 def delzeroend(a):
     while(len(a)>0):
         if(a[len(a)-1] != 0):
@@ -396,45 +612,77 @@ def delzeroend(a):
             a.pop()
     return [0]
 
-#print "Сложение – поэлементное сложение элементов наборов одинаковой длины."
+#Вспомогатльная функция для копирования списка
+#a-элемент кольца Z(Fp)[X]
+def copyelem(a):
+    c=[]
+    for i in range(0,len(a)):
+        c.append(a[i])
+    return c
+
+#Сложение в кольце Z(Fp)[X]"
+#a, b - элементы кольца Z(Fp)[X]
 def addFpX(a,b):
     c=[]
     if(len(a)>len(b)):
         for it in range(0,len(b)):
-            c.append(addZp(a[it],b[it]))#c.append((a[it]+b[it])%p)
+            c.append(addZp(a[it],b[it]))
         for it in range(len(b),len(a)):
             c.append(a[it])    
     else:
         if(len(a)==len(b)):
             for it in range(0,len(a)):
-                c.append(addZp(a[it],b[it]))#c.append((a[it]+b[it])%p)
+                c.append(addZp(a[it],b[it]))
         else:
             for it in range(0,len(a)):
-                c.append(addZp(a[it],b[it]))#c.append((a[it]+b[it])%p)
+                c.append(addZp(a[it],b[it]))
             for it in range(len(a),len(b)):
                 c.append(b[it])
     return delzeroend(c)
 
-#print "Функция нахождение противоположного элемента"
+
+
+
+
+
+
+#Функция нахождение противоположного элемента
+#a - элемент кольца Z(Fp)[X]
 def negateFpX(a):
     c=[]
     for i in range(0,len(a)):
-        c.append(addZp(0,-a[i]))#c.append((-a[i])%p)
+        c.append(addZp(0,-a[i]))
     return c
 
-#print "Вычитание: согласно правилу a + (-a)"
+
+#Вычитание в кольце Z(Fp)[X]"
+#a, b - элементы кольца Z(Fp)[X]
 def subFpX(a,b):
     return delzeroend(addFpX(a,negateFpX(b)))
 
-#print "Умножение на скаляр [a0,…, at] : a_i из Fp , t из N"
+
+
+
+
+
+
+#Умножение на скаляр в кольце Z(Fp)[X]"
+#a - элемент кольца Z(Fp)[X],scal - элемент Fp
 def smulFpX(a,scal):
     c=[]
-    scal = addZp(0,scal)#scal=scal%p
+    scal = addZp(0,scal)
     for it in range(0,len(a)):
-        c.append(mulZp(a[it],scal))#c.append((a[it]*scal)%p)
+        c.append(mulZp(a[it],scal))
     return delzeroend(c)
 
-#print "Умножение в кольце – перемножение «столбиком», как в школе."
+
+
+
+
+
+
+#Перемножение методом сдвигов и сложений в кольце Z(Fp)[X]"
+#a, b - элементы кольца Z(Fp)[X]
 def mulFpX(a,b):
     c=[0 for i in range(len(a)+len(b)-1)]
     for ib in range(0,len(b)):
@@ -442,14 +690,14 @@ def mulFpX(a,b):
             c[ia + ib] = addZp(c[ia + ib],mulZp(a[ia],b[ib])) #c[ia + ib] = (c[ia + ib] + a[ia] * b[ib])%p
     return delzeroend(c)
 
-#print "Вспомогатльная функция для копирования списка"
-def copyelem(a):
-    c=[]
-    for i in range(0,len(a)):
-        c.append(a[i])
-    return c
-#print "Деление с остатком – «столбиком», как в школе."
-#print "Примечание:операнды могут быть разной длины"
+
+
+
+
+
+
+#Деление с остатком в кольце Z(Fp)[X]"
+#a, b - элементы кольца Z(Fp)[X]
 def divFpX(a,b):
     if(b==[0]):
         print "Ошибка деление на 0 !"
@@ -489,30 +737,39 @@ def divFpX(a,b):
                 buf.append(0)
     return [ddiv,buf]
 
-#print "Возведение в степень: показатель степени раскладывается по основанию порядка элемента набора"
-#print "Разложение показателя степени по основанию порядка элемента набора,начиная со старшего разряда"
+
+
+
+
+
+
+
+
+
+#Разложение показателя степени по основанию порядка элемента набора,начиная со старшего разряда"
+#a - целое число >0
 def decToFpX(a):
     Blist=[]
-    #число a из Fp , частное и остаток от деления скорее всего заменить функцией как Антона
     while not a==0:
         q=divZ(a,p)
         Blist.insert(0,q[1])
         a=q[0]
     return Blist
 
-#print "Разложение показателя степени в бинарный список,начиная со старшего разряда"
+#Разложение показателя степени в бинарный список,начиная со старшего разряда"
+#a - целое число >0
 def decToBinFpX(a):
     Blist=[]
-    #число a из Fp , частное и остаток от деления скорее всего заменить функцией как Антона
     while not a==0:
         q=divZ(a,2)
         Blist.insert(0,q[1])
         a=q[0]
     return Blist
     
-#print "Возведение в степень: показатель степени раскладывается в бинарный набор" 
+#Возведение в степень: показатель степени раскладывается в бинарный набор" 
+#a - элемент кольца Z(Fp)[X],d - целое число >0
 def powerBinFpX(a,d):
-    dbin=decToBinFpX(d)#показатель степени разложили по основанию 2
+    dbin=decToBinFpX(d)
     n=len(dbin)
     b=[1]
     for it in range(0,n):
@@ -523,6 +780,7 @@ def powerBinFpX(a,d):
     return b   
 
 #Вспомогательная функция: для случая x^p, где p-порядок Fp
+#a - элемент кольца Z(Fp)[X]
 def powerdegpFpX(a):
     c=[]
     for j in range(0,len(a)-1):
@@ -532,7 +790,8 @@ def powerdegpFpX(a):
     c.append(a[len(a)-1])
     return c
 
-#print "Возведение в степень в Fp[X] "
+#Возведение в степень в кольце Z(Fp)[X]"
+#a- элемент кольца Z(Fp)[X],d - целое число > 0
 def powerFpX(a,d):
     if (d==p):
         return powerdegpFpX(a)
@@ -540,15 +799,22 @@ def powerFpX(a,d):
         if(d==0):
             return [1]
         else:
-            dp=decToFpX(d)#показатель степени разложили по основанию p
+            dp=decToFpX(d)
             n=len(dp)
             b = [1]
             for it in range(0,n):
-                #Пояснение строчки ниже: b = ( (b**p)%p * (a**dp[it])%p )%p
                 b = mulFpX(powerdegpFpX(b),powerBinFpX(a,dp[it]))
             return b
 
-#print "Расширенный алгоритм Евклида:"
+
+
+dg = 2
+
+
+
+# Алгоритм Евклида в кольце Z(Fp)[X]
+# Возвращает НОД двух элементов
+# a, b - элементы кольца Z(Fp)[X]
 def EuclidFpX(a,b):
     c1 = [0]
     c = [1]
@@ -568,54 +834,67 @@ def EuclidFpX(a,b):
         d1 = subFpX(dold,mulFpX(q,d1))
         u = v
         v = r
-    return (c,d,u)
+    return (c,d,u)# [c*a + d*b = u], u - НОД(a,b)
 
-global f,l,n
 
-p=3
-l=3 #степень неприводимого многочлена 
-f=[1,2,0,1] #x^3 + 2*x + 1
-#print "Для поля поля Z(F_3)[X]_x^3 + 2x + 1 = F_(3^3)"
 
-n=p**l #порядок поля F_p^l
-a=[1,1,1] #[1,1] #1*x^0 + 1*x^1
-b=[0,1,1] #[0,1] #0*x^0 + 1*x^1
-scalr=2
 
-#print "Функция удаляет последние нули в списке, которые ''не имеют важности'' "
-def delzeroend(a):
-    while(len(a)>0):
-        if(a[len(a)-1] != 0):
-            return a
-        else:
-            a.pop()
-    return [0]
 
-#print "Функция приведения по модулю неприводимого многочлена f(X)"
+
+
+
+
+#Приведения по модулю неприводимого многочлена f(X) в поле Fp^l
+#a - элемент кольца Z(Fp)[X]
 def modf(a):
     return divFpX(a,f)[1]
 
-a=[2,1,2]
-b=[1,2,1]
-#print "Сложение – поэлементное сложение элементов наборов."
+#Сложение в поле Fp^l"
+#a,b - элементы поля Fp^l
 def addFpl(a,b):
     return addFpX(a,b)
 
-#print "Вычитание  – поэлементное вычитание элементов наборов."
+
+
+
+
+
+
+#Вычитание в поле Fp^l"
+#a,b - элементы поля Fp^l
 def subFpl(a,b):
     return subFpX(a,b)
+    
 
-#print "Умножение на скаляр : [с*a_0,…, с*a_l-1]"
+
+
+
+
+
+#Умножение на скаляр в поле Fp^l"
+#a - элемент поля Fp^l,sl - элемент Fp
 def smulFpl(a,sl):
     return smulFpX(a,sl)
 
-#print "Умножение в поле Z(Fp)[X]_f(X)–умножение в кольце и взятие остатка по mod f(X)."
-#print "Перемножение методом сдвигов и сложений и приведение по модулю многочлена f(X)"
+
+
+
+
+
+
+#Перемножение методом сдвигов и сложений в поле Fp^l
+#a,b - элементы поля Fp^l
 def mulFpl(a,b):
     return modf(mulFpX(a,b))
 
+
+
+
+
+
+
 #Вспомогательная функция: для случая x^(p^l), где p-порядок Fp,l-степень f(X)
-#Между элементами a вставляем n=p^l-1 нулей - это и есть x^(p^l)
+#a - элемент поля Fp^l
 def powerdegplFpl(a):
     c=[]
     for j in range(0,len(a)-1):
@@ -625,7 +904,8 @@ def powerdegplFpl(a):
     c.append(a[len(a)-1])
     return modf(c)
 
-#print "Разложение показателя степени по основанию p^l,начиная со старшего разряда"
+#Разложение показателя степени по основанию p^l,начиная со старшего разряда"
+#a - целое число > 0 
 def decToFpl(a):
     Blist=[]
     while not a==0:
@@ -634,7 +914,8 @@ def decToFpl(a):
         a=q[0]
     return Blist
 
-#Возведение в степень в F_p^l 
+#Возведение в степень в поле Fp^l
+#a - элемент поля Fp^l,a - целое число > 0 
 def powerFpl(a,d):
     if (d == p):
         return modf(powerdegpFpX(a))
@@ -649,7 +930,14 @@ def powerFpl(a,d):
                 b = mulFpl(powerdegplFpl(b),modf(powerFpX(a,dpl[it])))
             return b
 
-#print "Обращение – по упрощенному расширенному алгоритму Евклида."
+
+
+dg = 113
+
+
+
+#Обращение в поле Fp^l"
+#a - элемент поля Fp^l
 def invFpl(a):
     c1 = [0]
     c = [1]
@@ -668,24 +956,30 @@ def invFpl(a):
     return (c,[1])
 
 
+
+
+
+
+
+
 #############################################################################
 
-#print
-#print
-#print "--------------------- Проверка функций Кочетовой Натальи ---------------------"
-#print
 
-p = 3
-l = 2
-d = 4
-f = [1,0,1] # x^2 + 1
-mod  = [[2,2],[0,1],[0],[0],[0,1]] # z2*x^4 + z2*x + 2*z2 + 2 
-#print "p = ", p
-#print "l = ", l
-#print "d = ", d
-#print "f = ", f
-#print "mod = ", mod
-#print
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Функция, убирающая незначащие нули
 # a - элемент поля Fp^l
@@ -712,11 +1006,11 @@ def addFplY(a1, a2):
         rez.append(prom[i])
     return clearNulls(rez)
 
-#print "Сложение в кольце Fp^l[Y]"
-a = [[0, 1], [1, 2], [2]]
-b = [[1, 2], [1]]
-#print a, ' + ', b, ' = ', addFplY(a, b)
-#print
+
+
+
+
+
 
 # Сложение в поле Fp^l[Y]f(Y)= Fp^ld
 # a1, a2 - элементы поля Fp^ld
@@ -727,11 +1021,11 @@ def addFpld(a1, a2):
         rez.append(addFpl(a1[i], a2[i]))
     return rez
 
-#print "Сложение в поле Fp^l[Y]f(Y)= Fp^ld"
-a = [[0, 1], [1, 2], [2], [1]]
-b = [[1, 2], [1], [0], [2]]
-#print a, ' + ', b, ' = ', addFpld(a, b)
-#print
+
+
+
+
+
 
 # Вычитание в кольце Fp^l[Y]
 # a1, a2 - элементы кольца Fp^l[Y]
@@ -752,12 +1046,12 @@ def subFplY(a1, a2):
             rez.append(subFpl([0], a2[i]))
     return clearNulls(rez)
 
-#print "Вычитание в кольце Fp^l[Y]"
-a = [[0, 1], [1, 2], [2]]
-b = [[1, 2], [1]]
-#print a, ' - ', b, ' = ', subFplY(a, b)
-#print b, ' - ', a, ' = ', subFplY(b, a)
-#print
+
+
+
+
+
+
 
 # Вычитание в поле Fp^l[Y]f(Y)= Fp^ld
 # a1, a2 - элементы кольца Fp^l[Y]
@@ -768,12 +1062,12 @@ def subFpld(a1, a2):
         rez.append(subFpl(a1[i], a2[i]))
     return rez
 
-#print "Вычитание в поле Fp^l[Y]f(Y)= Fp^ld"
-a = [[0, 1], [1, 2], [2], [1]]
-b = [[1, 2], [1], [0], [2]]
-#print a, ' - ', b, ' = ', subFpld(a, b)
-#print b, ' - ', a, ' = ', subFpld(b, a)
-#print
+
+
+
+
+
+
 
 # Умножение на скаляр в кольце Fp^l[Y]
 # a - элемент кольца Fp^l[Y]
@@ -784,13 +1078,13 @@ def smulFplY(a, c):
         rez.append(mulFpl(a[i], c))
     return clearNulls(rez)
 
-#print "Умножение на скаляр в кольце Fp^l[Y]"
-a = [[0, 1], [2, 1], [2]]
-c = [1, 2]
-#print a, ' * ', c, ' = ', smulFplY(a, c)
-c = [1]
-#print a, ' * ', c, ' = ', smulFplY(a, c)
-#print
+
+
+
+
+
+
+
 
 # Умножение на скаляр в поле Fp^l[Y]f(Y)= Fp^ld
 # a - элемент поля Fp^ld
@@ -802,13 +1096,13 @@ def smulFpld(a, c):
         rez.append(mulFpl(a[i], c))
     return rez
 
-#print "Умножение на скаляр в поле Fp^l[Y]f(Y)= Fp^ld"
-a = [[0, 1], [1, 2], [2], [1]]
-c = [1, 2]
-#print a, ' * ', c, ' = ', smulFpld(a, c)
-c = [1]
-#print a, ' * ', c, ' = ', smulFpld(a, c)
-#print
+
+
+
+
+
+
+
 
 # Деление в кольце Fp^l[Y]
 # a1, a2 - элементы кольца Fp^l[Y]
@@ -835,20 +1129,20 @@ def divFplY(a1, a2):
         rez2[i] = pr[i]
     return [clearNulls(rez1), clearNulls(rez2)] # [частное, остаток]
 
-#print "Деление в кольце Fp^l[Y]"
-a = [[1, 1], [0], [1, 2], [2]]
-b = [[1, 2], [1]]
-#print a, ' / ', b, ' = '
-rez = divFplY(a, b)
-#print 'Частное: ', rez[0]
-#print 'Остаток: ', rez[1]
-a = [[1, 1], [0], [1, 2], [1]]
-b = [[1, 2], [1]]
-#print a, ' / ', b, ' = '
-rez = divFplY(a, b)
-#print 'Частное: ', rez[0]
-#print 'Остаток: ', rez[1]
-#print
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Перемножение методом сдвигов и сложений в кольце Fp^l[Y]
 # a1, a2 - элементы кольца Fp^l[Y]
@@ -860,11 +1154,11 @@ def mulFplY(a1, a2):
             rez[i + j] = addFpl(rez[i + j], mulFpl(a2[i], a1[j]))
     return clearNulls(rez)
 
-#print "Перемножение методом сдвигов и сложений в кольце Fp^l[Y]"
-a = [[0, 1], [2, 1], [2]]
-b = [[1, 2], [1]]
-#print a, ' * ', b, ' = ', mulFplY(a, b)
-#print
+
+
+
+
+
 
 # Перемножение методом сдвигов и сложений и приведение по модулю многочлена mod(Y) в поле Fp^l[Y]f(Y)= Fp^ld
 # a1, a2 - элементы поля Fp^ld
@@ -877,11 +1171,11 @@ def mulFpld(a1, a2):
     rez = divFplY(rez, mod)[1]
     return rez
 
-#print "Перемножение методом сдвигов и сложений по модулю многочлена mod(Y) в поле Fp^l[Y]f(Y)= Fp^ld"
-a = [[0, 1], [1, 2], [2], [1]]
-b = [[1, 2], [1], [0], [2]]
-#print a, ' * ', b, ' = ', mulFpld(a, b)
-#print
+
+
+
+
+
 
 # Возведение в степень в кольце Fp^l[Y]
 # a1 - элемент кольца Fp^l[Y]
@@ -901,13 +1195,13 @@ def powerFplY(a1, pw):
             pw /= 2
     return rez
 
-#print "Возведение в степень в кольце Fp^l[Y]"
-a = [[1, 2], [1]]
+
+
 dg = 2
-#print a, ' ^ ', dg, ' = ', powerFplY(a, dg)
+
 dg = 3
-#print a, ' ^ ', dg, ' = ', powerFplY(a, dg)
-#print
+
+
 
 # Возведение в степень в поле Fp^l[Y]f(Y)= Fp^ld
 # a1 - элемент поля Fp^ld
@@ -928,13 +1222,13 @@ def powerFpld(a1, pw):
             pw /= 2
     return rez
 
-#print "Возведение в степень в поле Fp^l[Y]f(Y)= Fp^ld"
-b = [[1, 2], [1], [0], [2]]
+
+
 dg = 2
-#print a, ' ^ ', dg, ' = ', powerFpld(a, dg)
+
 dg = 3
-#print a, ' ^ ', dg, ' = ', powerFpld(a, dg)
-#print
+
+
 
 # Алгоритм Евклида в кольце Fp^l[Y]
 # Возвращает НОД двух элементов
@@ -961,14 +1255,14 @@ def EuclidFplY(a1, b1):
         v = r
     return [c, d0, u] # [c*a1 + d0*b1 = u], u - НОД(a1,a2)
 
-#print "Алгоритм Евклида в кольце Fp^l[Y]"
-a = [[1], [1]]
-b = [[1], [2], [1]]
-#print 'НОД(',a, ',', b, ') = ', EuclidFplY(a, b)
-a = [[0], [1], [1]]
-b = [[1], [2], [1]]
-#print 'НОД(',a, ',', b, ') = ', EuclidFplY(a, b)
-#print
+
+
+
+
+
+
+
+
 
 # Обращение в поле Fp^l[Y]f(Y)= Fp^ld
 # Возвращает обратный к a элемент: a*a^-1 = [[1]]
@@ -991,10 +1285,9 @@ def invFpld(a1):
     c = smulFplY(c1,invFpl(v[0])[0])
     return divFplY(c,mod)[1]
 
-#print "Обращение в поле Fp^l[Y]f(Y)= Fp^ld"
-a = [[1, 2], [1], [0], [2]]
-#print "a = ", a
-#print 'a^-1 = ', invFpld(a)
-#print "a*a^-1 = ", divFplY(mulFplY(a, invFpld(a)), mod)[1]
+
+
+
+
 
 
