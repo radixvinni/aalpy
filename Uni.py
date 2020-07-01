@@ -808,7 +808,6 @@ def powerFpX(a,d):
 
 
 
-dg = 2
 
 
 
@@ -932,7 +931,6 @@ def powerFpl(a,d):
 
 
 
-dg = 113
 
 
 
@@ -1107,27 +1105,26 @@ def smulFpld(a, c):
 # Деление в кольце Fp^l[Y]
 # a1, a2 - элементы кольца Fp^l[Y]
 def divFplY(a1, a2):
-    pr = a1
-    lena = len(a1)
-    lenb = len(a2)
-    while (a2[lenb - 1] == [0]) & (lenb >= 1):
-        lenb = lenb - 1
+    pra1 = clearNulls(a1)
+    pra2 = clearNulls(a2)
+    lena = len(pra1)
+    lenb = len(pra2)
     if lena < lenb:
-        return [[[0]], a1]
+        return [[[0]], pra1]
     if lenb == 0:
         return "error"
     rez1 = [[0] for i in range(lena - lenb + 1)]
     rez2 = [[0] for i in range(0, lena)]
     for i in range(lena - lenb + 1):
-        c = mulFpl(invFpl(a2[lenb - 1])[0], pr[len(pr)-1])
+        c = mulFpl(invFpl(pra2[lenb - 1])[0], pra1[len(pra1) - 1])
         rez1[lena - lenb - i] = c
         prom = []
         for j in range(lena - lenb - i):
-            prom.append(pr[j])
-        pr = prom + subFplY(pr[lena - lenb - i:], smulFplY(a2, c))
-    for i in range(0, len(pr)):
-        rez2[i] = pr[i]
-    return [clearNulls(rez1), clearNulls(rez2)] # [частное, остаток]
+            prom.append(pra1[j])
+        pra1 = prom + subFplY(pra1[lena - lenb - i:], smulFplY(pra2, c))
+    for i in range(0, len(pra1)):
+        rez2[i] = pra1[i]
+    return [clearNulls(rez1), clearNulls(rez2)]  # [частное, остаток]
 
 
 
@@ -1169,6 +1166,7 @@ def mulFpld(a1, a2):
         for j in range(0, d):
             rez[i + j] = addFpl(rez[i + j], mulFpl(a2[i], a1[j]))
     rez = divFplY(rez, mod)[1]
+    rez = addNulls(rez, d - len(rez))
     return rez
 
 
@@ -1197,9 +1195,9 @@ def powerFplY(a1, pw):
 
 
 
-dg = 2
 
-dg = 3
+
+
 
 
 
@@ -1220,13 +1218,14 @@ def powerFpld(a1, pw):
         else:
             pr = divFplY(mulFplY(pr, pr), mod)[1]
             pw /= 2
+    rez = addNulls(rez, d - len(rez))
     return rez
 
 
 
-dg = 2
 
-dg = 3
+
+
 
 
 
@@ -1274,16 +1273,17 @@ def invFpld(a1):
     u = a1
     v = mod
     while len(v) > 1:
-        qr = divFplY(u,v)
+        qr = divFplY(u, v)
         q = qr[0]
         r = qr[1]
         cold = c
         c = c1
-        c1 = subFplY(cold,mulFplY(q,c1))
+        c1 = subFplY(cold, mulFplY(q, c1))
         u = v
         v = r
-    c = smulFplY(c1,invFpl(v[0])[0])
-    return divFplY(c,mod)[1]
+    c = smulFplY(c1, invFpl(v[0])[0])
+    rez = divFplY(c, mod)[1]
+    return addNulls(rez, d - len(rez))
 
 
 
@@ -1291,3 +1291,7 @@ def invFpld(a1):
 
 
 
+def addNulls(a,num):
+    for i in range(num):
+        a.append([0])
+    return a
