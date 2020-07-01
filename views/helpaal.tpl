@@ -794,7 +794,7 @@ print 10-gmpy.mpz(10**100)
       </tr>
       <tr>
       <td>
-      Сумма в кольце Z
+      Сложение в кольце Z
       </td>
       <td><code>Uni.addZ</code></td>
       <td>
@@ -803,7 +803,7 @@ print 10-gmpy.mpz(10**100)
       </tr>
       <tr>
       <td>
-      Сумма в кольце Zn
+      Сложение в кольце Zn
       </td>
       <td><code>Uni.addZn</code></td>
       <td>
@@ -812,7 +812,7 @@ print 10-gmpy.mpz(10**100)
       </tr>
       <tr>
       <td>
-      Сумма в поле Fp
+      Сложение в поле Fp
       </td>
       <td><code>Uni.addFp</code></td>
       <td>
@@ -1047,7 +1047,7 @@ print 10-gmpy.mpz(10**100)
       <td>
       Умножение в кольце Fp[X]
       </td>
-      <td><code>Uni.mulZnX</code></td>
+      <td><code>Uni.mulFpX</code></td>
       <td>
       B=A1*A2. B,A1,A2 в Fp[X], Uni.p-простое число
       </td>
@@ -1082,9 +1082,9 @@ print 10-gmpy.mpz(10**100)
       </tr>
       <tr>
       <td>
-      Деление многочленов с остатком в кольце Fp[X]
+      Деление с остатком в кольце Fp[X]
       </td>
-      <td><code>Uni.divZX</code></td>
+      <td><code>Uni.divFpX</code></td>
       <td>
       B1=A1\\A2, B2=A1%A2 B1,B2,A1,A2 в Fp[X], A2&ne;[0] Uni.p-простое число
       </td>
@@ -1093,7 +1093,7 @@ print 10-gmpy.mpz(10**100)
       <td>
       Расширенный алгоритм Евклида в кольце Fp[X]
       </td>
-      <td><code>Uni.EuclidZnX</code></td>
+      <td><code>Uni.EuclidFpX</code></td>
       <td>
       Нахождение корней B1=X,B2=Y,&nbsp; уравнения A1*X+A2*Y=НОД(A1,A2) и многочлена B3=НОД(A1,A2) при A1*A2 не равном [0]. B1,B2,B3,A1,A2 в Fp[Z], A1*A2 &ne; [0], Uni.p-простое число
       </td>

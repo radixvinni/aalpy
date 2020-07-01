@@ -812,11 +812,11 @@
   </a>
   <ul class="dropdown-menu">
         <li><a href="#" rel="tooltip" data-placement="right"
-                data-original-title="B=A1+A2. B,A1,A2 в Z" onclick="window.editor.insert('Uni.addZ()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сумма в кольце Z</a></li>
+                data-original-title="B=A1+A2. B,A1,A2 в Z" onclick="window.editor.insert('Uni.addZ()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение в кольце Z</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
-                data-original-title="B=A1+A2. B,A1,A2 в Zn, Uni.n в N" onclick="window.editor.insert('Uni.addZn()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сумма в кольце Zn</a></li>
+                data-original-title="B=A1+A2. B,A1,A2 в Zn, Uni.n в N" onclick="window.editor.insert('Uni.addZn()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение в кольце Zn</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
-                data-original-title="B=A1+A2. B,A1,A2 в Zp, Uni.p-простое число " onclick="window.editor.insert('Uni.addFp()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сумма в поле Fp</a></li>
+                data-original-title="B=A1+A2. B,A1,A2 в Zp, Uni.p-простое число " onclick="window.editor.insert('Uni.addFp()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение в поле Fp</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
                 data-original-title="B=A1-A2. B,A1,A2 в Z" onclick="window.editor.insert('Uni.subZ()');window.editor.selection.moveCursorLeft();window.editor.focus()">Разность в кольце Z</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
@@ -866,7 +866,7 @@
         <li><a href="#" rel="tooltip" data-placement="right"
                 data-original-title="B=A1*A2. B,A1,A2 в Zn[X], Uni.n в Z" onclick="window.editor.insert('Uni.mulZnX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение в кольце Zn[X]</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
-                data-original-title="B=A1*A2. B,A1,A2 в Fp[X], Uni.p-простое число " onclick="window.editor.insert('Uni.mulZnX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение в кольце Fp[X]</a></li>
+                data-original-title="B=A1*A2. B,A1,A2 в Fp[X], Uni.p-простое число " onclick="window.editor.insert('Uni.mulFpX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение в кольце Fp[X]</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
                 data-original-title="B=A^D. B,A в Z[X], D в Z+" onclick="window.editor.insert('Uni.powerZX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Возведение в степень в кольце Z[X]</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
@@ -874,9 +874,9 @@
         <li><a href="#" rel="tooltip" data-placement="right"
                 data-original-title="B=A^D. B,A в Fp[X], D в Z+, Uni.p-простое число" onclick="window.editor.insert('Uni.powerFpX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Возведение в степень в кольце Fp[X]</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
-                data-original-title="B1=A1\\A2, B2=A1%A2 B1,B2,A1,A2 в Fp[X], A2&ne;[0] Uni.p-простое число" onclick="window.editor.insert('Uni.divZX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Деление многочленов с остатком в кольце Fp[X]</a></li>
+                data-original-title="B1=A1\\A2, B2=A1%A2 B1,B2,A1,A2 в Fp[X], A2&ne;[0] Uni.p-простое число" onclick="window.editor.insert('Uni.divFpX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Деление с остатком в кольце Fp[X]</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
-                data-original-title="Нахождение корней B1=X,B2=Y,  уравнения A1*X+A2*Y=НОД(A1,A2) и многочлена B3=НОД(A1,A2) при A1*A2 не равном [0]. B1,B2,B3,A1,A2 в Fp[Z], A1*A2 &ne; [0], Uni.p-простое число" onclick="window.editor.insert('Uni.EuclidZnX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Расширенный алгоритм Евклида в кольце Fp[X]</a></li>
+                data-original-title="Нахождение корней B1=X,B2=Y,  уравнения A1*X+A2*Y=НОД(A1,A2) и многочлена B3=НОД(A1,A2) при A1*A2 не равном [0]. B1,B2,B3,A1,A2 в Fp[Z], A1*A2 &ne; [0], Uni.p-простое число" onclick="window.editor.insert('Uni.EuclidFpX()');window.editor.selection.moveCursorLeft();window.editor.focus()">Расширенный алгоритм Евклида в кольце Fp[X]</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
                 data-original-title="B1=A1+A2. B1,A1,A2 в Fp[X]_f, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f в Fp[X]." onclick="window.editor.insert('Uni.addFpl()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение в поле Fp[X]_f(x)=Fpl</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
