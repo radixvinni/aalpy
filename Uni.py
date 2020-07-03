@@ -951,7 +951,7 @@ def invFpl(a):
         u = v
         v = r
     c = smulFpl(c1,invFp(v[0]))
-    return (c,[1])
+    return c
 
 
 
@@ -1116,7 +1116,7 @@ def divFplY(a1, a2):
     rez1 = [[0] for i in range(lena - lenb + 1)]
     rez2 = [[0] for i in range(0, lena)]
     for i in range(lena - lenb + 1):
-        c = mulFpl(invFpl(pra2[lenb - 1])[0], pra1[len(pra1) - 1])
+        c = mulFpl(invFpl(pra2[lenb - 1]), pra1[len(pra1) - 1])
         rez1[lena - lenb - i] = c
         prom = []
         for j in range(lena - lenb - i):
@@ -1281,7 +1281,7 @@ def invFpld(a1):
         c1 = subFplY(cold, mulFplY(q, c1))
         u = v
         v = r
-    c = smulFplY(c1, invFpl(v[0])[0])
+    c = smulFplY(c1, invFpl(v[0]))
     rez = divFplY(c, mod)[1]
     return addNulls(rez, d - len(rez))
 
