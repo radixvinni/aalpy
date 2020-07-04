@@ -46,7 +46,7 @@ def addZn(a, b):
 # сумма в кольце Zp
 # возвращает сумму элементов a и b
 # a, b - элементы кольца Zp
-def addZp(a, b):
+def addFp(a, b):
     global p
     return (a+b)%p
 
@@ -81,7 +81,7 @@ def subZn(a, b):
 # разность в кольце Zp
 # возвращает разность элементов a и b
 # a, b - элементы кольца Zp
-def subZp(a, b):
+def subFp(a, b):
     global p
     return (a-b)%p
 
@@ -116,7 +116,7 @@ def mulZn(a, b):
 # умножение в кольце Zp
 # возвращает произведение элементов a и b
 # a, b - элементы кольца Zp
-def mulZp(a, b):
+def mulFp(a, b):
     global p
     return (a*b)%p
 
@@ -289,6 +289,8 @@ def mulZnX(a, b):
 # возвращает целую часть и остаток от деления a на b
 # a, b - элементы кольца Z
 def divZ(a, b):
+    if b==0:
+        return 'error'
     return a//b, a%b
 
 
@@ -358,10 +360,10 @@ def powerZn(a, pw):
     pr=a
     while pw!=0:
         if pw%2==1:
-            ret*=pr%n
+            ret=mulZn(ret,pr)
             pw-=1
         else:
-            pr*=pr%n
+            pr=mulZn(pr,pr)
             pw/=2
     return ret
 
@@ -375,16 +377,20 @@ def powerZn(a, pw):
 # возвращает степень pw числа a
 # a - элемент кольца Zp
 # pw - элемент кольца Z
-def powerZp(a, pw):
+def powerFp(a, pw):
     global p
     ret=1
     pr=a
+    if pw==p:
+        return a
+    if pw==p-1:
+        return 1
     while pw!=0:
         if pw%2==1:
-            ret*=pr%p
+            ret=mulFp(pr,ret)
             pw-=1
         else:
-            pr*=pr%p
+            pr=mulFp(pr,pr)
             pw/=2
     return ret
 
