@@ -816,19 +816,19 @@
         <li><a href="#" rel="tooltip" data-placement="right"
                 data-original-title="B=A1+A2. B,A1,A2 в Zn, Uni.n в N" onclick="window.editor.insert('Uni.addZn()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение в кольце Zn</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
-                data-original-title="B=A1+A2. B,A1,A2 в Zp, Uni.p-простое число " onclick="window.editor.insert('Uni.addFp()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение в поле Fp</a></li>
+                data-original-title="B=A1+A2. B,A1,A2 в Fp, Uni.p-простое число " onclick="window.editor.insert('Uni.addFp()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение в поле Fp</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
                 data-original-title="B=A1-A2. B,A1,A2 в Z" onclick="window.editor.insert('Uni.subZ()');window.editor.selection.moveCursorLeft();window.editor.focus()">Разность в кольце Z</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
                 data-original-title="B=A1-A2. B,A1, A2 в Zn, Uni.n в N" onclick="window.editor.insert('Uni.subZn()');window.editor.selection.moveCursorLeft();window.editor.focus()">Разность в кольце Zn</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
-                data-original-title="B=A1-A2. B,A1,A2 в Zp, Uni.p-простое число" onclick="window.editor.insert('Uni.subFp()');window.editor.selection.moveCursorLeft();window.editor.focus()">Разность в поле Fp</a></li>
+                data-original-title="B=A1-A2. B,A1,A2 в Fp, Uni.p-простое число" onclick="window.editor.insert('Uni.subFp()');window.editor.selection.moveCursorLeft();window.editor.focus()">Разность в поле Fp</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
                 data-original-title="B=A1*A2. B,A1,A2 в Z" onclick="window.editor.insert('Uni.mulZ()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение в кольце Z</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
                 data-original-title="B=A1*A2. B,A1, A2 в Zn, Uni.n в Z" onclick="window.editor.insert('Uni.mulZn()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение в кольце Zn</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
-                data-original-title="B=A1*A2. B,A1,A2 в Zp, Uni.p-простое число" onclick="window.editor.insert('Uni.mulFp()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение в поле Fp</a></li>
+                data-original-title="B=A1*A2. B,A1,A2 в Fp, Uni.p-простое число" onclick="window.editor.insert('Uni.mulFp()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение в поле Fp</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
                 data-original-title="B1=A1\\A2, B2=A1%A2. B1,B2,A1,A2 в Z[X],A2&ne;0." onclick="window.editor.insert('Uni.divZ()');window.editor.selection.moveCursorLeft();window.editor.focus()">Деление с остатком в кольце Z</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"

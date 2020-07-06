@@ -816,7 +816,7 @@ print 10-gmpy.mpz(10**100)
       </td>
       <td><code>Uni.addFp</code></td>
       <td>
-      B=A1+A2. B,A1,A2 в Zp, Uni.p-простое число
+      B=A1+A2. B,A1,A2 в Fp, Uni.p-простое число
       </td>
       </tr>
       <tr>
@@ -843,7 +843,7 @@ print 10-gmpy.mpz(10**100)
       </td>
       <td><code>Uni.subFp</code></td>
       <td>
-      B=A1-A2. B,A1,A2 в Zp, Uni.p-простое число
+      B=A1-A2. B,A1,A2 в Fp, Uni.p-простое число
       </td>
       </tr>
       <tr>
@@ -871,7 +871,7 @@ print 10-gmpy.mpz(10**100)
       </td>
       <td><code>Uni.mulFp</code></td>
       <td>
-      B=A1*A2. B,A1,A2 в Zp, Uni.p-простое число
+      B=A1*A2. B,A1,A2 в Fp, Uni.p-простое число
       </td>
       </tr>
       <tr>
