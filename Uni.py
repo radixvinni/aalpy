@@ -43,9 +43,9 @@ def addZn(a, b):
 
 
 
-# сумма в кольце Zp
+# сумма в кольце Fp
 # возвращает сумму элементов a и b
-# a, b - элементы кольца Zp
+# a, b - элементы кольца Fp
 def addFp(a, b):
     global p
     return (a+b)%p
@@ -78,9 +78,9 @@ def subZn(a, b):
 
 
 
-# разность в кольце Zp
+# разность в кольце Fp
 # возвращает разность элементов a и b
-# a, b - элементы кольца Zp
+# a, b - элементы кольца Fp
 def subFp(a, b):
     global p
     return (a-b)%p
@@ -113,9 +113,9 @@ def mulZn(a, b):
 
 
 
-# умножение в кольце Zp
+# умножение в кольце Fp
 # возвращает произведение элементов a и b
-# a, b - элементы кольца Zp
+# a, b - элементы кольца Fp
 def mulFp(a, b):
     global p
     return (a*b)%p
@@ -373,9 +373,9 @@ def powerZn(a, pw):
 
 
 
-# возведение в степень в кольце Zp
+# возведение в степень в кольце Fp
 # возвращает степень pw числа a
-# a - элемент кольца Zp
+# a - элемент кольца Fp
 # pw - элемент кольца Z
 def powerFp(a, pw):
     global p
@@ -632,16 +632,16 @@ def addFpX(a,b):
     c=[]
     if(len(a)>len(b)):
         for it in range(0,len(b)):
-            c.append(addZp(a[it],b[it]))
+            c.append(addFp(a[it],b[it]))
         for it in range(len(b),len(a)):
             c.append(a[it])    
     else:
         if(len(a)==len(b)):
             for it in range(0,len(a)):
-                c.append(addZp(a[it],b[it]))
+                c.append(addFp(a[it],b[it]))
         else:
             for it in range(0,len(a)):
-                c.append(addZp(a[it],b[it]))
+                c.append(addFp(a[it],b[it]))
             for it in range(len(a),len(b)):
                 c.append(b[it])
     return delzeroend(c)
@@ -657,7 +657,7 @@ def addFpX(a,b):
 def negateFpX(a):
     c=[]
     for i in range(0,len(a)):
-        c.append(addZp(0,-a[i]))
+        c.append(addFp(0,-a[i]))
     return c
 
 
@@ -676,9 +676,9 @@ def subFpX(a,b):
 #a - элемент кольца Z(Fp)[X],scal - элемент Fp
 def smulFpX(a,scal):
     c=[]
-    scal = addZp(0,scal)
+    scal = addFp(0,scal)
     for it in range(0,len(a)):
-        c.append(mulZp(a[it],scal))
+        c.append(mulFp(a[it],scal))
     return delzeroend(c)
 
 
@@ -693,7 +693,7 @@ def mulFpX(a,b):
     c=[0 for i in range(len(a)+len(b)-1)]
     for ib in range(0,len(b)):
         for ia in range(0,len(a)):
-            c[ia + ib] = addZp(c[ia + ib],mulZp(a[ia],b[ib])) #c[ia + ib] = (c[ia + ib] + a[ia] * b[ib])%p
+            c[ia + ib] = addFp(c[ia + ib],mulFp(a[ia],b[ib])) #c[ia + ib] = (c[ia + ib] + a[ia] * b[ib])%p
     return delzeroend(c)
 
 
