@@ -393,7 +393,7 @@
     var grp = $('#grp').val();
     var dsc = $('#discipline').val();
     $('.select2').editableSelect({effects: 'slide'});
-    $('.select3').select2();
+    $('.select3').select2({tags:[]});
     //$('#grp').val(grp);
     $('#discipline').val(dsc);
   }
@@ -406,7 +406,7 @@
     self.current_grp = ko.observable(null);
     self.current_dsc = ko.observable(null);
     self.editing = function(user) { self.content([]);self.edit(user);renew_editor();renew_select2(); };
-    self.creating = function(user) { self.content([]);self.edit([]); renew_editor();renew_select2(); };
+    self.creating = function(user) { self.content([]);self.edit([,,,'']); renew_editor();renew_select2(); };
     self.filter_grp = function(x) { self.current_grp(x);self.content(self.filterContent()); }
     self.filter_dsc = function(x) { self.current_dsc(x);self.content(self.filterContent()); }
     //self.listing = function(user) { self.content(content);self.edit(); };
