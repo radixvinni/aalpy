@@ -548,7 +548,7 @@ from json import dumps
 @view('admin')
 def edit(name='users'):
     require_login(require_admin=1)
-    return dict(content=dumps(get_course()['tasks'].items() if name=='tasks' else get_all(name)), name=name, courses=get_all("courses"), docs=get_docs())
+    return dict(content=dumps(list(get_course()['tasks'].items()) if name=='tasks' else get_all(name)), name=name, courses=get_all("courses"), docs=get_docs())
 
 @post('/admin')
 @post('/admin/:name')
