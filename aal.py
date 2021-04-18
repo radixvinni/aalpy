@@ -12,7 +12,7 @@ from multiprocessing import Lock
 lock = Lock()
 from datetime import datetime, timedelta
 import time
-from urllib import quote, unquote
+from urllib.parse import quote, unquote
 import json
 
 def handler(signum, frame):
@@ -52,10 +52,10 @@ class Session(InteractiveConsole):
         self.push("import json, hashlib, hmac, gssapi, mpmath as g, gmpy");
         self.push("from time import sleep");
         self.push("from fractions import *");
-        self.push("from urllib import urlopen");
+        self.push("from urllib.request import urlopen");
         self.push("import share, random, AAL, Kar, aAl, Uni");
-        self.push("__builtins__ = __builtins__.copy()");
-        self.push("for k in ['reload', 'execfile', 'file', 'open', '__import__']: __builtins__.pop(k) and None","exec");
+        self.push("__builtins__ = __builtins__.copy()"); 
+        self.push("for k in ['exec', 'open', '__import__']: __builtins__.pop(k) and None","exec");
         self.push("");
         return
     def setsid(self,sessionid):
@@ -98,12 +98,12 @@ def reset(sid):
 
 #<db:sqlite3>
 import sqlite3
-if(not sqlite3.threadsafety): print 'WARNING: sqlite3 IS NOT thread safe. Data concurrency is not guaranteed.'
+#if(not sqlite3.threadsafety): print 'WARNING: sqlite3 IS NOT thread safe. Data concurrency is not guaranteed.'
 
 from hashlib import sha512
 
 def sha(t):
-    return sha512(t).hexdigest()
+    return sha512(t.encode('utf-8')).hexdigest()
 
 
 
@@ -143,10 +143,11 @@ def is_admin():
 
 def init():
     conn = sqlite3.connect('wiki.db')
-    conn.create_function("sha", 1, sha)
+    #conn.create_function("sha", 1, sha)
+    pwd = sha('123')
     cur = conn.cursor()
     cur.execute('CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY AUTOINCREMENT, login TEXT UNIQUE, pass TEXT)')
-    cur.execute("INSERT OR IGNORE INTO users(login, pass) VALUES ('admin',sha('123'))")
+    cur.execute("INSERT OR IGNORE INTO users(login, pass) VALUES ('admin','"+pwd+"')")
     cur.execute('CREATE TABLE IF NOT EXISTS courses(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE, descr TEXT, grp TEXT, discipline TEXT)')
     cur.execute('CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY AUTOINCREMENT, cid INTEGER, title TEXT UNIQUE, descr TEXT, goal TEXT)')
     cur.execute('CREATE TABLE IF NOT EXISTS complete(uid INTEGER, tid INTEGER, UNIQUE(uid, tid) ON CONFLICT IGNORE)')
@@ -455,7 +456,7 @@ def changepass():
 #определяется на клиенте по отступам и двоеточиям. Не лучший способ, но работает.
 @post('/console/execute')
 def execute():
-    cmd = request.forms.get('cmd')
+    cmd = request.forms.getunicode('cmd')
     sid = request.get_cookie("session")
     try:
         if sid in sessions: 
@@ -475,7 +476,7 @@ def output():
 @post('/console/run')
 def run_prog():
     "многострочный режим, вернуть результат выполнения программы"
-    cmd = request.forms.get('cmd')
+    cmd = request.forms.getunicode('cmd')
     typ = request.forms.get('type')
     sid = request.get_cookie("session")
     if '__bases__' in cmd or '__subclasses__' in cmd or '__builtins__' in cmd: return 'не балуйся'

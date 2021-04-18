@@ -706,7 +706,7 @@ def mulFpX(a,b):
 #a, b - элементы кольца Z(Fp)[X]
 def divFpX(a,b):
     if(b==[0]):
-        print "Ошибка деление на 0 !"
+        print ("Ошибка деление на 0 !")
         return "error"
         
     buf = copyelem(a)
