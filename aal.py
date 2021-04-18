@@ -274,8 +274,8 @@ from bottle import *
 @view('menu')
 def index():
     require_login()
-    discipline = request.params.get('discipline')
-    group = request.params.get('group')
+    discipline = request.params.getunicode('discipline')
+    group = request.params.getunicode('group')
     if group is None: return dict(discipline=discipline, group=group, courses=get_all("courses"), quote=quote, unquote=unquote)
     return get_course(discipline=discipline, group=group)
 
@@ -294,13 +294,13 @@ def index(cid):
 @post('/blockly')
 def blockly():
     require_login(require_admin=1)
-    name = request.forms.get('name')
-    descr = request.forms.get('descr')
-    blockid = request.forms.get('id')
-    action = request.forms.get('action')
-    visibility = request.forms.get('visibility')
+    name = request.forms.getunicode('name')
+    descr = request.forms.getunicode('descr')
+    blockid = request.forms.getunicode('id')
+    action = request.forms.getunicode('action')
+    visibility = request.forms.getunicode('visibility')
     index = json.load(open('assets/mobile/index.json'))
-    workspace = request.forms.get('workspace')
+    workspace = request.forms.getunicode('workspace')
     if action == 'save':
         index[blockid] = {"name":name, "descr":descr, "workspace":workspace, "visibility":visibility}
         json.dump(index, open('assets/mobile/index.json','w'), indent=4)
@@ -377,7 +377,7 @@ def guide_record():
 def guide_save():
     sid=request.get_cookie("session")
     if sid not in sessions or sessions[sid].name != 'admin': return '<div class="alert alert-error"><strong>О нет!</strong>Ваша сессия закончилась не вовремя. Попробуйте войти в новой вкладке и сохранить еще раз.</div>'
-    deltas=request.forms.get('content')
+    deltas=request.forms.getunicode('content')
     gid=insert_guide(sessions[sid].uid, deltas)
     return '<div class="alert alert-success"><strong>Сохранено!</strong> <a href="/guide/%s">Ваша запиcь</a> сохранена.</div>' % gid
     
@@ -403,9 +403,9 @@ def index(sect='aal'):
 @route('/login')
 @post('/login')
 def login():
-    error = request.query.error or request.forms.get('username') and "wrong"
-    username = request.forms.get('username')
-    password = request.forms.get('password')
+    error = request.query.error or request.forms.getunicode('username') and "wrong"
+    username = request.forms.getunicode('username')
+    password = request.forms.getunicode('password')
     uid = username and check_user_credentials(username, password)
     if uid:
         c = Session(uid, username)
@@ -438,8 +438,8 @@ def logout():
 @post('/changepass')
 def changepass():
     sid=request.get_cookie("session")
-    oldpass = request.forms.get('oldpass')
-    newpass = request.forms.get('newpass')
+    oldpass = request.forms.getunicode('oldpass')
+    newpass = request.forms.getunicode('newpass')
     response.add_header('Access-Control-Allow-Origin','*')
     if sid not in sessions: return 'no session'
     if change_pass(sessions[sid].uid, oldpass, newpass):
@@ -477,7 +477,7 @@ def output():
 def run_prog():
     "многострочный режим, вернуть результат выполнения программы"
     cmd = request.forms.getunicode('cmd')
-    typ = request.forms.get('type')
+    typ = request.forms.getunicode('type')
     sid = request.get_cookie("session")
     if '__bases__' in cmd or '__subclasses__' in cmd or '__builtins__' in cmd: return 'не балуйся'
     try:
@@ -555,14 +555,14 @@ def edit(name='users'):
 def modify(name='users'):
     require_login(require_admin=1)
     if request.forms.action == 'save':
-        save(name,name == 'users' and (request.forms.get('id') or None,request.forms.get('login'),sha(request.forms.get('pass')))
-            or name == 'courses' and (request.forms.get('id') or None,request.forms.get('title'),request.forms.get('descr'),', '.join(request.forms.getall('grp')),request.forms.get('discipline'))
-            or name == 'tasks' and (request.forms.get('id') or None, request.forms.get('cid'), request.forms.get('title'),
-            request.forms.get('descr'),sha(request.forms.get('newgoal')) if request.forms.get('newgoal') else request.forms.get('goal'))
-            or name == 'guide' and (request.forms.get('id') or None, request.forms.get('uid'), request.forms.get('name'),request.forms.get('content'))
+        save(name,name == 'users' and (request.forms.getunicode('id') or None,request.forms.getunicode('login'),sha(request.forms.getunicode('pass')))
+            or name == 'courses' and (request.forms.getunicode('id') or None,request.forms.getunicode('title'),request.forms.getunicode('descr'),', '.join(request.forms.getall('grp')),request.forms.getunicode('discipline'))
+            or name == 'tasks' and (request.forms.getunicode('id') or None, request.forms.getunicode('cid'), request.forms.getunicode('title'),
+            request.forms.getunicode('descr'),sha(request.forms.getunicode('newgoal')) if request.forms.getunicode('newgoal') else request.forms.getunicode('goal'))
+            or name == 'guide' and (request.forms.getunicode('id') or None, request.forms.getunicode('uid'), request.forms.getunicode('name'),request.forms.getunicode('content'))
             )
     elif request.forms.action == 'delete':
-        sql_delete(name,request.forms.get('id') or redirect("/admin/"+name))
+        sql_delete(name,request.forms.getunicode('id') or redirect("/admin/"+name))
     return redirect("/admin/"+name)
 
 #polling обмен данными "общего модуля" в сети
@@ -589,7 +589,7 @@ def poll_list(user,passw,var):
     if uid:
         if not polls.get(uid):
           polls[uid] = dict()
-        polls[uid][var] = request.forms.get('value')
+        polls[uid][var] = request.forms.getunicode('value')
         return str(polls[uid][var])
 
 @get('/poll/:user/:passw/del/:var')
