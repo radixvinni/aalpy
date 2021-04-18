@@ -211,11 +211,11 @@
             <div class="btn-group">
                 <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">Ссылка на файл <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                  %for kdoc, doc in docs.iteritems():
+                  %for kdoc, doc in docs.items():
                   <li class="dropdown-submenu">
                     <a tabindex="-1" href="#">{{kdoc}}</a>
                     <ul class="dropdown-menu">
-                      %for klab, lab in doc.iteritems():
+                      %for klab, lab in doc.items():
                       %for file in lab:
                       <li><a tabindex="-1" href="#" onclick="window.editor[0].execCommand('createlink','/assets/doc/{{kdoc}}/{{klab}}/{{file}}',null,null)">{{file}}</a></li>
                       %end
