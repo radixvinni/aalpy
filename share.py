@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 "module for distant string sharing"
-from urllib.request import urlopen
-from urllib.parse import urlencode
+from urllib import urlopen, urlencode
 import json
 
 class Session(object):
@@ -40,4 +39,7 @@ class Session(object):
 
 if __name__ == '__main__':
   test = Session('http://localhost:8081/poll','admin','')
+  test.a = 1
+  if hasattr(test,'a'): print test.a
+  print dir(test)
 
