@@ -23748,10 +23748,10 @@ define('main',[
             else callback('')
             s._output = s.output;
             s.output = function (html, block_id) {
-                if (block_id === null) {
+                if (block_id === null) { 
                     //if standard output, creates <span class='jqconsole-output'>{{html}}</span> in console div and returns it
                     var txt = $(html).text();
-                    callback(txt);
+                    if (html.nodeName) callback(txt); else window.jqconsole.Write(html, 'jqconsole-output', false);
                     var elem = $('#console .jqconsole-output').last();
                     if (data.type == "console") elem.addClass('newline');
                     return elem;

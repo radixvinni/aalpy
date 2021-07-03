@@ -1,6 +1,8 @@
 # coding: utf-8
 #ALTER TABLE courses ADD COLUMN grp TEXT;
 #ALTER TABLE courses ADD COLUMN discipline TEXT;
+import os
+os.environ['KERAS_BACKEND']='theano'
 
 from code import InteractiveConsole
 from uuid import uuid1
@@ -49,7 +51,7 @@ class Session(InteractiveConsole):
         InteractiveConsole.__init__(self)
         self.push("from AAL import *");
         self.push("from math import *");
-        self.push("import json, hashlib, hmac, gssapi, mpmath as g, gmpy");
+        self.push("import json, hashlib, hmac, gssapi, mpmath as g, gmpy, pandas,numpy,scipy,matplotlib,matplotlib.pyplot,theano,seaborn,keras");
         self.push("from time import sleep");
         self.push("from fractions import *");
         self.push("from urllib import urlopen");
@@ -58,6 +60,7 @@ class Session(InteractiveConsole):
         self.push("__builtins__ = __builtins__.copy()");
         self.push("for k in ['reload', 'execfile', 'file', 'open', '__import__']: __builtins__.pop(k) and None","exec");
         self.push("");
+        self.cache.flush();
         return
     def setsid(self,sessionid):
         self.sid = sessionid
