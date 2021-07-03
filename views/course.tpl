@@ -86,7 +86,7 @@
       $post('/console/run', { cmd: input, type: "console" }, function (data) {
         window.jqconsole.Enable();
         window.jqconsole.Focus();
-        $('.auto_update').map((a,x)=>{x.src=x.src})
+        $('.auto_update').map((a,x)=>{x.src=x.src+Date.now()})
         if (data == input && data != '')
           $('.done').show();
         else
@@ -138,7 +138,7 @@
     window.jqconsole.Disable();
     $post('/console/run', { cmd: code + '\n', type: type }, function (data) {
       window.jqconsole.Enable();
-      $('.auto_update').map((a,x)=>{x.src=x.src})
+      $('.auto_update').map((a,x)=>{x.src=x.src+Date.now()})
       if (data == window.editor.getValue() + '\n' && data != '') {
         $('.done').show();
         window.jqconsole.Write(data, 'jqconsole-output');

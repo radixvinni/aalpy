@@ -48,7 +48,7 @@
       window.jqconsole.Prompt(true, function (input) {
         window.jqconsole.Disable();
         $post('/console/run', { cmd: input, type: "console" }, function (data) {
-          $('.auto_update').map((a,x)=>{x.src=x.src})
+          $('.auto_update').map((a,x)=>{x.src=x.src+Date.now()})
           window.jqconsole.Write(data, 'jqconsole-output');
           window.jqconsole.Enable();
           window.jqconsole.Focus();
@@ -90,7 +90,7 @@
     $post('/console/run', { cmd: code + '\n', type: type }, function (data) {
       window.jqconsole.Write(data, 'jqconsole-output');
       window.jqconsole.Enable();
-      $('.auto_update').map((a,x)=>{x.src=x.src})
+      $('.auto_update').map((a,x)=>{x.src=x.src+Date.now()})
     });
   }
 </script>
