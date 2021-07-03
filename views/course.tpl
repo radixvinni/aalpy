@@ -86,6 +86,7 @@
       $post('/console/run', { cmd: input, type: "console" }, function (data) {
         window.jqconsole.Enable();
         window.jqconsole.Focus();
+        $('.auto_update').map((a,x)=>{x.src=x.src})
         if (data == input && data != '')
           $('.done').show();
         else
@@ -115,7 +116,7 @@
   function show_img() {
     var src = prompt('Путь на сервере', 'assets/test.png');
     if (!src) return;
-    window.jqconsole.Write('<img src="/'+src+'"/><br/>','jqconsole-output',false);
+    window.jqconsole.Write('<img class="auto_update" src="/'+src+'"/><br/>','jqconsole-output',false);
   }
   function get_sel() { // get selection or text from cursor to end
     r = window.editor.getSelectionRange();
@@ -137,6 +138,7 @@
     window.jqconsole.Disable();
     $post('/console/run', { cmd: code + '\n', type: type }, function (data) {
       window.jqconsole.Enable();
+      $('.auto_update').map((a,x)=>{x.src=x.src})
       if (data == window.editor.getValue() + '\n' && data != '') {
         $('.done').show();
         window.jqconsole.Write(data, 'jqconsole-output');

@@ -48,6 +48,7 @@
       window.jqconsole.Prompt(true, function (input) {
         window.jqconsole.Disable();
         $post('/console/run', { cmd: input, type: "console" }, function (data) {
+          $('.auto_update').map((a,x)=>{x.src=x.src})
           window.jqconsole.Write(data, 'jqconsole-output');
           window.jqconsole.Enable();
           window.jqconsole.Focus();
@@ -79,7 +80,7 @@
   function show_img() {
     var src = prompt('Путь на сервере', 'assets/test.png');
     if (!src) return;
-    window.jqconsole.Write('<img src="/'+src+'"/><br/>','jqconsole-output',false);
+    window.jqconsole.Write('<img class="auto_update" src="/'+src+'"/><br/>','jqconsole-output',false);
   }
   function run(code, type) {
     code = code || window.editor.getValue();
@@ -89,6 +90,7 @@
     $post('/console/run', { cmd: code + '\n', type: type }, function (data) {
       window.jqconsole.Write(data, 'jqconsole-output');
       window.jqconsole.Enable();
+      $('.auto_update').map((a,x)=>{x.src=x.src})
     });
   }
 </script>
