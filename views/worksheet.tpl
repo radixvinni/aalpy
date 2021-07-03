@@ -24,6 +24,7 @@
           <li><a tabindex="1" href="#"
               onclick="$('.jqconsole-old-prompt, .jqconsole-output').html(''); return false;">Очистить консоль</a></li>
           <li><a tabindex="2" href="#" onclick="return open_win();">Показать вывод</a></li>
+          <li><a tabindex="3" href="#" onclick="show_img()">Показать изображение</a></li>
         </ul>
       </div>
     </div>
@@ -74,6 +75,11 @@
     dow.document.write("<pre>" + $('.jqconsole-old-prompt, .jqconsole-output').text() + "</pre>");
     dow.document.write("<button onclick='window.close()'>Закрыть</button>");
     dow.focus();
+  }
+  function show_img() {
+    var src = prompt('Путь на сервере', 'assets/test.png');
+    if (!src) return;
+    window.jqconsole.Write('<img src="/'+src+'"/><br/>','jqconsole-output',false);
   }
   function run(code, type) {
     code = code || window.editor.getValue();
