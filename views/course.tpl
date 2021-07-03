@@ -116,7 +116,7 @@
   function show_img() {
     var src = prompt('Путь на сервере', 'assets/test.png');
     if (!src) return;
-    window.jqconsole.Write('<img class="auto_update" src="/'+src+'"/><br/>','jqconsole-output',false);
+    window.jqconsole.Write('<img class="auto_update" src="/'+src+'?"/><br/>','jqconsole-output',false);
   }
   function get_sel() { // get selection or text from cursor to end
     r = window.editor.getSelectionRange();
