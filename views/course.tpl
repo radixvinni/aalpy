@@ -46,6 +46,7 @@
                     onclick="$('.jqconsole-old-prompt, .jqconsole-output').html(''); return false;">Очистить консоль</a>
                 </li>
                 <li><a tabindex="2" href="#" onclick="return open_win();">Показать вывод</a></li>
+                <li><a tabindex="3" href="#" onclick="show_img()">Показать изображение</a></li>
               </ul>
             </div>
           </div>
@@ -110,7 +111,11 @@
     $('.sw-mode-vis').toggle();
     $('.sw-mode7').toggleClass('span7 span12');
     $('.sw-mode5').toggleClass('span5 span7');
-
+  }
+  function show_img() {
+    var src = prompt('Путь на сервере', 'assets/test.png');
+    if (!src) return;
+    window.jqconsole.Write('<img src="/'+src+'"/><br/>','jqconsole-output',false);
   }
   function get_sel() { // get selection or text from cursor to end
     r = window.editor.getSelectionRange();
