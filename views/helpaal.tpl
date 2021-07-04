@@ -1985,7 +1985,7 @@ a.clf()</code></pre>
       <p>Scikit-learn - библиотека python для машинного обучения. <a
           href="https://scikit-learn.org/stable/modules/classes.html">Полная документация на английском</a>. Все
         подмодули доступны через стандартный префикс: <code>sklearn</code>. </p>
-      <p>Theano - библиотека python для нейронных сетей. <a href="https://aesara.readthedocs.io/en/latest/">Полная
+      <p>Theano - библиотека python для нейронных сетей. <a href="https://theano.readthedocs.io/en/0.8.x/">Полная
           документация на английском</a>. Все подмодули доступны через стандартный префикс: <code>theano</code>. </p>
       <p>Keras - надстройка, предоставляющая упрощённый интерфейс к нескольким нейросетевым библиотекам. <a
           href="https://keras.io/api/">Полная документация на английском</a>. Все
