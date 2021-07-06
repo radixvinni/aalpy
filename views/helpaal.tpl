@@ -77,8 +77,6 @@
         <li><a href="#matplotlib">Matplotlib</a></li>
         <li><a href="#seaborn">Seaborn</a></li>
         <li><a href="#sklearn">Библиотеки машинного обучения</a></li>
-        <li><a href="#theano">Theano</a></li>
-        <li><a href="#keras">Keras</a></li>
       </ul>
     </div>
     <div class="span10 offset2" id="glossary-content">
