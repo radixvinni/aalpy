@@ -14,15 +14,15 @@
   <h2><a href='/'>Дисциплины</a> &gt; {{discipline or 'Дисциплина не задана'}}</h2>
   <div class="row">
       <div class="sections">
-      %for item in sorted(set([y or '' for x in courses for y in x[3].split(', ') if x[4].encode('utf8') == discipline])):
+      %for item in sorted(set([y or '' for x in courses for y in x[3].split(', ') if x[4] == discipline])):
         <li class="span12">
-          <h4><a href="/?discipline={{quote(discipline)}}&group={{quote(item.encode('utf8'))}}">{{item or 'Не задано'}}</a></h4>
+          <h4><a href="/?discipline={{quote(discipline.encode('utf8'))}}&group={{quote(item.encode('utf8'))}}">{{item or 'Не задано'}}</a></h4>
         </li>
       %end
     </div>
   </div>
 %else:
-  <h2><a href='/'>Дисциплины</a> &gt; <a href='/?discipline={{quote(discipline)}}'>{{discipline or 'Дисциплина не задана'}}</a> &gt; {{group or 'Группа не задана'}}</h2>
+  <h2><a href='/'>Дисциплины</a> &gt; <a href='/?discipline={{quote(discipline.encode('utf8'))}}'>{{discipline or 'Дисциплина не задана'}}</a> &gt; {{group or 'Группа не задана'}}</h2>
   <div class="row">
       <div class="sections">
       %if not content:
