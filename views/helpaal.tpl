@@ -74,8 +74,7 @@
         <li><a href="#maude">Maude</a></li>
         <li><a href="#numpy">Numpy</a></li>
         <li><a href="#scipy">Scipy</a></li>
-        <li><a href="#matplotlib">Matplotlib</a></li>
-        <li><a href="#seaborn">Seaborn</a></li>
+        <li><a href="#matplotlib">Matplotlib и Seaborn</a></li>
         <li><a href="#sklearn">Библиотеки машинного обучения</a></li>
       </ul>
     </div>
