@@ -1985,7 +1985,7 @@ a.clf()</code></pre>
       </div>
       <h1 id='sklearn'>Библиотеки машинного обучения</h1>
       <p>Scikit-learn - библиотека python для машинного обучения. <a
-          href="https://scikit-learn.org/stable/modules/classes.html">Полная документация на английском</a>. Все
+          href="https://scikit-learn.org/0.20/modules/classes.html">Полная документация на английском</a>. Все
         подмодули доступны через стандартный префикс: <code>sklearn</code>. </p>
       <p>Theano - библиотека python для нейронных сетей. <a href="https://theano.readthedocs.io/en/0.8.x/">Полная
           документация на английском</a>. Все подмодули доступны через стандартный префикс: <code>theano</code>. </p>
