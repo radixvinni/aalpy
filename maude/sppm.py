@@ -49,7 +49,7 @@ def process_kill(proc):
 
 
 # Function for the "stop" command
-def stop_process(cmdargs):
+def stop_maude(cmdargs):
     if isinstance(cmdargs, list):
         cmdargs = cmdargs[0]
     if not cmdargs:  # Check if arguments are missing after stop
@@ -80,7 +80,7 @@ def stop_process(cmdargs):
 
 
 # Function for the "list" command
-def list_processes():
+def list_maude():
     # Simple table output using PrettyTable
     print("\nSimple Maude Process Manager: Process List")
     outTable = PrettyTable()
@@ -96,7 +96,7 @@ def list_processes():
 # Function for the "start" command
 
 
-def start_process(cmdargs):
+def start_maude(cmdargs):
     if isinstance(cmdargs, list):
         cmdargs = cmdargs[0]
     if not cmdargs:  # Check if arguments are missing after start
@@ -186,7 +186,7 @@ def start_process(cmdargs):
                             if deleteInput != "y" and deleteInput != "n":
                                 print("Invalid option.")
                         if deleteInput == "y":
-                            remove_process(str(res["id"]))
+                            remove_maude(str(res["id"]))
                     """
                     print("Process stopped")
                     print(open('/tmp/out'+str(res["id"]), 'r').read())
@@ -209,12 +209,12 @@ def remove_proc(i):
 # Function for the "remove" command
 
 
-def remove_process(cmdargs):
+def remove_maude(cmdargs):
     if isinstance(cmdargs, list):
         cmdargs = cmdargs[0]
     try:
         if cmdargs == "all":
-            stop_process("all")
+            stop_maude("all")
             for proc in rpTable.all():
                 remove_proc(proc["id"])
         elif rpTable.get(Process.id == int(cmdargs)):
@@ -243,13 +243,13 @@ if __name__ == '__main__':
         print(help)
 
     elif args.command == "start":
-        start_process(cmdargs)
+        start_maude(cmdargs)
 
     elif args.command == "list":
-        list_processes()
+        list_maude()
 
     elif args.command == "stop":
-        stop_process(cmdargs)
+        stop_maude(cmdargs)
 
     elif args.command == "remove":
-        remove_process(cmdargs)
+        remove_maude(cmdargs)
