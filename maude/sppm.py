@@ -3,7 +3,7 @@
 
 import argparse
 import signal
-from os import path, kill, remove
+from os import path, kill, remove, system
 from subprocess import Popen
 from prettytable import PrettyTable
 from psutil import pid_exists
@@ -30,9 +30,9 @@ rpTable = db.table("running_processes")
 Process = Query()
 
 
-exe = 'echo ""|LD_LIBRARY_PATH=/chroot/oldstable/root/maude/ /chroot/oldstable/lib/ld-linux.so.2 /chroot/oldstable/root/maude/maude -no-banner %s > %s 2>&1'
+exe = 'echo ""|LD_LIBRARY_PATH=/chroot/oldstable/root/maude/ /chroot/oldstable/lib/ld-linux.so.2 /chroot/oldstable/root/maude/maude -no-banner %s > %s 2>&1 &\necho $! > %s'
 if sys.platform == 'darwin':
-    exe = 'echo ""|./maude/maude31/maude.darwin -no-banner %s > %s 2>&1'
+    exe = 'echo ""|./maude/maude31/maude.darwin -no-banner %s > %s 2>&1 &\necho $! > %s'
 # Simple error formatting with usage help
 
 
@@ -138,11 +138,11 @@ def start_maude(cmdargs):
             biggestID = biggestID + 1
             infile = '/tmp/in' + str(biggestID)
             outfile = '/tmp/out' + str(biggestID)
+            pidfile = '/tmp/pid' + str(biggestID)
             open(infile, 'w').write(cmdargs)
             # Start new process and get PID
-            proc = Popen(['/bin/bash', '-c', exe %
-                          (infile, outfile)], start_new_session=True)
-            procPid = proc.pid
+            proc = system(exe % (infile, outfile, pidfile))
+            procPid = int(open(pidfile, 'r').read())
 
             rpTable.upsert({"id": biggestID, "name": filename, "pid": procPid, "path": procPath,
                             "args": procArgs, "running": 1},
@@ -206,6 +206,7 @@ def start_maude(cmdargs):
 def remove_proc(i):
     remove('/tmp/out' + str(i))
     remove('/tmp/in' + str(i))
+    remove('/tmp/pid' + str(i))
     rpTable.remove(Process.id == int(i))
     print("Removed process with taskid " + str(i))
 
