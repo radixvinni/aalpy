@@ -36,8 +36,8 @@ if sys.platform == 'darwin':
 # Simple error formatting with usage help
 
 
-def sppm_error(str):
-    print(help + "\n\nERROR: " + str)
+def sppm_error(s):
+    print("ERROR: " + s)
 
 
 # Kill given DB process
@@ -140,7 +140,8 @@ def start_maude(cmdargs):
             outfile = '/tmp/out' + str(biggestID)
             open(infile, 'w').write(cmdargs)
             # Start new process and get PID
-            proc = Popen(['/bin/bash', '-c', exe % (infile, outfile)])
+            proc = Popen(['/bin/bash', '-c', exe %
+                          (infile, outfile)], start_new_session=True)
             procPid = proc.pid
 
             rpTable.upsert({"id": biggestID, "name": filename, "pid": procPid, "path": procPath,
