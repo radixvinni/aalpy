@@ -32,13 +32,12 @@ Process = Query()
 
 exe = 'echo ""|LD_LIBRARY_PATH=/chroot/oldstable/root/maude/ /chroot/oldstable/lib/ld-linux.so.2 /chroot/oldstable/root/maude/maude -no-banner %s > %s 2>&1'
 if sys.platform == 'darwin':
-    exe = 'echo ""|./maude31/maude.darwin -no-banner %s > %s 2>&1'
+    exe = 'echo ""|./maude/maude31/maude.darwin -no-banner %s > %s 2>&1'
 # Simple error formatting with usage help
 
 
 def sppm_error(str):
     print(help + "\n\nERROR: " + str)
-    quit()
 
 
 # Kill given DB process
@@ -50,6 +49,7 @@ def process_kill(proc):
 
 # Function for the "stop" command
 def stop_maude(cmdargs):
+    update_maude()
     if isinstance(cmdargs, list):
         cmdargs = cmdargs[0]
     if not cmdargs:  # Check if arguments are missing after stop
@@ -81,6 +81,7 @@ def stop_maude(cmdargs):
 
 # Function for the "list" command
 def list_maude():
+    update_maude()
     # Simple table output using PrettyTable
     print("\nSimple Maude Process Manager: Process List")
     outTable = PrettyTable()
@@ -97,6 +98,7 @@ def list_maude():
 
 
 def start_maude(cmdargs):
+    update_maude()
     if isinstance(cmdargs, list):
         cmdargs = cmdargs[0]
     if not cmdargs:  # Check if arguments are missing after start
@@ -223,6 +225,14 @@ def remove_maude(cmdargs):
         sppm_error("Invalid argument for taskid")
 
 
+def update_maude():
+    # Check status of all saved processes and update entry if the process is not running
+    for proc in rpTable.all():
+        if int(proc["running"]) == 1:
+            if not pid_exists(int(proc["pid"])):
+                rpTable.update({"running": 0}, Process.pid == int(proc["pid"]))
+
+
 if __name__ == '__main__':
     # Argument parsing
     parser = argparse.ArgumentParser(
@@ -233,11 +243,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
     cmdargs = args.args
 
-    # Check status of all saved processes and update entry if the process is not running
-    for proc in rpTable.all():
-        if int(proc["running"]) == 1:
-            if not pid_exists(int(proc["pid"])):
-                rpTable.update({"running": 0}, Process.pid == int(proc["pid"]))
     # == Command Redirection ==
     if args.command == "help":
         print(help)
