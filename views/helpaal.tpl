@@ -1780,9 +1780,10 @@ print 10-gmpy.mpz(10**100)
       <h2 id='maude'>Maude</h2>
       <p>Maude - это высокопроизводительный рефлексивный язык программирования, поддерживающий переписывание логических
         выражений и используемый для создания исполняемых сред для различных логик, алгоритмов и протоколов, средств
-        доказательства теорем, языков и моделей вычислений. <a href="https://en.wikipedia.org/wiki/Maude_system">Обзор
-          на английском языке</a>. <a href="http://maude.lcc.uma.es/maude31-manual-html/maude-manual.html">Полная
-          докуменация на английском языке</a>. Для доступа к интерпретатору Maude используется функция
+        доказательства теорем, языков и моделей вычислений.
+          <a href="http://maude.lcc.uma.es/maude31-manual-html/maude-manual.html">Полная
+          документация на английском языке</a>(<a href="https://translate.google.com/translate?sl=en&tl=ru&u=http://maude.lcc.uma.es/maude31-manual-html/maude-manual.html">
+          перевод на русский язык</a>). Для доступа к интерпретатору Maude используется функция
         <code>maude</code>, принимающая код для выполнения и возвращаяющая результат выполнения в виде строки:
       </p>
       <pre class="prettyprint"><code>print maude('''
@@ -1804,7 +1805,8 @@ red 0 .
 red 1 .</code></pre>
       <h2 id='numpy'>Numpy</h2>
       <p>Numpy - библиотека python для быстрых операций над массивами. <a
-          href="https://numpy.org/doc/stable/reference/">Полная документация на английском</a>. Все подмодули и
+          href="https://numpy.org/doc/stable/reference/">Полная документация на английском</a>(<a href="https://translate.google.com/translate?sl=en&tl=ru&u=https://numpy.org/doc/stable/reference/">
+          перевод на русский язык</a>). Все подмодули и
         операции доступны через стандартные префиксы:<code>np</code>, что эквивалентно <code>numpy</code>. Список
         предварительно импортированных подмодулей:</p>
       <table class="table">
@@ -1848,7 +1850,8 @@ red 1 .</code></pre>
       <p>Модуль также доступен для импорта в режиме Sage.</p>
       <h2 id='scipy'>Scipy</h2>
       <p>Scipy - библиотека python для выполнения научных и инженерных расчётов. <a
-          href="https://docs.scipy.org/doc/scipy/reference/">Полная документация на английском</a>. Все подмодули и
+          href="https://docs.scipy.org/doc/scipy/reference/">Полная документация на английском</a>(<a href="https://translate.google.com/translate?sl=en&tl=ru&u=https://docs.scipy.org/doc/scipy/reference/">
+          перевод на русский язык</a>). Все подмодули и
         операции доступны через префикс <code>scipy</code>. Список предварительно импортированных подмодулей:</p>
       <table class="table">
         <tr>
@@ -1927,12 +1930,14 @@ red 1 .</code></pre>
       <p>Модуль также доступен для импорта в режиме Sage.</p>
       <h2 id='pandas'>Pandas</h2>
       <p>Pandas - библиотека python для обработки и анализа данных. <a
-          href="https://pandas.pydata.org/docs/reference/index.html">Полная документация на английском</a>. Все операции
+          href="https://pandas.pydata.org/docs/reference/index.html">Полная документация на английском</a>(<a href="https://translate.google.com/translate?sl=en&tl=ru&u=https://pandas.pydata.org/docs/reference/index.html">
+          перевод на русский язык</a>). Все операции
         доступны через стандартные префиксы: <code>pd</code>, что эквивалентно <code>pandas</code>. Модуль также
         доступен для импорта в режиме Sage.</p>
       <h2 id='matplotlib'>Matplotlib</h2>
       <p>Matplotlib - библиотека python для визуализации данных. <a
-          href="https://matplotlib.org/stable/api/index.html">Полная документация на английском</a>. Все операции
+          href="https://matplotlib.org/stable/api/index.html">Полная документация на английском</a>(<a href="https://translate.google.com/translate?sl=en&tl=ru&u=https://matplotlib.org/stable/api/index.html">
+          перевод на русский язык</a>). Все операции
         доступны через стандартные префиксы: <code>plt</code>, что эквивалентно <code>matplotlib.pyplot</code> и после
         импорта в режиме Sage.
       </p>
@@ -1965,7 +1970,8 @@ plt.clf()</pre>
       <h2 id='seaborn'>Seaborn</h2>
       <p>Seaborn - ещё одна библиотека python для визуализации данных. <a
           href="https://seaborn.pydata.org/api.html">Полная
-          документация на английском</a>. Все операции
+          документация на английском</a>(<a href="https://translate.google.com/translate?sl=en&tl=ru&u=https://seaborn.pydata.org/api.html">
+          перевод на русский язык</a>). Все операции
         доступны через стандартные префиксы: <code>sns</code>, что эквивалентно <code>seaborn</code>. Модуль также
         доступен для импорта в режиме Sage.
       </p>
@@ -1985,12 +1991,15 @@ a.clf()</code></pre>
       </div>
       <h1 id='sklearn'>Библиотеки машинного обучения</h1>
       <p>Scikit-learn - библиотека python для машинного обучения. <a
-          href="https://scikit-learn.org/0.20/modules/classes.html">Полная документация на английском</a>. Все
+          href="https://scikit-learn.org/0.20/modules/classes.html">Полная документация на английском</a>(<a href="https://translate.google.com/translate?sl=en&tl=ru&u=https://scikit-learn.org/0.20/modules/classes.html">
+          перевод на русский язык</a>). Все
         подмодули доступны через стандартный префикс: <code>sklearn</code>. </p>
       <p>Theano - библиотека python для нейронных сетей. <a href="https://theano.readthedocs.io/en/0.8.x/">Полная
-          документация на английском</a>. Все подмодули доступны через стандартный префикс: <code>theano</code>. </p>
+          документация на английском</a>(<a href="https://translate.google.com/translate?sl=en&tl=ru&u=https://theano.readthedocs.io/en/0.8.x/">
+          перевод на русский язык</a>). Все подмодули доступны через стандартный префикс: <code>theano</code>. </p>
       <p>Keras - надстройка, предоставляющая упрощённый интерфейс к нескольким нейросетевым библиотекам. <a
-          href="https://keras.io/api/">Полная документация на английском</a>. Все
+          href="https://keras.io/api/">Полная документация на английском</a>(<a href="https://translate.google.com/translate?sl=en&tl=ru&u=https://keras.io/api/">
+          перевод на русский язык</a>). Все
         подмодули доступны через стандартный префикс: <code>keras</code>. </p>
       <p>В режиме Sage доступны для импорта эти модули, а также ещё одна нейросетевая библиотека tensoflow.<a
           href="https://www.tensorflow.org/guide">Руковоство tensoflow на русском</a>.</p>
