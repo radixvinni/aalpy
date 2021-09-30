@@ -222,7 +222,12 @@ def remove_maude(cmdargs):
             for proc in rpTable.all():
                 remove_proc(proc["id"])
         elif rpTable.get(Process.id == int(cmdargs)):
-            remove_proc(cmdargs)
+            res = rpTable.get(Process.id == int(cmdargs))
+            if int(res["running"]) == 0:
+                remove_proc(cmdargs)
+            else:
+                sppm_error(
+                    "Task is still running. Stop the task before removing it.")
     except ValueError:
         sppm_error("Invalid argument for taskid")
 

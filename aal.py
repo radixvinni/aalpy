@@ -69,7 +69,9 @@ class Session(InteractiveConsole):
         self.push("aesara=theano;from time import sleep")
         self.push("from fractions import *")
         self.push("from urllib import urlopen")
-        self.push("from maude.maude import maude, reset_maude;import maude.sppm as pm")
+        self.push("from maude.maude import maude, reset_maude")
+        self.push(
+            "from maude.sppm import start_maude,list_maude,stop_maude,remove_maude")
         self.push("import share, random, AAL, Kar, aAl, Uni")
         self.push("__builtins__ = __builtins__.copy()")
         self.push(
