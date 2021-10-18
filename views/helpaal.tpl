@@ -1994,6 +1994,7 @@ red 1 .</code></pre>
         <div class='section span6'>
           <h4>Режим Sage</h4>
           <pre class="prettyprint">import matplotlib.pyplot as plt
+plt.clf()
 plt.plot([1, 2, 3, 4])
 plt.ylabel('some numbers')
 plt.show()</pre>
