@@ -28,7 +28,7 @@ lock = Lock()
 
 def handler(signum, frame):
     #print 'Выполнение команды приостановлено из-за превышения предела времени выполнения(60 секунд)'
-    os._exit(1)
+    os._exit(0)
 
 
 #signal.signal(signal.SIGALRM, handler)
