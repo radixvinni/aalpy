@@ -1,10 +1,13 @@
 # coding: utf-8
 # ALTER TABLE courses ADD COLUMN grp TEXT;
 # ALTER TABLE courses ADD COLUMN discipline TEXT;
+
+from os import listdir, environ
+environ['PYTHONHTTPSVERIFY'] = '0'
+environ['KERAS_BACKEND'] = 'theano'
 from json import dumps
 import resource
 from bottle import *
-from os import listdir
 from os.path import isdir, join
 from hashlib import sha512
 import sqlite3
@@ -19,22 +22,22 @@ import sys
 from uuid import uuid1
 from code import InteractiveConsole
 import os
-os.environ['KERAS_BACKEND'] = 'theano'
 
 sessions = dict()
 
 lock = Lock()
 
-
 def handler(signum, frame):
-    #print 'Выполнение команды приостановлено из-за превышения предела времени выполнения(60 секунд)'
+    print 'Выполнение команды приостановлено из-за превышения предела времени выполнения(60 секунд)'
     os._exit(0)
+    #else: setrlimit(RLIMIT_CPU, (60, 500))
 
 
 #signal.signal(signal.SIGALRM, handler)
 signal.signal(signal.SIGVTALRM, handler)
+signal.signal(signal.SIGXCPU, handler)
 
-# Завершаем работу при превышении лимита 30 сек процессорного времени.
+# Завершаем работу при превышении лимита 60 сек процессорного времени.
 setrlimit(RLIMIT_CPU, (60, 500))
 
 # <sessions>
@@ -64,7 +67,7 @@ class Session(InteractiveConsole):
         InteractiveConsole.__init__(self)
         self.push("from AAL import *")
         self.push("from math import *")
-        self.push("import json, hashlib, hmac, gssapi, mpmath as g, gmpy, pandas,numpy,numpy.dual,numpy.matlib,scipy,scipy.cluster,scipy.constants,scipy.fftpack,scipy.integrate,scipy.interpolate,scipy.linalg,scipy.misc,scipy.ndimage,scipy.odr,scipy.optimize,scipy.signal,scipy.sparse,scipy.sparse.linalg,scipy.spatial,scipy.special,scipy.stats,matplotlib,matplotlib.pyplot,matplotlib.sankey,matplotlib.animation,theano,seaborn,keras,sklearn,sklearn.cluster,sklearn.calibration,sklearn.compose,sklearn.covariance,sklearn.cross_decomposition,sklearn.datasets,sklearn.decomposition,sklearn.discriminant_analysis,sklearn.ensemble,sklearn.feature_extraction,sklearn.feature_selection,sklearn.gaussian_process,sklearn.impute,sklearn.isotonic,sklearn.kernel_approximation,sklearn.kernel_ridge,sklearn.linear_model,sklearn.manifold,sklearn.metrics,sklearn.mixture,sklearn.model_selection,sklearn.multiclass,sklearn.multioutput,sklearn.naive_bayes,sklearn.neighbors,sklearn.neural_network,sklearn.pipeline,sklearn.preprocessing,sklearn.random_projection,sklearn.semi_supervised,sklearn.svm,sklearn.tree,sklearn.utils")
+        self.push("import json, hashlib, hmac, pygost, gssapi, mpmath as g, gmpy, pandas,numpy,numpy.dual,numpy.matlib,scipy,scipy.cluster,scipy.constants,scipy.fftpack,scipy.integrate,scipy.interpolate,scipy.linalg,scipy.misc,scipy.ndimage,scipy.odr,scipy.optimize,scipy.signal,scipy.sparse,scipy.sparse.linalg,scipy.spatial,scipy.special,scipy.stats,matplotlib,matplotlib.pyplot,matplotlib.sankey,matplotlib.animation,theano,seaborn,keras,sklearn,sklearn.cluster,sklearn.calibration,sklearn.compose,sklearn.covariance,sklearn.cross_decomposition,sklearn.datasets,sklearn.decomposition,sklearn.discriminant_analysis,sklearn.ensemble,sklearn.feature_extraction,sklearn.feature_selection,sklearn.gaussian_process,sklearn.impute,sklearn.isotonic,sklearn.kernel_approximation,sklearn.kernel_ridge,sklearn.linear_model,sklearn.manifold,sklearn.metrics,sklearn.mixture,sklearn.model_selection,sklearn.multiclass,sklearn.multioutput,sklearn.naive_bayes,sklearn.neighbors,sklearn.neural_network,sklearn.pipeline,sklearn.preprocessing,sklearn.random_projection,sklearn.semi_supervised,sklearn.svm,sklearn.tree,sklearn.utils")
         self.push("np=numpy;plt=matplotlib.pyplot;pd=pandas;sns=seaborn")
         self.push("aesara=theano;from time import sleep")
         self.push("from fractions import *")
@@ -72,7 +75,7 @@ class Session(InteractiveConsole):
         self.push("from maude.maude import maude, reset_maude")
         self.push(
             "from maude.sppm import start_maude,list_maude,stop_maude,remove_maude")
-        self.push("import share, random, AAL, Kar, aAl, Uni")
+        self.push("import share, random, AAL, Kar, aAl, Uni, funCPG")
         self.push("__builtins__ = __builtins__.copy()")
         self.push(
             "for k in ['reload', 'execfile', 'file', 'open', '__import__']: __builtins__.pop(k) and None", "exec")
@@ -592,6 +595,7 @@ def stats():
     usage = resource.getrusage(resource.RUSAGE_SELF)
     stats = ['%-25s (%-10s) = %s' % (desc, name, getattr(usage, name)) for name, desc in [
         ('ru_utime', 'User time'),
+        ('ru_nsignals', 'Signals received'),
         ('ru_stime', 'System time'),
         ('ru_maxrss', 'Max. Resident Set Size')]] + [
         '%-35s    = %s' % ('Maintainance time', signal.getitimer(signal.ITIMER_REAL)[0])]
@@ -719,4 +723,4 @@ def mistake(error):
 if __name__ == "__main__":
     Request.MEMFILE_MAX = 1024000
     init()
-    run(host='0.0.0.0', port=8081, reloader=True)  # server='cherrypy'
+    run(host='0.0.0.0', port=8081, reloader=True)#, server='cherrypy')

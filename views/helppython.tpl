@@ -371,6 +371,18 @@
 >>>hashlib.sha512('Hello World').hexdigest()
 '2c74fd17edafd80e8447b0d46741ee243b7eb74dd2149a0ab1b9246fb30382f27e853d8585719e0e67cbda0daa8f51671064615d645ae27acb15bfb1447f459b'</code></pre>
         </div>
+        <p>
+        Российские хэш-функции ГОСТ Р 34.11-2012 с длиной ключа 512 и 256 бит и ГОСТ Р 34.11-94 доступны в библиотеке <code>pygost</code>:
+        </p>
+        <div class='section'>
+        <h4>Пример</h4>
+        <pre class="prettyprint"><code>>>>pygost.gost34112012512.new('Hello World').hexdigest()
+'52bcc41466efa3820c9cc43693cc8213e758bc69fc98a46f8d8345ce78d5124f4a1d953a09f77d73339887d52dea948d84666bcf664feac33e67aea0621ad17d'
+>>>pygost.gost34112012256.new('Hello World').hexdigest()
+'666cf4fbf74ec68a66e8dd3d3061b0337568ce21a104541d4dee03f5448c29af'
+>>>pygost.gost341194.GOST341194('Hello World').hexdigest()
+'75ed15d84df84291c67fe07bf234ac69e92a9c2a378ee62f342af739e829eba9'</code></pre>
+        </div>
         <p>Преобразовать полученных хэш из шеснадцациричной строковой формы  в число <code>Integer</code> можно через конструктор <code>Integer(hash,16)</code>, а обратно <code>a.ToString(16)</code>.</p>
         </div>
         </div>

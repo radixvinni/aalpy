@@ -85,8 +85,8 @@ label {
   background-color: red;
 }
 .indicator {
-  width:200px;
-  float:right;
+  width:100%;
+/*  float:right;*/
 }
 .tooltip-inner { 
   max-width: 350px!important;

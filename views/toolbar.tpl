@@ -184,7 +184,7 @@
         onclick="window.editor.insert('.WrappingGenerate()');window.editor.selection.moveCursorLeft();window.editor.focus()"
         rel="tooltip" data-placement="left"
         data-original-title="H1 AND X3 == X3_1||X3_2, <br/>X3_1 = H1 <br/>Допустимые значения: Допустимые значения: A3<br/> равно 1, модуль на 4 бита длинне чем Н1-сообщение">Размещение
-        данных в точке из EC(GF(3<sup>n</sup>))</a></li>
+        данных в точке из EC(GF(2<sup>n</sup>))</a></li>
     <li><a href="#"
         onclick="window.editor.insert('.DLK()');window.editor.selection.moveCursorLeft();window.editor.focus()"
         rel="tooltip" data-placement="left" data-original-title="t((X1,Y1),(X2,Y2));">Спаривание</a></li>
@@ -218,11 +218,13 @@
         onclick="window.editor.insert('.Generate()');window.editor.selection.moveCursorLeft();window.editor.focus()"
         rel="tooltip" data-placement="left" data-original-title="без аргументов">Взятие точки</a></li>
     <li><a href="#"
-        onclick="window.editor.insert('.WrappingGenerate()');window.editor.selection.moveCursorLeft();window.editor.focus()"
+        onclick="window.editor.insert('.Generate()');window.editor.selection.moveCursorLeft();window.editor.focus()"
         rel="tooltip" data-placement="left"
         data-original-title="H1 AND X3 == X3_1||X3_2, <br/>X3_1 = H1 <br/>Допустимые значения: Н1-сообщение из GF(3<sup>n-2</sup>)">Размещение
         данных в точке из EC(GF(3<sup>n</sup>))</a></li>
-    <!--li><a href="#" rel="tooltip" data-placement="left" data-original-title="t((X1,Y1),(X2,Y2));  <br/>Допустимые значения:<br/> Модуль-неприводимый многочлен нечетной степени n;">Спаривание</a></li-->
+    <li><a href="#"
+        onclick="window.editor.insert('.DLKGF3()');window.editor.selection.moveCursorLeft();window.editor.focus()"
+        rel="tooltip" data-placement="left" data-original-title="t((X1,Y1),(X2,Y2));">Спаривание</a></li>
   </ul>
 </div>
 <div class="btn-group">
@@ -906,9 +908,15 @@
         <li><a href="#" rel="tooltip" data-placement="right"
                 data-original-title="B=A1-A2. B,A1,A2 в Fpld, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X], Uni.d в N, Uni.g- примитивный многочлен степени d+1, g&isin;Fpl[X]," onclick="window.editor.insert('Uni.subFpld()');window.editor.selection.moveCursorLeft();window.editor.focus()">Вычитание в поле Fp^l[Y]_f(Y)=Fpld</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1+A2. B,A1,A2 в Fpld, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X], Uni.d в N, Uni.g- примитивный многочлен степени d+1, g&isin;Fpl[X]," onclick="window.editor.insert('Uni.addFpldNew()');window.editor.selection.moveCursorLeft();window.editor.focus()">Сложение в поле Fp^l[Y]_f(Y)=Fpld(New)</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1-A2. B,A1,A2 в Fpld, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X], Uni.d в N, Uni.g- примитивный многочлен степени d+1, g&isin;Fpl[X]," onclick="window.editor.insert('Uni.subFpldNew()');window.editor.selection.moveCursorLeft();window.editor.focus()">Вычитание в поле Fp^l[Y]_f(Y)=Fpld(New)</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
                 data-original-title="B=A*С. A в Fp^ld, C в Fp^l, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X], Uni.g- примитивный многочлен степени d+1, g&isin;Fpl[X]" onclick="window.editor.insert('Uni.smulFpld()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение на скаляр в поле Fp^l[Y]_f(Y)=Fpld</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
                 data-original-title="B=A1*A2 Аргументы: B,A1,A2 в Fp^ld, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X], Uni.g- примитивный многочлен степени d+1, g&isin;Fpl[X]" onclick="window.editor.insert('Uni.mulFpld()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение в поле Fp^l[Y]f(Y)=Fp^ld</a></li>
+        <li><a href="#" rel="tooltip" data-placement="right"
+                data-original-title="B=A1*A2 Аргументы: B,A1,A2 в Fp^ld, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X], Uni.g- примитивный многочлен степени d+1, g&isin;Fpl[X]" onclick="window.editor.insert('Uni.mulFpldNew()');window.editor.selection.moveCursorLeft();window.editor.focus()">Умножение в поле Fp^l[Y]f(Y)=Fp^ld (New)</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"
                 data-original-title="B=A^D. B,A в Fp^l[Y], D в Z+, Uni.p-простое число, Uni.l в N, Uni.f - примитивный многочлен степени l+1, f&isin;Fp[X]." onclick="window.editor.insert('Uni.powerFplY()');window.editor.selection.moveCursorLeft();window.editor.focus()">Возведение в степень в кольце Fp^l[Y]</a></li>
         <li><a href="#" rel="tooltip" data-placement="right"

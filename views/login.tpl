@@ -29,11 +29,11 @@
         <button type="submit" class="btn">Вход</button>
       </div>
     </div>
-    <div class="control-group">
+    <!--div class="control-group">
       <div class="controls">
         <a href="/assets/mobile/www/index.html">Вход в мобильную версию</a>
       </div>
-    </div>
+    </div-->
   </form>
 </div>
 %rebase layout title='Вход в Алгебраический процессор МЭИ', path='/login', is_user=is_user, is_admin=False

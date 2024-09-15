@@ -209,10 +209,11 @@ v.toList()
           <h3>Операции в кольце F<sub>p</sub>, использующие разложение порядка мультипликативной группы.</h3>
           <p>Предварительно проверяется посредством НОД взаимная простота каждого аргумента и модуля p.</p>
           <h4>Пример. Порядок элемента и тест образующего элемента группы F<sub>p</sub>* или Z<sub>n</sub>* вычисляются
-            соответственно по разложению p─1 или &#966;(n)</h4>
-          <p>Порядок элемента <code>Integer().elementOrder(module,element,vector,grouporder)</code>.</p>
+            соответственно по разложению p-1 или &#966;(n)</h4>
+          <p>Порядок элемента <code>Integer().elementOrder(groupModule,element,vector,groupOrder)</code>.</p>
+          <p>Тест образующего элемента <code>Integer().isGenerator(groupModule,element,vector,groupOrder)</code>.</p>
           <p>Тест образующего элемента <code>element.isGenerator(module,vector)</code>.</p>
-          <p>Здесь <code>vector</code> есть разложение <code>p─1</code>.</p>
+          <p>Здесь <code>vector</code> есть разложение <code>p-1</code>.</p>
         </div>
       </div>
       <div class='section'>
@@ -243,9 +244,12 @@ a
 a.Pow(a,Integer(5))
 #AAL.Polynom(000001)</code></pre>
         </div>
-        <p>В методе определения порядка элемента последним аргументом является порядок поля, а не порядок группы. Метод
-          тестирования образующего элемента имеет 5 аргументов:
+        <p>
+          Метод тестирования образующего элемента имеет 4 аргумента:
           <code>Polynom().isGenerator(module, element, vector, field_order)</code>.
+          Метод опредения порядка элемента имеет те же 4 аргумента:
+          <code>Polynom().elementOrder(module, element, vector, field_order)</code>.
+          В методе определения порядка элемента последним аргументом является порядок поля, а не порядок группы.
         </p>
         <p>При генерации многочленов указываются через запятые наименьший вес, наибольший возможный вес и степень
           многочлена, при тестировании указывается только имя многочлена, например,</p>
@@ -860,7 +864,7 @@ print message not in wrapped_message, msg_encrypted
 print 'Результат unwrap', server_ctx.unwrap(wrapped_message)
 print "5б. Вызов wrap   без шифрования, проверяется, что зашифрованное сообщение содержит исходное:"
 signed_message, msg_encrypted = client_ctx.wrap(message, False)
-print message in wrapped_message, not msg_encrypted</code></pre>
+print message in signed_message, not msg_encrypted</code></pre>
         </div>
         <p>Обмен сообщениями можно вести как обычно, через модуль share.</p>
       </div>

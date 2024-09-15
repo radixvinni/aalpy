@@ -83,7 +83,7 @@ c=modSub(a,b,n)
 def mulInFp(a,b,module):
     #print "Умножение в группе F_",p,"*"     
     c=Integer()
-    c.MulInFp(Integer(str(int(a))),Integer(str(int(b))),Integer(int(module)))
+    c.MulInFp(Integer(str(int(a))),Integer(str(int(b))),Integer(str(int(module))))
     return int(c.ToString())
 a=3
 b=5
@@ -200,14 +200,14 @@ c=legendre(a,prime)
 #print "legendre(",a,",",prime,")=",c
 def jacobySymbol(a,n):
     #print "Возвращает символ Якоби числа",a,"для   числа",n
-    return Integer.JacobySymbol(Integer(int(a)),Integer(int(n)))
+    return Integer.JacobySymbol(Integer(str(int(a))),Integer(str(int(n))))
 a=2
 n=28
 c=jacobySymbol(a,n)
 #print "jacobySymbol(",a,",",n,")=",c
 def IsPrime(a):
     #print "Вовращает результат применения к числу",a,"теста Миллера-Рабина"
-    c=Integer(int(a))
+    c=Integer(str(int(a)))
     return c.isPrime()
 a=24
 c=IsPrime(a)
@@ -224,7 +224,7 @@ c=generatePrime(a)
 def IsGenerator(a,p):
     #print "Возвращает True, если a=",a,"есть образующий элемент группы F_",p,"^*"
     v=FactorizationAlgorithms(Integer(str(sub(p,1)))).MsieveDecomposition()
-    return Integer(int(a)).isGenerator(Integer(str(int(p))),v)
+    return Integer(str(int(a))).isGenerator(Integer(str(int(p))),v)
 a=4
 p=5
 #c=IsGenerator(a,p)
@@ -246,7 +246,7 @@ p=1023
 def sCM(a,b):
     #print "Возвращает НОК(",a,",",b,")"
     c=Integer()
-    c.SCM(Integer(int(a)),Integer(str(int(b))))
+    c.SCM(Integer(str(int(a))),Integer(str(int(b))))
     return int(c.ToString())
 a=4
 b=6
@@ -323,3 +323,20 @@ c=DecToBin(a)
 
 
 
+def mulFpldNew(a1, a2):
+    global l, d, mod
+    if int(len(a1))==1:
+        rez=smulFplY(a2,a1[0])
+        return clearNulls(rez)
+    else:
+        if int(len(a2))==1:
+            rez=smulFplY(a1,a2[0])
+            return clearNulls(rez)
+        else:
+            rez = [[0] for i in range(2 * d - 1)]
+            for i in range(0, d):
+                for j in range(0, d):
+                    rez[i + j] = addFpl(rez[i + j], mulFpl(a2[i], a1[j]))
+            rez = clearNulls(rez)
+            rez = divFplY(rez, mod)[1]
+            return rez
